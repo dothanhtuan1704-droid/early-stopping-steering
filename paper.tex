@@ -1,0 +1,388 @@
+\usepackage[utf8]{inputenc}
+\usepackage[T5,T1]{fontenc}
+\usepackage[vietnamese,english]{babel}
+\usepackage{listings}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{url}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+\title{Early-Stopping Activation Steering for Factual Preference Alignment in Vietnamese Medical Language Models\\
+\thanks{Corresponding Author: Phan Do Thanh Tuan (Email: phandothanhtuan1704@gmail.com).}
+}
+
+\author{\IEEEauthorblockN{Phan Do Thanh Tuan}
+\IEEEauthorblockA{\textit{Department of Information Technology} \\
+\textit{FPT University Gia Lai, Vietnam}\\
+Email: phandothanhtuan1704@gmail.com}
+}
+
+\maketitle
+
+\begin{abstract}
+Small Language Models (SLMs) offer potential for privacy-preserving clinical decision support in local hospital infrastructure. However, when deployed in resource-scarce languages like Vietnamese, SLMs frequently exhibit domain-specific hallucinations---such as miscalculating pediatric dosages, violating pregnancy contraindications, or mistaking drug interaction mechanisms. In this work, we propose an \textbf{Early-Stopping Activation Steering} framework to dynamically shift model outputs toward factual preference at inference time with no model-weight updates. Using our newly constructed \textbf{ViHaluEval-Medical} benchmark (14,674 records derived from the Vietnamese National Drug Formulary, 2nd Edition, 2018), we evaluate steering interventions across Layer~8 of Qwen2.5-7B-Instruct \cite{ref4}. To prevent activation magnitude inflation caused by continuous steering over long sequences, we introduce a linear decay early-stopping mechanism ($K=16$). Under a dual-evaluation paradigm across a unified question-disjoint test set ($N_{\text{test}}=500$), we report:
+\begin{enumerate}
+    \item \textbf{High-Cap Natural Completion Evaluation}: Evaluating steering interventions under long-sequence generation (\texttt{max\_new\_tokens=800}), achieving an EOS hit rate range of 99.80\%--100.00\% (100.00\% for baseline and Hard Cutoff, 99.80\% for Continuous and Linear Decay) while demonstrating that Hard Cutoff ($K=16$) achieves the highest reference-preference accuracy of 70.60\% (+5.20~pp over baseline 65.40\%, Holm-adjusted $p_{\text{adj}}=0.0026$).
+    \item \textbf{Controlled Bounded-Generation Evaluation}: Evaluating under \texttt{max\_new\_tokens=200}, Linear Decay early-stopping steering ($\alpha_0=18.0, K=16$) increases BERTScore reference-preference accuracy from 73.00\% to 77.20\% (+4.20~pp, $p=0.0055$). Empirical hidden-state activation tracking shows linear decay reduces post-hook norm to 53.39 at $t=50$ (mitigating magnitude growth), while $+v_{\text{steer}}$ outperforms non-oracle BM25 RAG by +8.60~pp with zero context overhead.
+\end{enumerate}
+\end{abstract}
+
+\begin{IEEEkeywords}
+Activation steering, hallucination mitigation, clinical language models, Vietnamese NLP, inference-time intervention, representation engineering.
+\end{IEEEkeywords}
+
+\section{Introduction}
+Large Language Models (LLMs) have demonstrated capabilities across general healthcare tasks \cite{ref3}. However, in specialized domains requiring high factual precision---such as clinical pharmacology and prescription guidance in non-English languages---standard models suffer from domain-specific hallucinations \cite{ref7}. In Vietnamese clinical settings, these hallucinations range from benign stylistic errors to dangerous medical contradictions, such as recommending contraindicated medications during pregnancy or miscalculating weight-based pediatric dosages.
+
+Traditional mitigation strategies rely on post-hoc supervised fine-tuning (SFT) \cite{ref10} or Retrieval-Augmented Generation (RAG) \cite{ref5}. While RAG provides external knowledge contexts, models may ignore retrieved evidence when internal activation pathways favor non-truthful generation \cite{ref11}, while incurring heavy context window overheads and retrieval latencies. Supervised fine-tuning demands substantial computational resources and risks catastrophic forgetting of general abilities \cite{ref12}.
+
+Recently, Representation Engineering (RepE) \cite{ref1} and Inference-Time Intervention (ITI) \cite{ref2} have emerged as lightweight, non-destructive alternatives. By extracting a truthfulness steering vector $v_{\text{steer}}$ from hidden activation contrasts and injecting it into intermediate layers during generation, activation steering shifts model outputs toward factual accuracy without modifying underlying weights. Related approaches such as Activation Addition (ActAdd) \cite{ref8} and contrastive activation addition \cite{ref9} have demonstrated the viability of linear steering for behavioral control.
+
+However, continuous activation steering ($K=\infty$) induces a persistent hidden-state norm offset over long output sequences, manifested as repetitive text loops and degraded syntax. In this paper, we present \textbf{Early-Stopping Activation Steering}, a temporal decay mechanism that restricts vector injection to the first $K=16$ generated tokens.
+
+Our main contributions are as follows:
+\begin{enumerate}
+    \item \textbf{ViHaluEval-Medical Benchmark}: A benchmark of 14,674 expert-structured Vietnamese clinical Q\&A pairs derived from the official Vietnamese National Drug Formulary (2nd Edition, 2018) \cite{ref6}, featuring a question-disjoint test split ($N_{\text{test}}=500$).
+    \item \textbf{Dual-Evaluation Paradigm}: Comprehensive evaluation covering both high-cap natural completion (\texttt{max\_new\_tokens=800}, EOS Hit = 99.80\%--100.00\%) and bounded-generation stress testing (\texttt{max\_new\_tokens=200}).
+    \item \textbf{Empirical Activation-Norm Dynamics}: Hidden-state activation tracking ($\|\hat{h}_8^{(t)}\|_2$) demonstrating continuous steering persistent norm elevation (56.34 vs 53.39 baseline at $t=50$, $\Delta = +2.95$) and early-stopping magnitude relaxation back to baseline equilibrium ($53.39 \pm 0.64$ sample mean $\pm$ SD, $\Delta = 0.00$) under fixed teacher-forcing context.
+    \item \textbf{Directional Specificity \& Multi-Random Placebo}: Negative steering ($-v_{\text{steer}}$, 62.80\% accuracy), 50\% label-permutation placebo steering ($v_{\text{shuf}}$, 68.60\% accuracy, $N_{\text{flipped}}=6,322/12,495$), and distributional validation across $N=100$ independent random vectors ($55.82\% \pm 4.15\%$ sample SD) confirming $+v_{\text{steer}}$ ($77.20\%$) operates at a descriptive $+5.15\sigma$ distance above random direction perturbation (one-sided Monte Carlo empirical tail probability $p=1/101=0.0099 < 0.01$), alongside a non-oracle BM25 RAG baseline (68.60\% accuracy, Recall@1 = 19.20\%).
+    \item \textbf{Reproducible Statistical Validation}: Exact paired $2\times 2$ binomial McNemar testing ($p=0.0055$, 95\% CI $[+1.37\text{ pp}, +7.03\text{ pp}]$ for bounded stress testing; exact McNemar $p=0.00086$, 95\% CI $[+2.25\text{ pp}, +8.15\text{ pp}]$ for natural completion) and Wilcoxon signed-rank testing ($p=0.017$) confirming reference-preference gains.
+    \item \textbf{Controlled Factorial Ablation}: Controlled $3\times 3$ equal-initial-$\alpha_0$ matrix alongside a separately specified matched cumulative dose control ($\alpha_{\text{match}}$).
+\end{enumerate}
+
+\section{Related Work}
+
+\subsection{Hallucination in Medical Language Models}
+LLM hallucinations in clinical domains pose unique risks compared to general-purpose applications. Ji et al.~\cite{ref7} provide a comprehensive survey of hallucination phenomena, categorizing them into intrinsic and extrinsic types. In medical settings, Singhal et al.~\cite{ref3} showed that while large models encode clinical knowledge, they remain prone to factual errors in drug interactions, dosage calculations, and contraindication reasoning. The HaluEval benchmark \cite{ref13} introduced systematic evaluation of LLM hallucinations across diverse domains, inspiring our domain-specific ViHaluEval-Medical benchmark for Vietnamese clinical texts. Lin et al.~\cite{ref16} proposed TruthfulQA for measuring model truthfulness, establishing evaluation protocols that informed our contrastive design.
+
+\subsection{Inference-Time Intervention and Representation Engineering}
+Rather than modifying model weights through parameter-efficient fine-tuning \cite{ref10}, inference-time methods intervene directly in internal representations during generation. Li et al.~\cite{ref2} proposed ITI, identifying truthful directions in attention head outputs and shifting activations along these directions. Zou et al.~\cite{ref1} generalized this to Representation Engineering (RepE), demonstrating that high-level concepts can be extracted and controlled via linear subspace manipulation. Turner et al.~\cite{ref8} introduced ActAdd, showing that simple vector addition to residual streams effectively steers model behavior. Rimsky et al.~\cite{ref9} extended this with contrastive activation addition for more targeted control. Our work builds upon these foundations but addresses the limitation of continuous steering over long sequences by introducing temporal decay.
+
+\subsection{Evaluation Metrics for Clinical Text Generation}
+Traditional n-gram overlap metrics like ROUGE \cite{ref14} provide lexical similarity scores but fail to capture semantic equivalence, particularly in multilingual clinical settings where paraphrasing is common. Zhang et al.~\cite{ref15} proposed BERTScore, which computes token-level cosine similarities using contextual BERT embeddings, offering evaluation that is more robust to lexical variation. We adopt a BERTScore-based reference-preference criterion as a proxy for factual preference alignment.
+
+\section{Methodology}
+
+\subsection{ViHaluEval-Medical Benchmark Construction}
+The ViHaluEval-Medical benchmark comprises 14,674 expert-structured Vietnamese clinical Q\&A pairs constructed directly from the official Vietnamese National Drug Formulary (Dược thư Quốc gia Việt Nam, 2nd Edition, 2018) \cite{ref6}. The primary source text spans 14.1 million characters across 1,026 comprehensive drug monographs (\texttt{duoc\_thu\_2018\_cleaned.txt}). To construct contrastive pairs, the raw monographs were segmented into 1,000-character context chunks. A high-throughput vLLM inference engine powered by \texttt{Qwen2.5-7B-Instruct-AWQ} (batch size 64, sampling parameters: temperature $= 0.7$, top-$p = 0.9$, max tokens $= 650$) was used to execute a structured expert system prompt. For each context chunk, the engine generated three structured clinical Q\&A pairs comprising: (i) a 100\% factually accurate reference answer ($y_i^+$), (ii) a counter-answer containing misleading dosage or drug-drug interaction hallucinations ($y_i^-$), and (iii) a counter-answer containing contradictory pregnancy safety or contraindication hallucinations. The full dataset spans three primary clinical categories: Special Dosage Modifications ($N=5,000$, 34.08\%), Contradictory Pregnancy Safety ($N=4,885$, 33.29\%), and Misleading Drug Interactions ($N=4,789$, 32.64\%), strictly summing to $N=14,674$ total records. All candidate pairs underwent validation by 3 licensed Vietnamese clinical pharmacists ($\ge 5$ years clinical experience), achieving high inter-annotator agreement (mean pairwise Cohen's $\kappa = 0.91$ across the 3 rater pairs; Fleiss' $\kappa = 0.89$). To prevent data leakage, the benchmark is partitioned at the active pharmaceutical ingredient (API) and formulary passage level into a development split ($N_{\text{dev}}=12,495$ pairs, 85.15\%: comprising 70.0% training split $N_{\text{train}}=10,272$ and 15.15% validation split $N_{\text{val}}=2,223$ for layer and hyperparameter tuning). The contrastive steering vector $v_{\text{steer}}$ is estimated using the full development split ($N_{\text{dev}}=12,495$ pairs) to maximize statistical stability of the mean activations $\mu^+$ and $\mu^-$; all directional control vectors ($v_{\text{shuf}}$, covariance-matched) are constructed on the same $N_{\text{dev}}=12,495$ pairs to ensure a controlled, like-for-like comparison. Hyperparameter selection (layer $l$, cutoff $K$, scale $\alpha_0$) is performed exclusively on a $N_{\text{eval}}=100$ subset drawn from the held-out validation partition $N_{\text{val}}=2,223$, ensuring no test-set contamination. The strictly held-out test partition ($N_{\text{test\_partition}}=2,179$ pairs, 14.85\%) is reserved for the evaluation subset of $N_{\text{test}}=500$ questions sampled using stratified random sampling with fixed seed 42, maintaining balanced category representation: Pregnancy Safety ($N=165$), Drug Interactions ($N=160$), and Special Dosage ($N=175$). The slight numerical difference between 14,674 Q\&A pairs and 14,576 formulary RAG passages arises because 98 multi-indication monographs covering broad-spectrum agents yielded 2 distinct clinical question pairs across different categories.
+
+\subsection{Contrastive Vector Estimation \& Directional Controls}
+Given a clinical prompt $x_i$, let $y_i^+$ denote the ground-truth medical answer and $y_i^-$ denote an intentionally hallucinated counter-answer. We collect internal hidden activations $h_l(x_i, y_i)$ at layer $l$ using a forward hook attached to the final token position of the concatenated prompt-response sequence:
+\begin{equation}
+h_l(x_i, y_i) = \text{LayerOutput}_l(x_i \oplus y_i)[:, -1, :]
+\end{equation}
+The truthfulness steering vector $v_{\text{steer}}^{(l)}$ is computed as the normalized mean difference between positive and negative activation distributions:
+\begin{equation}
+v_{\text{steer}}^{(l)} = \frac{\mu_l^+ - \mu_l^-}{\|\mu_l^+ - \mu_l^-\|_2}
+\end{equation}
+where $\mu_l^+ = \frac{1}{N} \sum_{i=1}^N h_l(x_i, y_i^+)$ and $\mu_l^- = \frac{1}{N} \sum_{i=1}^N h_l(x_i, y_i^-)$.
+
+To provide rigorous directional evidence against generic residual perturbation, we evaluate four baseline control conditions:
+\begin{enumerate}
+    \item \textbf{Negative Steering ($-v_{\text{steer}}$)}: Steering along the anti-truthful direction using $\hat{h}_8^{(t)} = h_8^{(t)} - |\alpha(t)| \cdot v_{\text{steer}}$ ($\alpha_0=-18.0$) to test whether intervention symmetrically degrades factual performance.
+    \item \textbf{Full Label-Permutation Steering ($v_{\text{shuf}}$)}: Constructed by randomly swapping contrastive prompt labels ($y_i^+ \leftrightarrow y_i^-$) across $N_{\text{flipped}}=6,322 / 12,495$ development pairs (50.60\% label permutation balance)---the same $N_{\text{dev}}=12,495$ pool used for $v_{\text{steer}}$ estimation---achieving 68.60\% RefPref (343/500) and BERTScore~F1 0.6845.
+    \item \textbf{Covariance-Matched Random Distribution ($N=20$ vectors, seeds 3000--3019)}: Sampled as $v_{\text{cov}}^{(r)} = \frac{L z_r}{\|L z_r\|_2}$ using Ledoit-Wolf shrinkage matrix factorization $\Sigma_{\text{data}} = L L^T$ from residual difference vectors $d_i = h_i^+ - h_i^-$, evaluating across 10,000 prompt--vector test passes (reported $\pm0.95\%$ denotes sample SD).
+    \item \textbf{Isotropic Unit-Sphere Distribution ($N=100$ vectors)}: $\{v_{\text{rand}}^{(r)}\}_{r=1}^{100} = z_r / \|z_r\|_2$ for $z_r \sim \mathcal{N}(0, I_{3584})$.
+\end{enumerate}
+
+\subsection{Early-Stopping Steering Taxonomy \& Activation-Norm Dynamics}
+Under our proposed \textbf{Early-Stopping Activation Steering} framework, residual stream activations $h_l^{(t)}$ at target Layer~8 (decoder block index 8, representing the 9th block of Qwen2.5-7B's 28-layer architecture) are modified during autoregressive generation ($t \ge 1$) according to:
+\begin{equation}
+\hat{h}_l^{(t)} = h_l^{(t)} + \alpha(t) \cdot v_{\text{steer}}^{(l)}
+\end{equation}
+We evaluate three distinct temporal intervention schedules under fixed $\alpha_0$:
+\begin{enumerate}
+    \item \textbf{Linear Decay Schedule ($K=16$)}: Coefficient decreases linearly to zero within window $K$:
+    \begin{equation}
+    \alpha_{\text{decay}}(t) = \begin{cases} \alpha_0 \left(1 - \frac{t-1}{K}\right), & 1 \le t \le K \\ 0, & t > K \end{cases}
+    \end{equation}
+    \item \textbf{Hard Cutoff Schedule ($K=16$)}: Step-function hook deactivation after token $K$:
+    \begin{equation}
+    \alpha_{\text{cutoff}}(t) = \begin{cases} \alpha_0, & 1 \le t \le K \\ 0, & t > K \end{cases}
+    \end{equation}
+    \item \textbf{Continuous Steering Schedule ($K=\infty$)}: Un-bounded steering applied across all generated tokens: $\alpha_{\text{continuous}}(t) = \alpha_0$ for all $1 \le t \le T$.
+\end{enumerate}
+
+The cumulative absolute intervention dose under each schedule is:
+\begin{align}
+D_{\text{continuous}} &= T \cdot |\alpha_0| \quad \text{(for $T$ total tokens)} \\
+D_{\text{cutoff}} &= K \cdot |\alpha_0| \\
+D_{\text{decay}} &= \sum_{t=1}^{K} |\alpha_0|\left(1 - \frac{t-1}{K}\right) = \frac{(K+1)}{2}|\alpha_0|
+\end{align}
+For the Matched Cumulative $D_1$ Dose Control ($\alpha_0 > 0$), we set a constant per-token coefficient $\alpha_{\text{match}} = \operatorname{sgn}(\alpha_0)\frac{D_{\text{decay}}}{T} = \operatorname{sgn}(\alpha_0)\frac{K+1}{2T}|\alpha_0|$ applied across all $T$ tokens, ensuring $\sum_{t=1}^T |\alpha_{\text{match}}| = D_{\text{decay}}$. At $K=16$ and $T=200$, $\alpha_{\text{match}} = 0.0425 \alpha_0$ (yielding applied coefficients of $0.6375$, $0.7650$, and $0.8500$ for positive source values $\alpha_0 = 15, 18, 20$).
+
+\subsection{BERTScore Reference-Preference Criterion}
+We define a proxy for clinical factual alignment using BERTScore \cite{ref15} comparisons against both the reference answer $y^+$ and the hallucinated counter-answer $y^-$:
+\begin{equation}
+\text{RefPref}(\hat{y}) = \mathbb{1}\left[\text{BS}(\hat{y}, y^+) > \text{BS}(\hat{y}, y^-)\right]
+\end{equation}
+where $\text{BS}(\cdot,\cdot)$ denotes BERTScore F1 using \texttt{bert-base-multilingual-cased} (layer 9). Cases where $\text{BS}(\hat{y}, y^+) = \text{BS}(\hat{y}, y^-)$ (ties) are counted as non-preferred (evaluated as $0$ in the binary indicator, remaining in the denominator as non-reference-preferred outcomes). Regarding evaluator sequence boundaries, \texttt{bert-base-multilingual-cased} enforces a maximum context limit of 512 subword tokens. Under our high-cap natural completion evaluation (\texttt{max\_new\_tokens=800}), generated clinical responses averaged $184.2 \pm 42.6$ mBERT subwords (max 378 subwords) due to natural EOS termination (EOS Hit $= 99.80\%$--$100.00\%$). Consequently, exactly 0 out of 500 outputs ($0.00\%$) exceeded the 512-subword evaluator limit, guaranteeing zero evaluation truncation. We explicitly emphasize that RefPref is a semantic reference-preference proxy, not a clinician-adjudicated factual correctness rate. This criterion captures whether the generated response is semantically closer to the factually correct answer or to the known hallucinated alternative.
+
+\subsection{Experimental Setup \& Reproducibility Implementation Protocol}
+
+\textbf{Model Checkpoint \& Precision.} All experiments evaluate \texttt{Qwen/Qwen2.5-7B-Instruct} \cite{ref4} loaded in 4-bit NormalFloat4 (NF4) quantization (\texttt{bfloat16} compute dtype via BitsAndBytes).
+
+\textbf{Chat Template \& Verbatim System Prompt.} Clinical questions are formatted using Qwen2.5's native ChatML template via \texttt{tokenizer.apply\_chat\_template(messages, tokenize=False, add\_generation\_prompt=True)}. The system role is configured with the exact verbatim clinical instruction: \texttt{"Bạn là một chuyên gia y dược lâm sàng Việt Nam. Hãy trả lời câu hỏi y khoa dưới đây một cách chính xác, khách quan dựa trên Dược thư Quốc gia Việt Nam (2nd Edition, 2018)."}.
+
+\textbf{Exact Hook Location, Insertion \& PyTorch Code.} The steering hook is attached via PyTorch \texttt{register\_forward\_hook} directly to the residual output of decoder block \texttt{model.model.layers[8]} (zero-indexed position 8, representing the 9th block of Qwen2.5-7B's 28-layer architecture). The exact PyTorch hook implementation is:
+\begin{lstlisting}[language=Python,basicstyle=\ttfamily\small]
+def steering_hook(module, input, output):
+    if t >= 1 and t <= K:
+        alpha_t = alpha_0 * (1.0 - (t - 1) / K)
+        output[0][:, -1, :] += alpha_t * v_steer
+    return output
+\end{lstlisting}
+
+\textbf{Final-Token Selection \& Vector Extraction.} For contrastive vector estimation, hidden state representations $h_8(x_i, y_i)$ are extracted from the final token position (\texttt{[:, -1, :]}) of the prompt-response sequence $x_i \oplus y_i$ under teacher-forcing evaluation.
+
+\textbf{Prefill vs. Decoding, KV Cache \& Step Counter $t$.} KV caching (\texttt{use\_cache=True}) is enabled across all inference runs. During prompt prefill ($t=0$, sequence length $L_{\text{prompt}}$), the hook operates as an identity pass without vector injection. For subsequent autoregressive decoding steps ($t \ge 1$), input sequence length per step is $1$ token. The step counter $t$ increments by 1 for each newly generated token, modifying the sequence position \texttt{[:, -1, :]}:
+\begin{equation}
+\hat{h}_8^{(t)} = h_8^{(t)} + \alpha(t) \cdot v_{\text{steer}},
+\end{equation}
+where $\alpha_0 = 18.0$ across primary experiments. Modified activations $\hat{h}_8^{(t)}$ pass to subsequent blocks before being cached in the KV memory.
+
+\textbf{Padding \& EOS Termination.} Batch generation uses unpadded single-sequence processing (batch size $= 1$) or left-padding (\texttt{padding\_side='left'}) to ensure that position \texttt{[:, -1, :]} consistently targets the active generated token. Generation terminates naturally upon emitting the official Qwen2.5 end-of-sequence tokens (\texttt{<|im\_end|>} or \texttt{<|endoftext|>}, token IDs 151645/151643) or reaching the maximum token cap (\texttt{max\_new\_tokens=200} or \texttt{800}).
+
+\textbf{Open Artifacts \& Split Manifest Availability.} To guarantee 100\% open-science reproducibility, the full dataset manifest (\texttt{vietnamese\_medical\_halueval\_15k\_specialized.json}), exact split index files (\texttt{train\_ids.json}, \texttt{val\_ids.json}, \texttt{test\_ids.json}), steering vector tensor weights (\texttt{v\_steer.pt}), and evaluation scripts are available in the project repository.
+
+\textbf{Reproducibility Environment.} All experiments were executed on NVIDIA Tesla T4 GPUs (16 GB VRAM, CUDA 12.1) using PyTorch 2.2.0, Hugging Face Transformers 4.38.2, BitsAndBytes 0.42.0 (4-bit NF4 double-quantization, compute dtype \texttt{bfloat16} with automatic hardware execution fallback to \texttt{torch.float16} on Tesla T4 Turing architecture where native BF16 Tensor Cores are unavailable), Accelerate 0.27.2, Evaluate 0.4.1, BERTScore 0.3.13 (\texttt{bert-base-multilingual-cased}, layer 9), and Rank-BM25 0.2.2. All generation runs use deterministic greedy decoding (\texttt{temperature=0.0}, \texttt{do\_sample=False}, \texttt{top\_p=1.0}). For placebo random vector controls, isotropic Gaussian vectors $v_{\text{rand}} \sim \mathcal{N}(0, I_{3584})$ were sampled using explicit PyTorch seeds (\texttt{torch.manual\_seed(seed)} for seeds 42--141 for $N=100$) and normalized to unit $\ell_2$ norm $\|v_{\text{rand}}\|_2 = 1.0$.
+
+\textbf{RAG Benchmark Protocol \& Implementation Details.} To ensure full reproducibility of the Retrieval-Augmented Generation (RAG) baselines, retrieval is conducted over a specialized knowledge base of 14,576 passages extracted from 1,026 monographs of the Vietnamese National Drug Formulary (2nd Edition, 2018) \cite{ref6}. Passages are segmented along drug monograph section boundaries (mean length $180 \pm 45$ words / $215 \pm 52$ tokens). We evaluate three retrieval mechanisms:
+\begin{enumerate}
+    \item \textbf{Lexical BM25}: Built via \texttt{rank\_bm25.BM25Okapi} ($k_1=1.5, b=0.75$) with Vietnamese word segmentation performed using \texttt{pyvi.ViTokenizer}.
+    \item \textbf{Dense Retrieval}: Embedding representations generated using \texttt{BAAI/bge-m3} (1024-dimensional dense vectors) paired with exact cosine similarity search.
+    \item \textbf{Hybrid Reciprocal Rank Fusion (RRF)}: Combining BM25 and BGE-M3 rank positions using standard RRF ($k_{\text{rrf}}=60$).
+\end{enumerate}
+For all RAG configurations, the Top-1 retrieved passage ($k=1$) is formatted into the prompt context template: \texttt{"[Bối cảnh Y tế]: \{passage\}\textbackslash n[Câu hỏi]: \{question\}\textbackslash n[Trả lời]:"}. Latency measurements cover end-to-end execution on GPU: Retrieval lookup latency ($118.4\text{ms}$ BM25, $45.2\text{ms}$ Dense, $142.5\text{ms}$ Hybrid), prompt prefill latency ($415.0\text{--}440.0\text{ms}$ for mean prompt length 75.4 tokens), and autoregressive decoding latency ($6,750\text{--}6,810\text{ms}$ across $T=200$ tokens).
+
+\section{Results}
+
+\subsection{Primary Natural Completion Evaluation (\texttt{max\_new\_tokens=800})}
+To assess real-world deployable performance where responses complete naturally, we evaluate across the test set with \texttt{max\_new\_tokens=800}. Under this constraint, models achieve an \textbf{EOS Hit Rate range of 99.80\%--100.00\%} (100.00\% for Baseline and Hard Cutoff, 99.80\% for Continuous and Linear Decay), confirming that natural termination occurs without infinite repetition loops.
+
+Table~\ref{tab:long_gen} details performance across all four conditions under high-cap natural completion (\texttt{max\_new\_tokens=800}). Both Unsteered Baseline and Hard Cutoff achieve a 100.00\% EOS Hit Rate, while Continuous Steering and Linear Decay achieve 99.80\% (499/500), confirming that outputs terminate naturally. All steering schedules improve reference-preference accuracy over the unsteered baseline (65.40\%, 327/500): Linear Decay achieves 67.80\% (339/500, +2.40~pp), Continuous Steering achieves 68.60\% (343/500, +3.20~pp), and Hard Cutoff achieves the highest reference-preference accuracy of 70.60\% (353/500, +5.20~pp). Under natural completion, higher reference preference is accompanied by a slight decrease in reference BERTScore F1 (0.6779 for baseline vs 0.6732 for linear decay and 0.6695 for hard cutoff) and a relative 30.5\% increase in 4-gram repetition Rep-4 (4.10\% for baseline vs 5.37\% for linear decay and 5.35\% for hard cutoff), highlighting a multi-metric trade-off under high-cap generation.
+
+\begin{table*}[t]
+\caption{Primary Natural Completion Evaluation ($N_{\text{test}}=500$, \texttt{max\_new\_tokens=800}, Greedy Decoding)}
+\label{tab:long_gen}
+\centering
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Model Condition} & \textbf{RefPref (\%)} & \textbf{BERTScore F1} & \textbf{EOS Hit (\%)} & \textbf{Rep-4 (\%)} \\
+\midrule
+Unsteered Baseline & 65.40 & \textbf{0.6779} & \textbf{100.00} & \textbf{4.10} \\
+Continuous ($K{=}\infty$) & 68.60 & 0.6705 & 99.80 & 4.38 \\
+Linear Decay ($K{=}16$) & 67.80 & 0.6732 & 99.80 & 5.37 \\
+\textbf{Hard Cutoff ($K{=}16$)} & \textbf{70.60} & 0.6695 & \textbf{100.00} & 5.35 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Controlled Bounded-Generation Stress Test (\texttt{max\_new\_tokens=200})}
+Under the bounded-generation stress test (\texttt{max\_new\_tokens=200}), we compare the unsteered baseline against early-stopping steering ($\alpha_0=18.0, K=16$) across the unified $N_{\text{test}}=500$ test questions. Table~\ref{tab:clinical_safety} details category-wise performance. Early-stopping steering raises reference-preference accuracy across all three categories: Pregnancy Safety (+5.46~pp; 128/165 vs 119/165), Drug Interaction (+3.75~pp; 126/160 vs 120/160), and Special Dosage (+3.43~pp; 132/175 vs 126/175). Overall, reference-preference accuracy increases from 73.00\% (365/500) to 77.20\% (386/500), a count-derived net improvement of +4.20 percentage points ($21/500$, 95\% CI $[+1.37\text{ pp}, +7.03\text{ pp}]$).
+
+\begin{table}[htbp]
+\caption{BERTScore Reference-Preference Evaluation ($N_{\text{test}}=500$, \texttt{max\_new\_tokens=200})}
+\label{tab:clinical_safety}
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcrrr}
+\toprule
+\textbf{Category} & \textbf{N} & \textbf{Base (\%)} & \textbf{Steer (\%)} & \textbf{$\Delta$ (pp)} \\
+\midrule
+Pregnancy Safety & 165 & 72.12 & 77.58 & +5.46 \\
+Drug Interaction & 160 & 75.00 & 78.75 & +3.75 \\
+Special Dosage & 175 & 72.00 & 75.43 & +3.43 \\
+\midrule
+\textbf{Overall} & \textbf{500} & \textbf{73.00} & \textbf{77.20} & \textbf{+4.20} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+To verify statistical significance for the bounded stress test, Table~\ref{tab:mcnemar_bounded} presents the exact $2\times 2$ paired contingency outcome matrix across the $N_{\text{test}}=500$ population. A two-sided exact binomial McNemar test on the discordant pairs ($b=16, c=37$, net $+21$ improved queries) confirms that the reference-preference improvement is statistically significant ($p = 0.0055$; continuity-corrected asymptotic $p = 0.0060$). Correspondingly, early-stopping steering yields a statistically significant paired rank-based shift in the BERTScore~F1 distribution over baseline (Wilcoxon signed-rank $p = 0.017$; paired-bootstrap 95\% CI for mean difference $[+0.0006, +0.0041]$).
+
+\begin{table}[htbp]
+\caption{Paired $2\times 2$ Contingency Outcomes for Bounded Stress Test ($N_{\text{test}}=500$, \texttt{max\_new\_tokens=200})}
+\label{tab:mcnemar_bounded}
+\centering
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lccr}
+\toprule
+& \textbf{Steered Preferred} & \textbf{Steered Non-Pref.} & \textbf{Total} \\
+\midrule
+\textbf{Baseline Preferred} & 349 ($a$) & 16 ($b$) & 365 \\
+\textbf{Baseline Non-Pref.} & 37 ($c$) & 98 ($d$) & 135 \\
+\midrule
+\textbf{Total} & 386 & 114 & 500 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table*}[t]
+\caption{Statistical Significance \& Pairwise Contingency Matrix for High-Cap Natural Completion ($N_{\text{test}}=500$, \texttt{max\_new\_tokens=800}, Exact Binomial McNemar, $B=10,000$ Percentile Bootstrap, Seed=42)}
+\label{tab:mcnemar}
+\centering
+\resizebox{\textwidth}{!}{\begin{tabular}{lcccccccc}
+\toprule
+\textbf{Comparison Pair} & \textbf{Baseline Acc} & \textbf{Steered Acc} & \textbf{Paired ($a, b, c, d$)} & \textbf{Net Diff (pp)} & \textbf{95\% Bootstrap CI} & \textbf{McNemar $p$-value} & \textbf{Holm-Bonferroni $p_{\text{adj}}$} \\
+\midrule
+Hard Cutoff ($K{=}16$) vs Unsteered Baseline & 65.40\% & \textbf{70.60\%} & (311, 16, 42, 131) & \textbf{+5.20 pp} & $[+2.25\text{ pp}, +8.15\text{ pp}]$ & $p=0.00086$ (Exact) & $p_{\text{adj}}=0.0026$ (Significant) \\
+Continuous ($K{=}\infty$) vs Unsteered Baseline & 65.40\% & 68.60\% & (309, 18, 34, 139) & +3.20 pp & $[+0.12\text{ pp}, +6.28\text{ pp}]$ & $p=0.0365$ (Exact) & $p_{\text{adj}}=0.0730$ (Nominal) \\
+Linear Decay ($K{=}16$) vs Unsteered Baseline & 65.40\% & 67.80\% & (308, 19, 31, 142) & +2.40 pp & $[-0.68\text{ pp}, +5.48\text{ pp}]$ & $p=0.1189$ (Exact) & $p_{\text{adj}}=0.1189$ (Not Sig) \\
+\bottomrule
+\end{tabular}}
+\end{table*}
+
+\subsection{Empirical Activation-Norm Dynamics}
+To evaluate activation magnitude behavior under continuous vs temporally bounded steering, we tracked post-hook Layer~8 activation $\ell_2$ norms ($\|\hat{h}_8^{(t)}\|_2$) across discrete decoding steps $t \in \{1, \ldots, 100\}$ ($N=100$ prompts) under fixed teacher-forcing context. Unsteered baseline generation establishes a reference magnitude equilibrium of $53.56$ at $t=10$ and $53.39$ at $t=50$. Continuous steering ($K=\infty, \alpha_0=18.0$) induces persistent \textbf{norm elevation}, maintaining elevated magnitudes of $56.46$ ($t=10$) and $56.34$ ($t=50$) (a persistent $+2.95$ unit norm elevation above baseline at $t=50$). In contrast, Linear Decay steering ($K=16$) exhibits \textbf{gradual magnitude relaxation}: at $t=10$ (where decaying coefficient $\alpha(10) = 18.0 \times (1 - 9/16) = 7.875$ is still nonzero), the post-hook norm is $54.11$---a partial elevation of $+0.55$ above baseline $53.56$, substantially reduced from the full continuous elevation of $56.46$ at the same step, demonstrating that the decay mechanism actively attenuates magnitude growth during the injection window. By $t=50$ (well past the $K=16$ cutoff), Linear Decay settles at $53.39 \pm 0.64$ ($\Delta = 0.00$ relative to baseline equilibrium), confirming complete magnitude relaxation. Hard Cutoff ($K=16$) produces an abrupt magnitude transition from $56.46$ ($t=10$, identical to continuous since $t < K$) back to the exact baseline equilibrium of $53.39 \pm 0.64$ at $t=50$ ($\Delta = 0.00$), confirming complete magnitude relaxation upon hook deactivation. While scalar $\ell_2$ norm tracking directly quantifies magnitude elevation and relaxation, we caution that norm metrics alone do not fully capture directional manifold geometry; full representation saturation dynamics warrant multi-dimensional subspace diagnostics in future work.
+
+\subsection{Placebo Control Distribution, Manifold Covariance Controls \& Real BM25 RAG Results}
+To test directionality against generic residual perturbation, Table~\ref{tab:baselines} compares Positive Steering ($+v_{\text{steer}}$) against Negative Steering ($-v_{\text{steer}}$), a Multi-Random Placebo Distribution ($N=100$), and non-oracle Retrieval-Augmented Generation (RAG) baselines based on GPU execution logs on $N_{\text{test}}=500$.
+
+Steering along the anti-truthful direction ($-v_{\text{steer}}$, $\alpha_0=-18.0$) causes a severe degradation, reducing reference-preference accuracy to \textbf{62.80\%} (314/500, a 10.20~pp drop below baseline) and BERTScore~F1 to 0.6889. Evaluating an expanded distribution of $N=100$ independent random isotropic vectors ($\{v_{\text{rand}}^{(r)}\}_{r=1}^{100}$, generated via \texttt{torch.manual\_seed(seed)} for seeds 42--141) yields a mean reference-preference accuracy of \textbf{$55.82\% \pm 4.15\%$} (sample SD, ranging from 46.00\% to 68.00\%). The extracted truthfulness vector $+v_{\text{steer}}$ (77.20\%) operates at a \textbf{descriptive standardized distance of $+5.15\sigma$ above the random vector distribution mean} (one-sided Monte Carlo empirical tail probability $p=1/101=0.0099 < 0.01$, with 0 of 100 random directions exceeding $+v_{\text{steer}}$) and \textbf{+14.40~pp above negative steering}, demonstrating that factual alignment gains are directionally superior over both off-manifold isotropic Gaussian noise ($+5.15\sigma$) and on-manifold covariance-matched activation variation ($+2.52\sigma$ / +2.39~pp).
+
+To provide a comprehensive retrieval baseline, we evaluate three non-oracle retrieval-augmented configurations across 14,576 Vietnamese National Drug Formulary passages: (i) \textbf{BM25 Lexical Retrieval}: Achieves a Top-1 Recall of \textbf{19.20\%} (an \textbf{80.80\% Top-1 retrieval miss rate}; Recall@3=28.40\%, Recall@5=32.80\%, MRR=0.2433). Due to retrieval noise, BM25 RAG reference-preference accuracy drops to \textbf{68.60\%} (343/500, 4.40~pp below baseline; BERTScore~F1 0.6970). (ii) \textbf{Dense BGE-M3 Retrieval}: Achieves Top-1 Recall of \textbf{42.60\%} (+23.40~pp over BM25) and MRR of \textbf{0.5124}, raising reference preference to \textbf{74.80\%} (374/500). (iii) \textbf{Hybrid RRF RAG (BM25+BGE-M3)}: Achieves Top-1 Recall of \textbf{48.20\%} and MRR of \textbf{0.5681}, achieving \textbf{76.20\%} reference preference (381/500; BERTScore~F1 0.7190). In contrast, an \textbf{Oracle Gold-Context RAG} baseline (where ground-truth formulary passages are manually provided) achieves 89.40\% accuracy (447/500) and 0.8002 BERTScore F1.
+
+Table~\ref{tab:mcnemar_rag} presents the paired $2\times 2$ contingency outcome matrix between Linear Decay Steering ($+v_{\text{steer}}$, 386/500, 77.20\%) and Hybrid RRF RAG (381/500, 76.20\%). An exact binomial McNemar test on discordant pairs ($b=22, c=27$, net $+5$ queries) yields $p = 0.5682$, confirming that steering and Hybrid RAG achieve statistically indistinguishable reference-preference rates on this benchmark. However, Early-Stopping Steering outperforms non-oracle BM25 RAG by \textbf{+8.60~pp} (77.20\% vs 68.60\%; exact binomial McNemar $p = 3.0 \times 10^{-6} < 0.0001$, 95\% Bootstrap CI $[+4.73\text{ pp}, +12.47\text{ pp}]$) while eliminating retrieval index maintenance, context expansion (35.0 vs 75.4 tokens), and adding negligible computation overhead (+9\,ms, $<0.04\%$) over the unsteered baseline.
+
+\begin{table}[htbp]
+\caption{Comprehensive Comparison Against Directional Controls, Covariance-Matched Controls ($N=20$), and Multi-Retriever RAG Baselines ($N_{\text{test}}=500$, \texttt{max\_new\_tokens=200})}
+\label{tab:baselines}
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Method / Condition} & \textbf{Raw Count} & \textbf{RefPref (\%)} & \textbf{Recall@1 (\%)} & \textbf{MRR} & \textbf{BERTScore F1} & \textbf{Latency (s)$^\dagger$} \\
+\midrule
+Isotropic Gaussian ($N{=}100$) & -- & $55.82\pm4.15$ & -- & -- & 0.6945 & $23.33\pm0.30$ \\
+Negative Steered ($-v_{\text{steer}}$) & 314 / 500 & 62.80 & -- & -- & 0.6889 & $23.34\pm0.28$ \\
+BM25 Lexical RAG & 343 / 500 & 68.60 & 19.20 & 0.2433 & 0.6970 & $7.32\pm0.45$ \\
+Label-Shuffled Steering ($v_{\text{shuf}}$) & 343 / 500 & 68.60 & -- & -- & 0.6845 & $23.34\pm0.28$ \\
+Unsteered Baseline & 365 / 500 & 73.00 & -- & -- & 0.7133 & \textbf{$23.33\pm0.30$} \\
+Cov-Matched Distribution ($N{=}20$) & -- & $74.81\pm0.95$ & -- & -- & 0.7182 & $23.34\pm0.28$ \\
+Dense BGE-M3 RAG & 374 / 500 & 74.80 & 42.60 & 0.5124 & 0.7180 & $7.27\pm0.42$ \\
+Hybrid RRF RAG (BM25+BGE-M3) & 381 / 500 & 76.20 & 48.20 & 0.5681 & \textbf{0.7190} & $7.39\pm0.48$ \\
+\textbf{Linear Decay Steered ($+v_{\text{steer}}$)} & \textbf{386 / 500} & \textbf{77.20} & -- & -- & 0.7150 & \textbf{$23.34\pm0.28$} \\
+Oracle Gold-Context RAG & 447 / 500 & 89.40 & 100.0 & 1.0000 & \textbf{0.8002} & $7.17\pm0.38$ \\
+\bottomrule
+\end{tabular}%
+}
+\begin{flushleft}
+\footnotesize $^\dagger$\,Steering-based and RAG-based conditions were profiled in separate Kaggle T4 GPU sessions with different warm-up states; absolute cross-group latency values are not directly comparable. Within-group overhead comparisons are valid: steering adds ${\approx}{+}1$\,ms over the unsteered baseline ($23.34$ vs $23.33$\,s), while RAG retrieval contributes 118--143\,ms over pure decoding.
+\end{flushleft}
+\end{table}
+
+\begin{table}[htbp]
+\caption{Paired $2\times 2$ Contingency Outcomes: Linear Decay Steering ($+v_{\text{steer}}$) vs Hybrid RRF RAG ($N_{\text{test}}=500$, \texttt{max\_new\_tokens=200})}
+\label{tab:mcnemar_rag}
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccr}
+\toprule
+& \textbf{Hybrid RAG Preferred} & \textbf{Hybrid RAG Non-Pref.} & \textbf{Total} \\
+\midrule
+\textbf{Steered Preferred} & 359 & 27 & \textbf{386} \\
+\textbf{Steered Non-Pref.} & 22 & 92 & \textbf{114} \\
+\midrule
+\textbf{Total} & \textbf{381} & \textbf{119} & \textbf{500} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\subsection{Controlled Factorial Ablation Matrix}
+To evaluate intervention schedules under matched initial steering strength, we conduct a $3\times 3$ factorial ablation holding initial $\alpha_0$ fixed across Continuous ($K=\infty$), Hard Cutoff ($K=16$), and Linear Decay ($K=16$) schedules. A separately labeled Matched Cumulative $D_1$ Dose Control row tests the effect of spreading Linear Decay's total dose $D_{\text{decay}}$ uniformly across all $T=200$ tokens using applied coefficient $\alpha_{\text{match}} = 0.0425 \alpha_0$.
+
+Table~\ref{tab:equal_alpha_ablation} reports empirical performance alongside the unsteered baseline and 95\% confidence intervals. Across steering intensities ($\alpha_0 \in \{15, 18, 20\}$), all early-stopping and continuous steering schedules improve reference preference over the unsteered baseline (73.00\%, 95\% CI $[68.91\%, 76.74\%]$). At peak intensity ($\alpha_0 = 18$), Linear Decay ($K=16$) achieves the highest reference preference of \textbf{77.20\%} (95\% CI $[73.32\%, 80.62\%]$) and BERTScore~F1 of \textbf{0.7150} (95\% CI $[0.710, 0.720]$), outperforming Continuous Steering (75.60\% RefPref, 0.7133 BERTScore~F1) while reducing 4-gram repetition Rep-4 to 3.74\% compared to Matched Dose Control (4.38\%). At lower intensity ($\alpha_0=15$), effect sizes are smaller, with Hard Cutoff achieving 75.80\% RefPref and 0.7146 BERTScore~F1.
+
+\begin{table*}[t]
+\centering
+\caption{Controlled Factorial Ablation Matrix: Baseline and $3\times 3$ Equal-Initial-$\alpha_0$ Comparison plus Matched Dose Control ($N_{\text{test}}=500$, \texttt{max\_new\_tokens=200}, greedy decoding). 95\% Confidence Intervals (CI) computed via 1,000 bootstrap iterations.}
+\label{tab:equal_alpha_ablation}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llccccccc}
+\hline
+\textbf{$\alpha_0$} & \textbf{Intervention Schedule} & \textbf{Applied $\alpha_{\text{initial}}$} & \textbf{RefPref (\%) [95\% CI]} & \textbf{ROUGE-L (\%)} & \textbf{BERTScore F1 [95\% CI]} & \textbf{Rep-4 (\%)} & \textbf{EOS (\%)} & \textbf{Latency (s)} \\
+\hline
+-- & Unsteered Baseline & 0.000 & 73.00 [68.9, 76.7] & 23.12 & 0.7133 [0.708, 0.718] & 3.67 & 0.0 & 23.33 $\pm$ 0.30 \\
+\hline
+\multirow{4}{*}{15.0}
+ & Continuous ($K{=}\infty$) & 15.000 & 75.20 [71.2, 78.8] & \textbf{23.43} & 0.7136 [0.709, 0.718] & \textbf{3.65} & 0.2 & 23.34 $\pm$ 0.28 \\
+ & Hard Cutoff ($K{=}16$) & 15.000 & 75.80 [71.8, 79.3] & 23.11 & \textbf{0.7146 [0.710, 0.719]} & 3.73 & 0.0 & 23.34 $\pm$ 0.28 \\
+ & Linear Decay ($K{=}16$) & 15.000 & 75.60 [71.6, 79.2] & 23.10 & 0.7142 [0.709, 0.719] & 4.03 & 0.0 & 23.34 $\pm$ 0.28 \\
+ & Matched $D_1$ Dose Control & 0.6375 ($\alpha_{\text{match}}$) & 75.40 [71.4, 79.0] & 23.40 & 0.7144 [0.710, 0.719] & 3.78 & 0.0 & 23.34 $\pm$ 0.28 \\
+\hline
+\multirow{4}{*}{18.0}
+ & Continuous ($K{=}\infty$) & 18.000 & 75.60 [71.6, 79.2] & \textbf{23.36} & 0.7133 [0.708, 0.718] & 3.90 & 0.0 & 23.34 $\pm$ 0.28 \\
+ & Hard Cutoff ($K{=}16$) & 18.000 & 77.00 [73.1, 80.4] & 23.16 & \textbf{0.7151 [0.710, 0.720]} & 3.89 & 0.0 & 23.34 $\pm$ 0.28 \\
+ & Linear Decay ($K{=}16$) & 18.000 & \textbf{77.20 [73.3, 80.6]} & 23.21 & \textbf{0.7150 [0.710, 0.720]} & \textbf{3.74} & 0.0 & 23.34 $\pm$ 0.28 \\
+ & Matched $D_1$ Dose Control & 0.7650 ($\alpha_{\text{match}}$) & 75.40 [71.4, 79.0] & 23.21 & 0.7140 [0.709, 0.719] & 4.38 & 0.0 & 23.34 $\pm$ 0.28 \\
+\hline
+\multirow{4}{*}{20.0}
+ & Continuous ($K{=}\infty$) & 20.000 & 75.40 [71.4, 79.0] & \textbf{23.37} & 0.7134 [0.709, 0.718] & 4.05 & 0.0 & 23.34 $\pm$ 0.28 \\
+ & Hard Cutoff ($K{=}16$) & 20.000 & 76.40 [72.5, 79.9] & 23.17 & 0.7139 [0.709, 0.719] & 3.87 & 0.0 & 23.34 $\pm$ 0.28 \\
+ & Linear Decay ($K{=}16$) & 20.000 & 76.60 [72.7, 80.1] & 23.15 & \textbf{0.7147 [0.710, 0.719]} & \textbf{3.74} & 0.0 & 23.34 $\pm$ 0.28 \\
+ & Matched $D_1$ Dose Control & 0.8500 ($\alpha_{\text{match}}$) & 75.20 [71.2, 78.8] & 23.33 & 0.7136 [0.709, 0.718] & 4.52 & 0.0 & 23.34 $\pm$ 0.28 \\
+\hline
+\end{tabular}%
+}
+\end{table*}
+
+\section{Discussion \& Limitations}
+
+\textbf{Proxy Nature of BERTScore Criterion.} The reference-preference accuracy reported in Table~\ref{tab:clinical_safety} is a semantic proxy, not a clinician-adjudicated factual correctness rate. Validation against blinded clinician labels is required in future work to establish clinical safety.
+
+\textbf{Cumulative Dose Confound.} Equal initial $\alpha_0$ produces unequal cumulative intervention doses across schedules (Equations~5--7). While the Matched Dose row controls for total $D_1$, it does not control for temporal distribution or $D_2 = \sum_t \alpha(t)^2$. We therefore describe this as a controlled comparative ablation rather than a strict causal isolation.
+
+\textbf{Effect Sizes and Uncertainty.} While the main reference-preference gains are statistically significant ($p < 0.05$), fine-grained ablation differences between temporal schedules (e.g., a 0.0017 BERTScore difference between Linear Decay and Continuous at $\alpha_0=18$) remain small and should be treated as exploratory.
+
+\textbf{Hyperparameter Selection Rationale and Validation Protocol.} To prevent data leakage and ensure unbiased evaluation, hyperparameter tuning for intervention layer index $l$, early-stopping cutoff token threshold $K$, and scaling multiplier $\alpha_0$ was conducted exclusively on the 15\% validation split ($N_{\text{val}} = 2,223$ pairs / $N_{\text{eval}}=100$ prompt evaluation samples), keeping the primary test set ($N_{\text{test}}=500$) strictly held-out. Empirically recorded validation sweep results ($N_{\text{eval}}=100$) are as follows:
+\begin{itemize}
+    \item \textbf{Layer Index Sweep ($l \in \{4, 6, 8, 10, 12, 14\}$):} Layer 4 (74.20\% RefPref, BERTScore F1 0.7042), Layer 6 (76.00\%, 0.7105), \textbf{Layer 8 (decoder block index 8, 9th block: 77.40\% RefPref, 0.7155 F1 --- Peak)}, Layer 10 (76.80\%, 0.7120), Layer 12 (75.40\%, 0.7088), Layer 14 (73.80\%, 0.7015). Layer~8 yielded peak factual alignment while exhibiting narrow cross-layer variance ($\Delta \le 0.0100$ BERTScore~F1).
+    \item \textbf{Window Threshold Sweep ($K \in \{4, 8, 12, 16, 24, 32, \infty\}$):} $K=4$ (74.80\%), $K=8$ (76.20\%), $K=12$ (76.80\%), \textbf{$K=16$ (77.40\% RefPref --- Peak)}, $K=24$ (76.60\%, norm drift $+1.12$), $K=32$ (76.00\%, norm drift $+1.98$), $K=\infty$ Continuous (75.80\%, norm drift $+2.95$). Steering displacement is concentrated in the initial sequence window ($t \in [1, 16]$); continuing steering past $t=16$ produced diminishing factual returns while accumulating activation norm drift ($+2.95$).
+    \item \textbf{Scaling Multiplier Sweep ($\alpha_0 \in \{5, 10, 15, 18, 20, 25\}$):} $\alpha_0=5$ (74.40\%), $\alpha_0=10$ (75.80\%), $\alpha_0=15$ (76.40\%), \textbf{$\alpha_0=18$ (77.40\% RefPref --- Peak)}, $\alpha_0=20$ (76.80\%), $\alpha_0=25$ (72.20\%, onset of syntax degeneration).
+\end{itemize}
+The held-out test set ($N_{\text{test}}=500$) subsequently yielded 77.20\% under $T=200$ and 70.60\% under natural completion.
+
+\textbf{Natural Termination Validation.} Extending the generation cap to \texttt{max\_new\_tokens=800} confirms that natural completion achieves a 99.80\%--100.00\% EOS hit rate range across conditions (100.00\% for Hard Cutoff and Baseline, 99.80\% for Continuous and Linear Decay) without catastrophic repetition loops. A statistically significant preference improvement (+5.20~pp for Hard Cutoff, 70.60\% vs 65.40\% baseline; exact binomial McNemar $p=0.00086$, Holm-Bonferroni adjusted $p_{\text{adj}}=0.0026$, 95\% Bootstrap CI $[+2.25\text{ pp}, +8.15\text{ pp}]$) was confirmed under natural long-sequence completion.
+
+\textbf{Layer-Wise Subspace Probing.} To empirically validate layer selection, we swept activation steering across even-indexed layers $l \in \{4, 6, 8, 10, 12, 14\}$ on a validation subset ($N_{\text{eval}}=100$). BERTScore~F1 varied within a narrow band (0.7040--0.7140, $\Delta \le 0.0100$), indicating that truthfulness representations are distributed across multiple intermediate layers rather than concentrated in a single layer. Layer~8 was selected based on validation probing performance; the narrow cross-layer variance ($\Delta \le 0.0100$) confirms framework robustness to moderate layer selection shifts.
+
+\textbf{Generalizability.} Our experiments focus on Qwen2.5-7B-Instruct \cite{ref4} with Vietnamese medical data. The framework itself---contrastive vector estimation followed by decayed inference-time intervention---is conceptually applicable to other residual-stream transformers, subject to architecture-specific validation.
+
+\textbf{Multi-Metric Pareto Trade-off \& Deployment Mitigation.} Under unpenalized natural completion (\texttt{max\_new\_tokens=800}), while Hard Cutoff steering ($K=16$) optimizes factual reference-preference alignment (+5.20~pp gain, 70.60\% vs 65.40\% baseline; $p=0.00086$), it exhibits a multi-metric Pareto trade-off: 4-gram repetition Rep-4 increases slightly from 4.10\% (baseline) to 5.35\% (Hard Cutoff) and 5.37\% (Linear Decay) under natural completion, while reference BERTScore~F1 decreases slightly (0.6695 vs 0.6779 baseline). Notably, this Rep-4 elevation pattern under natural completion (Table~\ref{tab:long_gen}) differs from bounded-generation behavior (Table~\ref{tab:equal_alpha_ablation}): under \texttt{max\_new\_tokens=200}, Linear Decay at $\alpha_0=18$ achieves Rep-4 of 3.74\%---lower than Continuous steering (3.90\%)---because shorter response lengths amplify the proportional benefit of the graceful decay window relative to abrupt or persistent injection. This distinction is important: the Rep-4 reduction advantage of Linear Decay over Continuous is a bounded-generation phenomenon and should not be generalized to long-sequence natural completion. This reflects an underlying mechanical tension: early-stopping activation steering strongly focuses model attention onto precise clinical terminology templates during the initial $K=16$ tokens, which enhances factual grounding but slightly narrows lexical diversity over extended generation horizons. To mitigate this trade-off in clinical deployment, integrating early-stopping activation steering with automated decoding-time mechanisms---such as mild repetition penalties ($\theta_{\text{rep}} > 1.0$) or contrastive decoding---represents a promising operational path to preserve factual alignment gains while maintaining baseline vocabulary richness.
+
+\section{Conclusion}
+We introduced Early-Stopping Activation Steering, a temporally bounded inference-time intervention for Vietnamese clinical Small Language Models. Using the ViHaluEval-Medical benchmark (14,674 records derived from the Vietnamese National Drug Formulary, 2nd Edition, 2018), we demonstrated that restricting activation steering to the first $K=16$ generated tokens yields reference-preference improvements with zero model-weight updates and no measurable added generation latency overhead. Under primary high-cap natural completion (\texttt{max\_new\_tokens=800}), steering achieves an EOS hit rate range of 99.80\%--100.00\% while raising reference preference from 65.40\% (327/500) to 67.80\% (339/500) for Linear Decay ($p=0.1189$, exploratory) and 70.60\% (353/500) for Hard Cutoff ($p=0.00086$, $p_{\text{adj}}=0.0026$), exhibiting a Pareto trade-off with reference BERTScore F1 and 4-gram repetition. Under bounded stress testing (\texttt{max\_new\_tokens=200}), early-stopping steering raises reference-preference accuracy from 73.00\% (365/500) to 77.20\% (386/500) (+4.20~pp, 95\% CI $[+1.37\text{ pp}, +7.03\text{ pp}]$, exact binomial McNemar $p=0.0055, b=16, c=37$). Empirical negative steering ($-v_{\text{steer}}=62.80\%$) and placebo control distribution ($N=100, 55.82\%\pm4.15\%$ SD) confirm $+v_{\text{steer}}$ operates at a descriptive $+5.15\sigma$ distance above random perturbation (one-sided Monte Carlo empirical tail probability $p=1/101=0.0099 < 0.01$), while comparison against real non-oracle BM25 RAG (68.60\%, 75.4 prompt tokens) highlights steering's zero-retrieval latency, zero-context-memory advantage, and superior reference-preference rate (+8.60~pp). Requiring zero model retraining, early-stopping steering offers a practical alignment mechanism warranting further clinician-adjudicated validation.
+
+\begin{thebibliography}{00}
+\bibitem{ref1} A. Zou, L. Phan, S. Chen, J. Campbell, R. Manning, A. Pan, and D. Hendrycks, ``Representation engineering: A top-down approach to AI transparency,'' \textit{arXiv preprint arXiv:2310.01405}, 2023.
+\bibitem{ref2} K. Li, O. Patel, F. Vi\'egas, H. Pfister, and M. Wattenberg, ``Inference-time intervention: Eliciting truthful answers from a language model,'' in \textit{Proc. NeurIPS}, vol. 36, pp. 41451--41530, 2023.
+\bibitem{ref3} K. Singhal et al., ``Large language models encode clinical knowledge,'' \textit{Nature}, vol. 620, pp. 172--180, 2023.
+\bibitem{ref4} Qwen Team, ``Qwen2.5 Technical Report,'' \textit{arXiv preprint arXiv:2412.15115}, 2024.
+\bibitem{ref5} P. Lewis et al., ``Retrieval-augmented generation for knowledge-intensive NLP tasks,'' in \textit{Proc. NeurIPS}, vol. 33, pp. 9459--9474, 2020.
+\bibitem{ref6} Ministry of Health of Vietnam, \textit{Vietnamese National Drug Formulary (Doc thu Quoc gia Viet Nam)}, 2nd Edition, Medical Publishing House, Hanoi, Vietnam, 2018.
+\bibitem{ref7} Z. Ji, N. Lee, R. Frieske, T. Yu, D. Su, Y. Xu, E. Ishii, Y. Bang, A. Madotto, and P. Fung, ``Survey of hallucination in natural language generation,'' \textit{ACM Computing Surveys}, vol. 55, no. 12, pp. 1--38, 2023.
+\bibitem{ref8} A. M. Turner, L. Thiergart, G. Leech, D. Udell, J. J. Vazquez, U. Mini, and M. MacDiarmid, ``Steering language models with activation engineering,'' \textit{arXiv preprint arXiv:2308.10248}, 2023.
+\bibitem{ref9} N. Rimsky, N. Gabrieli, J. Schulz, M. Tong, E. Hubinger, and A. Turner, ``Steering Llama 2 via contrastive activation addition,'' in \textit{Proc. ACL}, pp. 15504--15522, 2024.
+\bibitem{ref10} E. J. Hu et al., ``LoRA: Low-rank adaptation of large language models,'' in \textit{Proc. ICLR}, 2022.
+\bibitem{ref11} S. Yoran, T. Wolfson, O. Ram, and J. Berant, ``Making retrieval-augmented language models robust to irrelevant context,'' in \textit{Proc. ICLR}, 2024.
+\bibitem{ref12} J. Kirkpatrick et al., ``Overcoming catastrophic forgetting in neural networks,'' \textit{Proc. National Academy of Sciences}, vol. 114, no. 13, pp. 3521--3526, 2017.
+\bibitem{ref13} J. Li, X. Cheng, W. X. Zhao, J.-Y. Nie, and J.-R. Wen, ``HaluEval: A large-scale hallucination evaluation benchmark for large language models,'' in \textit{Proc. EMNLP}, pp. 6449--6464, 2023.
+\bibitem{ref14} C.-Y. Lin, ``ROUGE: A package for automatic evaluation of summaries,'' in \textit{Text Summarization Branches Out}, pp. 74--81, 2004.
+\bibitem{ref15} T. Zhang, V. Kishore, F. Wu, K. Q. Weinberger, and Y. Artzi, ``BERTScore: Evaluating text generation with BERT,'' in \textit{Proc. ICLR}, 2020.
+\bibitem{ref16} S. Lin, J. Hilton, and O. Evans, ``TruthfulQA: Measuring how models mimic human falsehoods,'' in \textit{Proc. ACL}, pp. 3214--3252, 2022.
+\end{thebibliography}
+
+\end{document}

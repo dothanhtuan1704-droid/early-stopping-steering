@@ -1,0 +1,21 @@
+{
+  "name": "HardCutoff_RepPen_PartA",
+  "refpref_pct": 75.2,
+  "refpref_n": 188,
+  "total": 250,
+  "bs_f1": 0.684874415397644,
+  "bs_std": 0.03806063160300255,
+  "rep4": 3.859369677480091,
+  "rep4_std": 5.814070762840043,
+  "eos_pct": 1.6,
+  "eos_n": 4,
+  "lat": 44.914415367126466,
+  "tok": 413.864,
+  "peak_gpu": 1.9339494705200195,
+  "rep_pen": 1.15,
+  "gen_min": 187.15606800715128,
+  "bs_min": 0.4313464403152466,
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "params_B": 4.352972288,
+  "peak_load_gpu": 2.361870288848877
+}

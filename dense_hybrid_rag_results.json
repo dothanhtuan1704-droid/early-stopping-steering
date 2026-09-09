@@ -1,0 +1,75 @@
+{
+  "retrieval_benchmarks": {
+    "BM25_Lexical": {
+      "Recall@1": 0.192,
+      "Recall@3": 0.284,
+      "Recall@5": 0.328,
+      "MRR": 0.2433,
+      "Accuracy_Overall": 0.686,
+      "Accuracy_Retrieval_Hit": 0.8438,
+      "Accuracy_Retrieval_Miss": 0.6485,
+      "Retrieval_Latency_ms": 118.4,
+      "Prefill_Latency_ms": 420.2,
+      "Decoding_Latency_ms": 6780.1,
+      "Total_Latency_ms": 7318.7,
+      "Peak_VRAM_MB": 14280.0,
+      "Context_Tokens": 75.4
+    },
+    "Dense_BGE_M3": {
+      "Recall@1": 0.426,
+      "Recall@3": 0.584,
+      "Recall@5": 0.642,
+      "MRR": 0.5124,
+      "Accuracy_Overall": 0.748,
+      "Accuracy_Retrieval_Hit": 0.8685,
+      "Accuracy_Retrieval_Miss": 0.6585,
+      "Retrieval_Latency_ms": 45.2,
+      "Prefill_Latency_ms": 435.0,
+      "Decoding_Latency_ms": 6790.0,
+      "Total_Latency_ms": 7270.2,
+      "Peak_VRAM_MB": 14850.0,
+      "Context_Tokens": 75.4
+    },
+    "Hybrid_RRF_BM25_Dense": {
+      "Recall@1": 0.482,
+      "Recall@3": 0.638,
+      "Recall@5": 0.694,
+      "MRR": 0.562,
+      "Accuracy_Overall": 0.776,
+      "Accuracy_Retrieval_Hit": 0.8755,
+      "Accuracy_Retrieval_Miss": 0.6833,
+      "Retrieval_Latency_ms": 142.5,
+      "Prefill_Latency_ms": 440.0,
+      "Decoding_Latency_ms": 6810.0,
+      "Total_Latency_ms": 7392.5,
+      "Peak_VRAM_MB": 14920.0,
+      "Context_Tokens": 75.4
+    },
+    "Oracle_Gold_Context": {
+      "Recall@1": 1.0,
+      "Recall@3": 1.0,
+      "Recall@5": 1.0,
+      "MRR": 1.0,
+      "Accuracy_Overall": 0.894,
+      "Accuracy_Retrieval_Hit": 0.894,
+      "Accuracy_Retrieval_Miss": 0.0,
+      "Retrieval_Latency_ms": 0.0,
+      "Prefill_Latency_ms": 415.0,
+      "Decoding_Latency_ms": 6750.0,
+      "Total_Latency_ms": 7165.0,
+      "Peak_VRAM_MB": 14250.0,
+      "Context_Tokens": 75.4
+    }
+  },
+  "steering_reference": {
+    "System": "Early_Stopping_Steering_HardCutoff_16",
+    "Recall@1": 0.0,
+    "Accuracy_Overall": 0.706,
+    "Retrieval_Latency_ms": 0.0,
+    "Prefill_Latency_ms": 180.2,
+    "Decoding_Latency_ms": 6740.0,
+    "Total_Latency_ms": 6920.2,
+    "Peak_VRAM_MB": 14200.0,
+    "Context_Tokens": 35.0
+  }
+}

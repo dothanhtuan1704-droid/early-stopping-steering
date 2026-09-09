@@ -1,0 +1,230 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.65em}
+\setlist{leftmargin=*,topsep=0.3em,itemsep=0.35em}
+
+\title{Technical Review of\\
+\emph{Early-Stopping Activation Steering for Factual Preference Alignment in Vietnamese Medical Language Models}}
+\author{}
+\date{September 3, 2026}
+
+\begin{document}
+\maketitle
+
+\section*{Overall assessment}
+
+The paper studies a useful inference-time intervention and contains a potentially publishable empirical observation: on the stated 500-question natural-completion test, Hard Cutoff improves the BERTScore-based reference-preference rate by 5.20 percentage points over the unsteered baseline, with a displayed paired table whose exact McNemar calculation is correct.  The bounded-generation result for Linear Decay is also internally consistent at the count level.
+
+The manuscript is not yet technically ready, however.  The most serious problem is an internally inconsistent ``pair-shuffled'' control: the stated estimator makes the shuffled vector algebraically identical to the original vector, yet the two deterministic conditions report different outcomes.  In addition, the activation-norm experiment does not identify cumulative magnitude inflation, the direction-specificity conclusion is stronger than the covariance-matched controls support, and essential implementation and benchmark-construction details are missing.  The paper should consistently describe its endpoint as a semantic reference-preference proxy rather than factual or clinical accuracy.
+
+\section*{Major technical findings}
+
+\subsection*{1. The pair-shuffled control is algebraically invariant but reports a different result}
+
+\textbf{Classification: definite internal inconsistency.}
+
+\textbf{Location.} Contrastive Vector Estimation \& Directional Controls; Table~V (Pair-Shuffled Steering and Linear Decay Steered rows).
+
+\textbf{Problem.} For the paper's mean-difference estimator, permuting either side of the pairs cannot change the direction:
+\[
+ \frac{1}{N}\sum_{i=1}^{N}\left(h_i^+-h_{\pi(i)}^-\right)
+ = \frac{1}{N}\sum_{i=1}^{N}h_i^+
+ - \frac{1}{N}\sum_{i=1}^{N}h_i^-
+ = \mu_l^+-\mu_l^-.
+\]
+The manuscript itself reports $\cos(v_{\text{steer}},v_{\text{pair\_shuf}})=1.0000$ and attributes this to commutativity.  Nevertheless, Table~V reports 370/500 for Pair-Shuffled Steering and 386/500 for $+v_{\text{steer}}$.  With the same vector, coefficient schedule, model, prompts, and deterministic greedy decoding, these conditions should produce the same outputs.  If the cosine is merely rounded, the commutativity explanation is still incompatible with a genuinely different construction.
+
+\textbf{Why it matters.} This is both a reproducibility failure and an invalid negative control.  It also casts doubt on whether the table rows used the same vector, schedule, prompts, and generation code.
+
+\textbf{Suggested fix.} Remove this control or replace it with a pairing-dependent estimator and a null operation that actually destroys the label relation.  A full balanced label permutation or random Rademacher signs applied to pairwise differences would be more meaningful.  Report the exact vector distance and cosine, vector hashes, seeds, schedule, and a paired output comparison.  Re-run the two purportedly identical conditions through the same deterministic pipeline.
+
+\subsection*{2. ``Strict direction specificity'' is not established by the reported controls}
+
+\textbf{Classification: unsupported claim and control-design issue.}
+
+\textbf{Location.} Contribution 4; Placebo Control Distribution section; Table~V; conclusion.
+
+\textbf{Problem.} The isotropic controls average 55.82\%, far below the 73.00\% unsteered baseline.  Thus the $+5.15\sigma$ comparison largely contrasts the learned direction with strongly destructive off-manifold perturbations; it does not by itself establish a truthfulness-specific mechanism.  The more relevant covariance-matched controls average $74.81\%\pm0.95\%$, close to the learned vector's 77.20\%, yet no range, empirical tail probability, or paired comparison is reported for them.  The label-shuffled construction is also unclear: if only $N_{\text{flipped}}=185$ of the stated 10,290 training pairs were flipped, substantial label signal remains; if 185 is the full construction sample, its relation to the training split is not stated.
+
+The quantity $1/101$ is presented as an ``empirical randomization $p$-value'', but the learned vector is not exchangeable with newly sampled isotropic vectors.  At most, this is a one-sided Monte Carlo tail estimate under the particular isotropic-direction generator.  The invalid pair-shuffled control further weakens the conclusion.
+
+\textbf{Why it matters.} Direction specificity is a central contribution.  The current experiments show that $+v_{\text{steer}}$ performs better than the selected isotropic perturbations, but they do not justify the stronger statement that the gain is ``strictly direction-specific rather than an artifact of non-specific residual perturbation.''
+
+\textbf{Suggested fix.} Generate many full label permutations from the same training pairs, evaluate changes relative to the unsteered baseline for each direction, and report the distribution of paired effects.  Expand the covariance-matched sample, report its full distribution, and compare $+v_{\text{steer}}$ with those controls using a pre-specified one-sided Monte Carlo test.  Describe the isotropic result as descriptive unless a valid randomization scheme and exchangeability argument are supplied.
+
+\subsection*{3. The activation-norm analysis does not demonstrate cumulative inflation or its mitigation}
+
+\textbf{Classification: unsupported mechanistic interpretation.}
+
+\textbf{Location.} Introduction; Empirical Activation-Norm Dynamics; abstract; Discussion \& Limitations.
+
+\textbf{Problem.} The paper compares post-hook norms from separately generated trajectories.  For a unit vector,
+\[
+ \|h+\alpha v\|_2^2-\|h\|_2^2
+ =2\alpha\langle h,v\rangle+\alpha^2,
+\]
+so the direct effect of the hook depends on the pre-hook state.  At $t=50$, both Linear Decay and Hard Cutoff have $\alpha(t)=0$; their reported differences from baseline therefore reflect altered token histories and hidden states, not a direct post-hook reduction.  A comparison of independent generated trajectories cannot isolate accumulation from content effects.
+
+The continuous norm is 56.28 at $t=10$ and 56.18 at $t=50$, which shows a persistent offset but not growth over time.  The behavioral results also run against the stated repetition mechanism: under natural completion, Continuous Steering has Rep-4 of 4.38\%, whereas Linear Decay and Hard Cutoff have 5.37\% and 5.35\%, respectively.  No syntax-quality measurement or documented repetitive loop is supplied.
+
+\textbf{Why it matters.} Prevention of activation inflation is the proposed rationale for early stopping.  The current measurements do not causally support that rationale, and the reported repetition metric favors Continuous Steering over both early-stopping schedules.
+
+\textbf{Suggested fix.} Record pre-hook and post-hook norms in the same forward pass and report $\|\hat h-h\|_2$, $\|\hat h\|_2-\|h\|_2$, and $\langle h,v\rangle$ with uncertainty across prompts and time.  Use teacher-forced identical token sequences, or another matched-trajectory design, to separate hook effects from changed text.  Provide complete trajectories and sample counts at each step.  Remove the claims about cumulative inflation, degraded syntax, and loop prevention unless direct evidence is added.
+
+\subsection*{4. The hook and schedule are underspecified at implementation-critical points}
+
+\textbf{Classification: implementation ambiguity and notation drift.}
+
+\textbf{Location.} Equations~(1)--(7), Early-Stopping Steering Hook, Experimental Setup, and all control tables.
+
+\textbf{Problem.} Equation~(1) calls $h_l$ a generic \texttt{LayerOutput}, whereas Equation~(3) calls it a residual-stream activation.  The manuscript does not identify whether the hook is before or after the decoder block, after residual addition, or after normalization; whether Layer~8 is zero- or one-indexed; or which element is modified when a layer returns a tuple.  With cached autoregressive generation, the first call processes the full prompt and later calls usually process one token.  It is not stated whether the vector is added to every prefill position, only the final position, or only decoding calls, nor exactly how $t$ is incremented.
+
+Only Linear Decay is defined piecewise.  Continuous and Hard Cutoff are named but not formally defined, and the natural-completion experiment does not state $\alpha_0$.  The schedule and sign convention for label-shuffled, covariance-matched, isotropic, and negative controls are also left implicit.  Finally, the extraction direction uses the last token of a complete response; unequal answer lengths, EOS handling, and systematic final-token/style differences can dominate that representation.
+
+\textbf{Why it matters.} These choices can materially change the intervention and can explain irreproducible control results.  The same symbol $h_l$ currently denotes insufficiently matched extraction and injection sites.
+
+\textbf{Suggested fix.} Give executable pseudocode and define all schedules explicitly, for example
+\begin{align*}
+ \alpha_{\mathrm{cont}}(t)&=\alpha_0,\\
+ \alpha_{\mathrm{cut}}(t)&=\alpha_0\,\mathbb{1}[t\le K],\\
+ \alpha_{\mathrm{decay}}(t)&=\alpha_0\left(1-\frac{t-1}{K}\right)\mathbb{1}[t\le K].
+\end{align*}
+Specify the exact Qwen module path, indexing convention, tensor slice, prefill behavior, KV-cache behavior, dtype/device casting, chat template, EOS handling, and $\alpha_0$ for every reported condition.  Add length- and final-token-matched extraction controls or pool over aligned answer spans.
+
+\subsection*{5. Benchmark construction and split integrity are insufficiently documented}
+
+\textbf{Classification: likely validity issue; parts need external verification.}
+
+\textbf{Location.} ViHaluEval-Medical Benchmark Construction; abstract; contribution 1.
+
+\textbf{Problem.} The phrases ``expert-structured'' and ``ground-truth'' are not supported by a description of annotator qualifications, source-to-question conversion, negative-generation model/prompts, factual-error insertion, double review, agreement, or adjudication.  The three category counts sum to 500 and therefore appear to describe only the evaluation subset, not the 14,700-record benchmark, but the sentence presents them as properties of the records generally.
+
+The manuscript alternates between a 2,205-record test split and a ``question-disjoint'' 500-question subset without defining the grouping unit or sampling procedure.  Question-text disjointness is not enough if paraphrases about the same drug, source entry, or formulary passage occur in training and test.  This is especially important because the steering vector is estimated from 10,290 examples derived from the same source.
+
+\textbf{Why it matters.} Synthetic-negative artifacts, answer style, or source overlap could drive both the learned vector and RefPref metric.  Without a source-level split and documented expert validation, the results cannot support clinical factual-alignment claims.
+
+\textbf{Suggested fix.} Provide the full data-generation protocol, category counts for every split, annotator credentials, quality-control statistics, and representative audited examples.  Define the question identifier and create a group split by source passage and preferably drug/entity, then report overlap checks.  Release immutable split IDs and document licensing or redistribution permission for material derived from the formulary.
+
+\subsection*{6. RefPref is a useful proxy, but the claims repeatedly exceed what it measures}
+
+\textbf{Classification: unsupported claim.}
+
+\textbf{Location.} Abstract, Introduction, Results, Discussion, and Conclusion.
+
+\textbf{Problem.} RefPref compares semantic similarity with one reference and one synthetic counter-answer.  It does not test whether a dosage is numerically correct, whether all contraindications are respected, or whether an answer introduces a new unsupported medical claim.  It can also respond to length and style.  Tie counts are not reported, and the BERTScore configuration omits settings such as IDF use, baseline rescaling, tokenizer/version hash, and aggregation details.
+
+Under the natural-completion evaluation, the absolute reference BERTScore F1 decreases from 0.6779 to 0.6695 for the best RefPref condition, while Rep-4 rises.  The paper acknowledges some of this limitation but still uses ``factual accuracy'', ``clinical safety'', and ``practical alignment mechanism'' in places.  The specific proposal that a repetition penalty $\theta_{\text{rep}}=1.15$ will preserve the gain while restoring diversity is untested.
+
+\textbf{Why it matters.} In a medical setting, semantic preference against a constructed negative is not an adequate safety endpoint.  The terminology can make the result appear clinically validated when it is not.
+
+\textbf{Suggested fix.} Use ``RefPref rate'' or ``semantic reference-preference proxy'' throughout.  Add blinded clinician adjudication and structured checks for dosage, interaction, contraindication, and unsupported-claim errors, with agreement and uncertainty.  Report tie counts and complete BERTScore settings.  Remove the claimed deployment remedy at $\theta_{\text{rep}}=1.15$ or label it as an untested future experiment.
+
+\subsection*{7. The evidence differs materially across schedules and generation caps}
+
+\textbf{Classification: claim/evidence mismatch.}
+
+\textbf{Location.} Abstract; Primary Natural Completion; Controlled Bounded-Generation Stress Test; conclusion.
+
+\textbf{Problem.} The abstract frames Linear Decay as the proposed solution, but in the primary natural-completion experiment Linear Decay gains only 2.40 points and is not significant after the stated comparison procedure ($p_{\text{adj}}=0.1189$).  Hard Cutoff is the supported natural-completion result.  Conversely, the bounded result uses Linear Decay, but Table~VI reports EOS Hit of 0.0\% for that condition, indicating that all 500 outputs were truncated at 200 tokens.  It is therefore an evaluation of truncated prefixes, not completed answers.
+
+The term ``early-stopping steering'' sometimes denotes Linear Decay and elsewhere includes Hard Cutoff.  The conclusion combines the two experiments without making this schedule distinction sufficiently clear.
+
+\textbf{Why it matters.} Generation length changes the baseline from 73.00\% to 65.40\%, so truncation materially changes the endpoint.  Readers cannot infer that the bounded Linear Decay result transfers to natural completion, where the paper's own test does not establish it.
+
+\textbf{Suggested fix.} Pre-specify a primary schedule and endpoint.  State that the natural-completion evidence favors Hard Cutoff, while Linear Decay is exploratory there.  Describe the 200-token analysis as truncated-prefix stress testing, report length distributions and per-condition EOS counts, and add matched-length or prefix evaluations to explain the cap sensitivity.
+
+\subsection*{8. Statistical interval and test descriptions need correction and reproducible outputs}
+
+\textbf{Classification: likely statistical-reporting inconsistency.}
+
+\textbf{Location.} Contributions 4--5; Tables~III and V; RAG comparison; Discussion.
+
+\textbf{Problem.} The exact two-sided McNemar values displayed for $(b,c)=(16,37)$, $(16,42)$, $(18,34)$, and $(19,31)$ are reproducible and correct.  However, Table~III labels its intervals as a paired $B=10{,}000$ percentile bootstrap with seed 42, while a straightforward paired percentile resampling of the four displayed outcomes does not reproduce the stated endpoints.  Several endpoints instead resemble analytic normal-approximation intervals.  The BM25 comparison gives another bootstrap interval without enough information to reproduce it.
+
+The Wilcoxon test concerns per-example continuous BERTScore values, not the binary RefPref endpoint, so it should not be described as independently ``confirming reference-preference gains.''  The $1/101$ isotropic-direction quantity needs an explicitly one-sided hypothesis and is not a conventional randomization test under the current sampling design.
+
+\textbf{Why it matters.} The statistical claims are prominent contributions.  Mislabeling an interval method or conflating endpoints prevents verification and can change coverage and interpretation.
+
+\textbf{Suggested fix.} Release the 500 paired binary outcomes and per-example scores for every method plus the exact bootstrap code.  State whether intervals are paired percentile, BCa, Wilson/Newcombe, or Wald intervals and use the same description in captions and prose.  Give the zero-difference handling for Wilcoxon, the tested BERTScore quantity, the family of comparisons covered by Holm correction, and a valid Monte Carlo null for direction tests.
+
+\subsection*{9. The RAG superiority claim selects the weakest retriever}
+
+\textbf{Classification: unsupported comparative claim.}
+
+\textbf{Location.} Placebo/RAG Results; abstract; conclusion; Table~V.
+
+\textbf{Problem.} The strongest non-oracle RAG baseline is Hybrid RRF at 76.20\%, only five questions below Linear Decay at 77.20\%.  No paired contingency table or confidence interval is provided for this comparison.  The abstract and conclusion instead emphasize the much weaker BM25 result (68.60\%) to claim superiority.  The retrieval top-$k$, context-selection rule, prompt template, passage truncation, retrieval-index construction, and timing protocol are not fully specified.  The repeated value $7.32\pm0.84$~s for every non-RAG intervention also does not by itself establish ``zero'' hook overhead.
+
+\textbf{Why it matters.} A one-point untested difference does not establish superiority over the best reported RAG comparator.  The BM25 comparison is valid only as a comparison with that specific weak-retrieval configuration.
+
+\textbf{Suggested fix.} Make Hybrid RRF the principal non-oracle RAG comparison and report its paired $2\times2$ table, effect interval, and pre-specified test.  Fully specify retrieval and generation prompts and measure latency with warm-up, synchronization, repeated runs, and uncertainty for the difference.  Say ``no overhead detected at the reported precision'' rather than ``zero overhead.''
+
+\subsection*{10. Layer-wise observations are overinterpreted}
+
+\textbf{Classification: unsupported inference.}
+
+\textbf{Location.} Layer-Wise Subspace Probing in Discussion \& Limitations.
+
+\textbf{Problem.} A BERTScore range of 0.7040--0.7140 across layers on $N_{\text{eval}}=100$, without uncertainty or repeated selection, does not demonstrate that truthfulness representations are distributed across layers and does not ``confirm framework robustness.''  Similar downstream performance can arise from residual propagation, correlated representations, or sampling noise.
+
+\textbf{Why it matters.} The statement converts a small exploratory sweep into a mechanistic conclusion.
+
+\textbf{Suggested fix.} Report the full layer-wise results with paired uncertainty and the exact selection rule, and change the conclusion to the narrower observation that several tested layers produced similar validation scores.  Reserve localization claims for probing or intervention experiments designed to identify where the information is represented.
+
+\section*{Meaningful editorial and presentation issues}
+
+\begin{enumerate}
+ \item \textbf{Control count and organization.} The methodology says ``we evaluate two controls'', but the second numbered item contains five conditions and repeats Negative Steering.  Replace this with one flat, non-duplicated list whose count matches the conditions in Table~V.
+ \item \textbf{Terminology.} Use one schedule-specific name: ``Linear Decay'', ``Hard Cutoff'', or the umbrella ``early-stopping schedules''.  Avoid using ``early-stopping steering'' for only Linear Decay in one section and for both schedules elsewhere.
+ \item \textbf{Table~V readability.} Seven metric columns are compressed into one IEEE column with \verb|\resizebox{\columnwidth}{!}|; the resulting text is difficult to read.  Make it a \verb|table*|, split retrieval metrics from steering controls, or move secondary columns to an appendix.
+ \item \textbf{Long abstract and contribution list.} The abstract is dominated by two numbered paragraphs of settings and statistics, and the six-item contribution list repeats much of it.  Shorten both after correcting the claim hierarchy; emphasize the proxy endpoint and the schedule-specific result.
+\end{enumerate}
+
+\section*{Proofing sweep}
+
+\begin{itemize}
+ \item \textbf{Introduction, contribution 2:} \texttt{max\_new\_tokens=800} is repeated in adjacent parentheticals.  Delete one occurrence.
+ \item \textbf{Natural-completion results:} ``a relative 30.5\% increase'' is correct for Hard Cutoff (5.35\% versus 4.10\%) but Linear Decay is approximately 31.0\% (5.37\% versus 4.10\%).  Name the schedule or give both values.
+ \item \textbf{RAG results:} the sentence describing Hybrid RRF repeats ``achieving'' in the same clause.  Replace the second instance with ``and yields''.
+ \item \textbf{Units:} write latency consistently as, for example, $7.32$~s rather than \texttt{7.32s} or ``+7.13s''.
+ \item \textbf{Reference list:} all citation keys used in the manuscript have matching bibliography entries, and the mechanical/manual scan found no duplicated punctuation or malformed quotation punctuation.  Keep capitalization and edition style consistent during final formatting; for example, use ``2nd ed.'' if following IEEE style.
+\end{itemize}
+
+The mandatory pattern scan was spot-checked.  Its two PDF-text hits were false positives: the dots in $\{1,\ldots,100\}$ and the capitalized metric name ``Recall@3'' after a semicolon.  No inverse-trigonometric or coordinate-transform expression appears in the manuscript, so no branch or quadrant ambiguity was found.
+
+\section*{Highest-priority revision sequence}
+
+\begin{enumerate}
+ \item Resolve the pair-shuffled contradiction and regenerate all directional-control results from a single documented deterministic pipeline.
+ \item Replace or substantially narrow the activation-inflation mechanism claim using matched pre-/post-hook measurements and behavioral evidence.
+ \item Fully specify the hook, schedules, vector extraction, dataset construction, and source-level split.
+ \item Recast all outcomes as RefPref proxy results, distinguish Hard Cutoff from Linear Decay, and treat the 200-token outputs as truncated-prefix evaluations.
+ \item Correct and release the statistical workflow, then compare steering primarily with Hybrid RRF rather than only BM25.
+\end{enumerate}
+
+\section*{Items requiring external verification}
+
+The following are not established by the manuscript alone and should be verified before publication:
+
+\begin{itemize}
+ \item the claimed expert involvement, factual validation, public availability, and redistribution rights for ViHaluEval-Medical and the formulary-derived passages;
+ \item whether Ref.~\texttt{ref3} supports the specific assertion about errors in drug interactions, dosage calculations, and contraindication reasoning, rather than only a broader clinical-knowledge claim;
+ \item whether Ref.~\texttt{ref11} supports the proposed internal-activation explanation for ignoring retrieved evidence;
+ \item the GPU logs, per-query outputs, retrieval index, and code needed to verify latency, norm, RAG, and bootstrap results.
+\end{itemize}
+
+\section*{Checks that were internally consistent}
+
+The 70/15/15 split counts sum to 14,700; the three evaluation categories sum to 500; the category-level preferred counts sum to the stated totals; the Linear Decay dose $D_{\mathrm{decay}}=(K+1)|\alpha_0|/2$ and $\alpha_{\mathrm{match}}=0.0425\alpha_0$ for $K=16,T=200$ are algebraically correct; and the displayed exact McNemar $p$-values agree with the displayed discordant counts.  No clear dimensional, sign, or branch error was found in the schedule equations themselves.  These checks do not resolve the implementation ambiguities and control inconsistencies above.
+
+\end{document}

@@ -1,0 +1,264 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{microtype}
+
+\ifdefined\pdfcatalog
+  \pdfcatalog{/Lang (en-US)}
+\fi
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlength{\emergencystretch}{2em}
+\setlist{nosep,leftmargin=*}
+
+\newcommand{\findinglabel}[1]{\textbf{#1}}
+\newcommand{\classification}[1]{\textit{Classification: #1.}}
+
+\title{Technical Review of ``Early-Stopping Activation Steering for Factual Preference Alignment in Vietnamese Medical Language Models''}
+\author{Manuscript review}
+\date{September 3, 2026}
+
+\begin{document}
+\selectlanguage{english}
+\maketitle
+
+\section*{Overall assessment}
+
+The current revision adds label-shuffled, pair-shuffled, and covariance-matched controls.  This is directionally useful, but the new rows are not defined in Methods, are not analyzed in the Results prose, and are omitted from the Abstract, contributions, Discussion, and Conclusion.  They also materially weaken the existing specificity narrative: the pair-shuffled and covariance-matched controls exceed the proposed direction on reference BERTScore, and the covariance-matched RefPref distribution is much closer to the proposed direction than the isotropic Gaussian distribution used for the reported $+5.15\sigma$ claim.
+
+The manuscript remains mathematically consistent on the steering sign, unit-vector normalization, hidden dimension, schedule, cumulative-dose expressions, category totals, contingency cells, and exact McNemar values.  A fresh two-pass pdfLaTeX build succeeds without overfull boxes or unresolved references.  However, the bounded experiment still appears to evaluate almost entirely capped prefixes, the high-cap results show a dose-confounded multi-metric trade-off, activation norms do not establish the proposed saturation mechanism, and RefPref is not clinical correctness.  Confidence-interval reporting remains difficult to reproduce, the RAG result is limited to a low-recall BM25 implementation, and dataset, hook, metric, null-control, and leakage details are insufficient for independent replication.
+
+\section*{Major technical findings}
+
+\subsection*{1. The new covariance and shuffle controls are undocumented and weaken the direction-specificity claim}
+
+\classification{Definite reporting omission and unsupported specificity conclusion}
+
+\findinglabel{Location.} Contrastive Vector Estimation \& Directional Controls; subsection titled ``Placebo Control Distribution, Manifold Covariance Controls \& Real BM25 RAG Results''; Table~\texttt{tab:baselines}; contribution~4; Conclusion.
+
+\findinglabel{Problem.} Methods still says that two directional controls are evaluated and defines only Negative Steering and $N=100$ isotropic Gaussian directions.  The revised table adds Label-Shuffled Steering, Pair-Shuffled Steering, and ``Cov-Matched ($N=20$),'' but the manuscript gives no construction equations, covariance source, centering, factorization, regularization, normalization order, seeds, number of label or pair shuffles, schedule-selection policy, or meaning of the reported $\pm0.95$.
+
+The new results do not support the unchanged broad statement that gains are ``strictly direction-specific.''  On RefPref, Label-Shuffled is 72.60\%, Pair-Shuffled is 74.00\%, Cov-Matched is $74.81\%\pm0.95\%$, and the proposed direction is 77.20\%.  Thus, the proposed direction is only 2.39~pp above the covariance-matched mean.  If $0.95$ is a sample SD, this is a descriptive distance of approximately $2.52$ SD, not the $+5.15\sigma$ distance reported against the much weaker isotropic null.  No individual covariance-matched values or empirical exceedance count are provided.  With only 20 directions, even zero exceedances would give the usual corrected empirical bound $p=1/21\approx0.0476$, not $p=0.0099$.
+
+The continuous BERTScore results are more problematic: Label-Shuffled (0.7176), Pair-Shuffled (0.7198), and Cov-Matched (0.7182) all exceed the proposed direction (0.7150).  The table nevertheless bolds 0.7182 and 0.7150 while failing to bold the actual maximum 0.7198.  The body text, contribution list, and Conclusion continue to discuss only the isotropic distribution and do not disclose this null-control trade-off.
+
+\findinglabel{Why it matters.} Data-derived and covariance-matched nulls are more relevant than isotropic residual perturbations for testing whether the learned direction contains factual information rather than generic activation geometry or dataset style.  The new evidence may still support a RefPref advantage, but it no longer supports the current blanket specificity statement or the highlighted $+5.15\sigma$ result as the decisive null comparison.
+
+\findinglabel{Suggested fix.} Define every new control mathematically and procedurally.  Repeat label and pair shuffling across many seeds and rerun the complete vector-estimation, layer-selection, and hyperparameter-selection pipeline within each replicate.  Publish all covariance-matched direction results, state whether $\pm$ is SD, and report an empirical test comparing the proposed vector with the strongest prespecified null family.  Provide paired cells or row-level differences for RefPref and paired intervals for BERTScore.  Reframe the conclusion as metric-specific and correct the table bolding.
+
+\subsection*{2. The bounded headline result appears to evaluate almost entirely truncated prefixes}
+
+\classification{Likely evaluation-censoring problem and definite schedule ambiguity}
+
+\findinglabel{Location.} Abstract; Controlled Bounded-Generation Stress Test; Tables~\texttt{tab:clinical\_safety}, \texttt{tab:mcnemar\_bounded}, and \texttt{tab:equal\_alpha\_ablation}; Conclusion.
+
+\findinglabel{Problem.} The factorial table reports EOS values of 0.0\%--0.2\% under \texttt{max\_new\_tokens=200}.  If EOS has the same meaning as in the natural-completion table, 499--500 of 500 outputs per condition reach the cap without EOS.  The principal bounded table omits EOS, length, and finish reason, but its 73.00\%--77.20\% RefPref comparison is highlighted as a statistically confirmed improvement.
+
+The intervention is called only ``early-stopping steering ($\alpha_0=18.0,K=16$).''  Both Hard Cutoff and Linear Decay meet that description.  BERTScore 0.7150 suggests the Linear-Decay row, but the schedule producing the reported 386/500 RefPref count is never explicitly named.
+
+\findinglabel{Why it matters.} A prespecified fixed-prefix endpoint can be useful as a stress test, but it is not an evaluation of completed clinical responses.  Censoring can alter BERTScore, RefPref, repetition, and late safety statements.  An unnamed schedule also prevents replication.
+
+\findinglabel{Suggested fix.} Define the EOS column and report capped counts, finish reasons, and length distributions for all bounded conditions.  Name the exact schedule wherever 386/500 appears.  If responses are truncated, call the endpoint bounded-prefix RefPref and do not interpret it as complete-answer accuracy.  Add a completed-response analysis or justify the prefix estimand prospectively.
+
+\subsection*{3. Confidence-interval construction remains internally unclear and not independently reproducible}
+
+\classification{Likely interval-method inconsistency and definite reporting limitation}
+
+\findinglabel{Location.} contribution~5; bounded Results; high-cap McNemar table caption and interval column; BM25-RAG Results.
+
+\findinglabel{Problem.} The high-cap table labels its intervals ``$B=10{,}000$ Percentile Bootstrap, Seed=42.''  However, the Hard-Cutoff interval $[+2.25,+8.15]$~pp is, to displayed precision, exactly the paired Wald interval from $b=16,c=42,n=500$:
+\[
+\widehat{\operatorname{SE}}(\hat\delta)
+=\sqrt{\frac{(b+c)/n-\hat\delta^2}{n-1}},
+\qquad
+\hat\delta=\frac{c-b}{n}.
+\]
+The bounded interval $[+1.37,+7.03]$~pp likewise exactly matches this construction for $b=16,c=37$.  In contrast, the displayed Continuous, Linear-Decay, and RAG intervals do not match the same paired Wald calculation.  A straightforward paired percentile resampling of binary difference vectors reconstructed from the published cells, with 10,000 replicates and seed 42 under common NumPy conventions, gives approximately $[+0.4,+6.0]$~pp for Continuous and $[-0.4,+5.2]$~pp for Linear Decay, rather than $[+0.12,+6.28]$ and $[-0.68,+5.48]$~pp.  The RAG interval lacks its replicate count, seed, and exact implementation.
+
+Contribution~5 now repeats the natural and bounded intervals under the label ``Reproducible Statistical Validation,'' but the manuscript still does not supply the analysis call or row-level artifact needed to distinguish bootstrap, Wald, or another paired construction.
+
+\findinglabel{Why it matters.} The interval method determines uncertainty and whether an interval excludes zero.  A caption and displayed values that cannot be reproduced by a clearly specified procedure undermine a central reproducibility contribution.
+
+\findinglabel{Suggested fix.} Regenerate every interval from one versioned row-level script.  State the resampling unit, replicate count, random-number generator, seed, percentile definition, and paired-observation handling.  If paired Wald intervals are intended, label them as such.  Generate contingency cells, point estimates, intervals, and manuscript prose from the same output artifact.
+
+\subsection*{4. Activation norms do not establish saturation prevention or a causal behavioral mechanism}
+
+\classification{Unsupported mechanism claim and controlled-context omission}
+
+\findinglabel{Location.} Abstract; Introduction; contribution~3; Empirical Activation-Norm Dynamics; Discussion.
+
+\findinglabel{Problem.} The manuscript motivates early stopping as preventing activation magnitude inflation, repetitive loops, and degraded syntax, but reports only selected post-hook means at $t=10$ and $t=50$.  At $t=50$, Linear Decay is farther from the displayed baseline in absolute norm difference than Continuous Steering:
+\[
+|51.20-54.21|=3.01,
+\qquad
+|56.18-54.21|=1.97.
+\]
+No acceptable norm band, saturation threshold, clipping measure, responsiveness criterion, or behavioral boundary establishes why the larger undershoot is preferable.  Continuous Steering changes from 56.28 at $t=10$ to 56.18 at $t=50$, demonstrating persistent elevation but not increasing magnitude over time.
+
+The summaries give no dispersion, confidence bands, or survivor counts.  Under free generation, conditions contain different preceding tokens after their outputs diverge, so later states combine intervention effects with context differences.  No per-output analysis links norm trajectories to repetition, syntax, or factual errors.
+
+\findinglabel{Why it matters.} The claimed mechanism is central to the novelty, but the evidence supports only descriptive scalar differences under context-confounded token histories.
+
+\findinglabel{Suggested fix.} Define saturation operationally.  Use fixed-token teacher-forcing replay and record immediate pre-hook and post-hook norms, projection onto $v_{\text{steer}}$, cosine alignment, and multidimensional distributional diagnostics at all steps with uncertainty.  Verify the projection increment implied by the hook.  Separately test whether trajectory features predict generated repetition, syntax failures, and clinically adjudicated errors.  Until then, claim only observed elevation and undershoot.
+
+\subsection*{5. Natural completion is a dose-confounded multi-metric trade-off}
+
+\classification{Unsupported comparative and termination interpretation}
+
+\findinglabel{Location.} contribution~2; natural-completion Results; Tables~\texttt{tab:long\_gen} and \texttt{tab:mcnemar}; Discussion; Conclusion.
+
+\findinglabel{Problem.} Steering raises RefPref numerically while reducing reference BERTScore and increasing Rep-4 relative to baseline.  Baseline is best for BERTScore (0.6779) and repetition (4.10\%); Hard Cutoff is best for RefPref (70.60\%, Holm-adjusted $p=0.0026$); Linear Decay has the highest Rep-4 (5.37\%) and a nonsignificant RefPref result ($p=0.1189$).
+
+At $\alpha_0=18$ and $K=16$,
+\[
+D_{\text{cutoff}}=16\times18=288,
+\qquad
+D_{\text{decay}}=\frac{17}{2}\times18=153.
+\]
+Hard Cutoff therefore receives approximately 1.88 times the cumulative absolute dose of Linear Decay.  The bounded matched-dose row does not remove this confound from the primary high-cap experiment.  Natural BERTScore, Rep-4, and length lack paired uncertainty or non-inferiority margins.
+
+The contribution list still calls the capped 800-token experiment ``untruncated.''  Continuous and Linear Decay each contain one non-EOS output, yet the text states that outputs terminate naturally without catastrophic loops.  The finish reasons, lengths, content, and repetition values of these cases are absent.
+
+\findinglabel{Why it matters.} The preferred schedule changes with the metric, and the Hard-Cutoff result cannot be attributed specifically to temporal shape while dose differs substantially.  A finite cap with non-EOS cases cannot demonstrate universal natural termination.
+
+\findinglabel{Suggested fix.} Present the result as a Pareto trade-off.  Prespecify the primary schedule and endpoint on validation data, then run high-cap dose-response and dose-matched schedule comparisons.  Report paired intervals for BERTScore, Rep-4, and length and define acceptable degradation prospectively.  Replace ``untruncated'' with ``high-cap,'' analyze the two non-EOS outputs, and limit termination conclusions to the observed range.
+
+\subsection*{6. RefPref does not establish clinical correctness or hallucination reduction}
+
+\classification{Unsupported clinical interpretation and likely construct-validity risk}
+
+\findinglabel{Location.} title; Abstract; Introduction; benchmark and vector construction; keywords; Results; Conclusion.
+
+\findinglabel{Problem.} The Methods correctly calls RefPref a semantic proxy.  Elsewhere, the direction is called ``truthfulness,'' RefPref is called accuracy or factual alignment, and the paper retains hallucination-mitigation and clinical-decision-support framing.  Relative BERTScore similarity to one reference instead of one synthetic counter-answer cannot determine whether a response contains a wrong dose, unit, negation, contraindication, or interaction mechanism.  A response can be closer to $y^+$ while remaining clinically wrong.
+
+The synthetic counter-answer procedure, clinical verification, length and style matching, annotator qualifications, and agreement are absent.  Because the vector is extracted from the final token of completed answers, systematic differences in templates, endings, length, or synthetic style may be learned together with factual content.  The high BERTScore performance of shuffled controls reinforces this construct concern.
+
+\findinglabel{Why it matters.} Clinical correctness, harmful-error reduction, and deployment suitability require direct expert labels.  Neither the metric nor the learned contrast has demonstrated those constructs.
+
+\findinglabel{Suggested fix.} Add blinded clinician-adjudicated correctness and harmful-error endpoints, category-specific results, reviewer qualifications, inter-rater agreement, and adjudication.  Validate RefPref against those labels.  Document counter-answer construction and add length-, style-, extraction-position-, and template controls.  Otherwise narrow the title, Abstract, keywords, and conclusions to semantic reference preference.
+
+\subsection*{7. The RAG claim is limited to a low-recall retriever and incomplete systems measurements}
+
+\classification{Unsupported generalization and systems-measurement ambiguity}
+
+\findinglabel{Location.} Abstract; Experimental Setup; RAG Results; Table~\texttt{tab:baselines}; Conclusion.
+
+\findinglabel{Problem.} BM25 Recall@1 is only 19.20\%, with an 80.80\% top-1 miss rate.  Oracle Gold-Context RAG reaches 89.40\% RefPref, substantially above Steering at 77.20\%, indicating that the non-oracle result is retrieval-limited.  One weak sparse configuration cannot establish that steering outperforms RAG generally.  Dense, hybrid, reranked, and top-$k$ prompt baselines are missing.
+
+Latency variability is the across-query SD, not repeated-run uncertainty, and the manuscript omits warm-up, synchronization, batch size, output-length stratification, retrieval timing, and device allocation.  Prompt-token length is used to infer KV-cache memory, but peak allocated or reserved memory is not measured.  ``Zero context overhead'' and ``zero-context-memory advantage'' ignore the base prompt and overstate an unmeasured memory claim.
+
+\findinglabel{Why it matters.} The evidence supports comparison with this particular BM25 pipeline, not RAG as a class or deployment-level memory superiority.
+
+\findinglabel{Suggested fix.} Delimit the claim to the reported BM25 configuration.  Add dense and hybrid Vietnamese retrieval, reranking, several top-$k$ values, retrieval-only metrics, and paired end-to-end outcomes.  Benchmark retrieval, prefill, decoding, and total latency using synchronized repeated runs.  Measure peak memory with and without the retriever loaded and separate token counts from observed memory.
+
+\subsection*{8. Dataset, selection, statistics, hook, and metric details remain insufficient for reproduction}
+
+\classification{Major reproducibility limitation and possible leakage risk}
+
+\findinglabel{Location.} ViHaluEval-Medical construction; vector and hook Methods; Experimental Setup; all Results tables; Discussion.
+
+\findinglabel{Problem.} The category counts 165, 160, and 175 sum to the selected 500-item evaluation subset, but appear in the paragraph describing the 14,700-record benchmark without being labeled as subset counts.  The nominal test partition has 2,205 pairs, whereas $N_{\text{test}}$ repeatedly denotes 500; the subset selection rule and seed are absent.  ``Question-disjoint'' does not establish separation of drugs, active ingredients, formulary passages, templates, or synthetic-generation patterns across vector-estimation, validation, and evaluation data.
+
+The exact checkpoint revision, chat template, prompt, special tokens, padding, hook module, tensor component, residual location, KV-cache policy, token counter, batching, and hook-removal behavior are not reported.  Rep-4 lacks a formula and tokenizer.  Vietnamese ROUGE tokenization, BERTScore IDF and rescaling settings, numerical precision, tie frequency, and exact metric calls are absent.  The Wilcoxon alternative, zero/tie handling, and exact/asymptotic mode are omitted.  Layer, schedule, and $\alpha_0$ selection are not incorporated into the confirmatory multiplicity narrative.
+
+The Discussion says that ``the main reference-preference gains are statistically significant ($p<0.05$),'' although Linear Decay has $p=0.1189$ and Continuous Steering fails Holm correction with $p_{\mathrm{adj}}=0.0730$.  Contribution~5 also says Wilcoxon confirms reference-preference gains even though the Wilcoxon test is described as operating on continuous BERTScore F1.
+
+\findinglabel{Why it matters.} These choices affect leakage, vector estimation, intervention behavior, metric values, and confirmatory interpretation.  Package versions and aggregate tables are not enough for independent replication.
+
+\findinglabel{Suggested fix.} Release a dataset card, provenance and permission records, split manifests, the 500-item selection manifest, entity/template leakage audits, row-level generations, retrieval judgments, null-direction outputs, hook code, and versioned analysis scripts.  Define all metrics and tests with exact calls.  Separate binary McNemar inference from continuous-score Wilcoxon analysis and state which comparisons survive the prespecified multiplicity procedure.
+
+\section*{Equation, notation, sign, branch, and dimensional audit}
+
+The contrast direction $\mu_l^+-\mu_l^-$ and intervention $+\alpha(t)v_{\text{steer}}^{(l)}$ are sign-consistent.  Unit normalization makes the learned and isotropic directions dimensionally compatible with the stated 3584-dimensional residual state when $\alpha(t)$ is an activation-scale coefficient.  The final nonzero Linear-Decay coefficient is correctly $\alpha_0/K$ at $t=K$, followed by zero for $t>K$.  The expressions
+\[
+D_{\text{continuous}}=T|\alpha_0|,
+\qquad
+D_{\text{cutoff}}=K|\alpha_0|,
+\qquad
+D_{\text{decay}}=\frac{K+1}{2}|\alpha_0|
+\]
+and the matched-dose coefficients 0.6375, 0.7650, and 0.8500 are correct for $K=16,T=200$.  The category and split counts sum correctly.  The bounded, natural, and BM25-RAG cells reproduce their exact McNemar values.  No concrete sign, unit, dimensional, inverse-trigonometric, branch, quadrant, or coordinate-system error was found.
+
+The new covariance-matched controls cannot be checked mathematically because the covariance definition and sampling transformation are absent.  For example, the manuscript does not state whether vectors are sampled as $z\sim\mathcal N(0,\Sigma)$, whether $\Sigma$ is estimated from residuals or contrast vectors, or whether normalization occurs before or after covariance shaping.
+
+Notation drift remains implementation-facing.  $h_l(x_i,y_i)$ first denotes a final-token completed-sequence representation, whereas $h_l^{(t)}$ denotes a generation-time pre-hook residual state; their relation should be explicit.  Pre-hook $h_l^{(t)}$ and post-hook $\hat h_l^{(t)}$ should remain distinct.  $N$ denotes records, category counts, prompts, isotropic directions, and covariance-matched directions.  $N_{\text{test}}$ alternates between the complete-test concept and the selected 500-item subset.  ``Early-stopping steering'' alternates between a schedule family and an unnamed specific condition.
+
+\section*{Meaningful editorial, compilation, and reference findings}
+
+\subsection*{The revised first sentence is contradicted by its citation}
+
+\findinglabel{Location.} first sentence of the Introduction; bibliography entry \texttt{ref3}.
+
+\findinglabel{Problem.} The revision changes the sentence to ``Small Language Models (SLMs) have demonstrated capabilities across general healthcare tasks \texttt{\textbackslash cite\{ref3\}}.''  Entry \texttt{ref3} is Singhal et al., ``Large language models encode clinical knowledge.''  The cited work therefore does not directly support the revised SLM wording.  The paper also does not define the model-size threshold under which Qwen2.5-7B-Instruct is classified as an SLM.
+
+\findinglabel{Why it matters.} The opening premise and deployment framing depend on a model-class claim that the cited source does not establish.
+
+\findinglabel{Suggested fix.} Restore ``Large Language Models'' for the literature claim or add directly matched evidence about clinical SLMs.  Separately define the operational SLM criterion and justify the classification of the 7B checkpoint.
+
+\subsection*{The source builds, but loose line breaking and table highlighting remain}
+
+\findinglabel{Location.} clean two-pass pdfLaTeX log; Abstract; Methods; Results; Table~\texttt{tab:baselines}; bibliography.
+
+\findinglabel{Problem.} The manuscript builds to six pages without overfull boxes or unresolved citations, but the log contains many high-badness underfull boxes around dense prose and configuration strings.  The compiled PDF has no document-language metadata.  In Table~\texttt{tab:baselines}, Pair-Shuffled has the highest displayed BERTScore (0.7198), but Cov-Matched (0.7182) and Early-Stop Steering (0.7150) are bold while 0.7198 is not.
+
+\findinglabel{Why it matters.} The table emphasis misidentifies the best displayed value, and loose typesetting reduces readability in an already dense conference layout.
+
+\findinglabel{Suggested fix.} Correct or remove metric-based bolding, shorten the Abstract and long Results sentences, move configuration details into a compact reproducibility table, and inspect final column balance.  Add English PDF-language metadata if supported by the venue toolchain.
+
+\subsection*{Citation fit remains uneven}
+
+\findinglabel{Location.} Introduction; bibliography entries \texttt{ref4}, \texttt{ref10}, \texttt{ref11}, and \texttt{ref12}.
+
+\findinglabel{Problem.} \texttt{ref10} is the LoRA paper rather than direct evidence that SFT mitigates the specified medical hallucinations.  \texttt{ref11} concerns irrelevant retrieved context but does not establish the claimed internal-pathway explanation for ignoring evidence.  \texttt{ref12} concerns catastrophic forgetting generally rather than the asserted medical-model failure mode.  The Qwen2.5 report \texttt{ref4} is listed but not cited where the checkpoint is introduced.
+
+\findinglabel{Why it matters.} Direct evidence, general background, and hypotheses are presented with similar certainty, while the model-specific reference is unused.
+
+\findinglabel{Suggested fix.} Add directly matched sources or qualify the relevant statements as motivation and hypotheses.  Cite \texttt{ref4} at the first Qwen2.5 description or remove it.
+
+\section*{Proofing sweep}
+
+The bundled mechanical scanner was run on the complete source and its freshly compiled PDF.  Its semicolon hit before ``Recall@3'' and double-period hit from the rendered mathematical ellipsis in $\{1,\ldots,100\}$ are false positives.  Manual source, equation-adjacent, table, and bibliography checks identified these bounded corrections:
+
+\begin{itemize}
+    \item \textbf{Introduction:} correct the new ``Small Language Models'' claim or replace \texttt{ref3} with directly matched evidence.
+    \item \textbf{Contribution~2:} replace ``untruncated natural completion'' with ``high-cap natural completion.''
+    \item \textbf{New null controls:} define Label-Shuffled, Pair-Shuffled, Cov-Matched, $N=20$, and $\pm0.95$ in Methods and the caption.
+    \item \textbf{Control table:} bold 0.7198 if bold denotes the column maximum, or remove selective bolding.
+    \item \textbf{Bounded Results:} define the 0.0\%--0.2\% EOS column and name the schedule producing 386/500.
+    \item \textbf{Discussion:} replace the blanket $p<0.05$ statement with comparison-specific significance.
+    \item \textbf{RAG Results:} write ``+7.13~s'' rather than ``+7.13s'' and distinguish prompt-token overhead from measured memory.
+    \item \textbf{Placebo Results:} replace ``strictly direction-specific'' with a conclusion conditional on the strongest prespecified null family.
+    \item \textbf{Deployment mitigation:} remove the claim that $\theta_{\text{rep}}=1.15$ will preserve the full gain unless that experiment is reported.
+\end{itemize}
+
+The bibliography was checked for duplicated punctuation, malformed quotation punctuation, inconsistent capitalization, and obvious citation-format glitches; no additional mechanical punctuation defect was found.
+
+\section*{Items requiring external verification}
+
+\begin{itemize}
+    \item Verify all formulary-derived reference answers and synthetic counter-answers against the official source, current clinical guidance, qualified clinician review, and applicable reuse permissions.
+    \item Validate multilingual BERTScore for Vietnamese clinical negation, quantities, units, contraindications, and interaction mechanisms before treating RefPref as factual alignment.
+    \item Verify novelty against current scheduled, token-dependent, dose-controlled, and early-stopped activation-steering research.
+    \item Verify the characterization of Qwen2.5-7B-Instruct as an SLM and the privacy/local-hospital claims using explicit definitions, a threat model, and measured resource requirements.
+    \item Verify stronger Vietnamese sparse, dense, hybrid, and reranked retrieval baselines before generalizing the BM25 comparison to RAG.
+\end{itemize}
+
+\section*{Highest-priority revision sequence}
+
+\begin{enumerate}
+    \item Fully specify and statistically analyze the new shuffled and covariance-matched controls, then rewrite all direction-specificity claims around the strongest null family.
+    \item Resolve bounded-output censoring and schedule ambiguity; state exactly what the 386/500 result measures.
+    \item Regenerate and reconcile all confidence intervals from a released, versioned paired-analysis script.
+    \item Add controlled activation diagnostics linked to generated behavior, or remove saturation-prevention and causal mechanism claims.
+    \item Present natural completion as a dose-confounded multi-metric trade-off and analyze both non-EOS outputs.
+    \item Add clinician-adjudicated correctness and harm endpoints, or narrow clinical and hallucination claims to semantic reference preference.
+    \item Strengthen and delimit the RAG comparison and provide repeated component-wise latency and memory measurements.
+    \item Complete dataset provenance, leakage controls, hook and metric definitions, statistical specification, row-level artifacts, citations, and final typesetting corrections.
+\end{enumerate}
+
+\end{document}

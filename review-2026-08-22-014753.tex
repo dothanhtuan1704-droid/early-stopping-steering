@@ -1,0 +1,232 @@
+\documentclass[11pt]{article}
+\usepackage[T5,T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese,english]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{microtype}
+
+\ifdefined\pdfcatalog
+  \pdfcatalog{/Lang (en-US)}
+\fi
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlength{\emergencystretch}{2em}
+\setlist{nosep,leftmargin=*}
+
+\newcommand{\findinglabel}[1]{\textbf{#1}}
+\newcommand{\classification}[1]{\textit{Classification: #1.}}
+
+\title{Technical Review of ``Early-Stopping Activation Steering for Hallucination Mitigation in Vietnamese Clinical Language Models''}
+\author{Manuscript review}
+\date{August 22, 2026}
+
+\begin{document}
+\selectlanguage{english}
+\maketitle
+
+\section*{Overall assessment}
+
+The manuscript now includes an equal-initial-scale ablation, a matched-dose row, a category-wise BERTScore comparison, an explicit BERTScore decision rule, and a more complete bibliography.  These additions improve transparency.  Nevertheless, the central conclusions remain unsupported.  Equal initial $\alpha$ does not equalize cumulative intervention magnitude; the matched-dose control is not mathematically defined; BERTScore proximity to one positive and one synthetic negative answer is not a validated measure of clinical correctness or safety; and neither result table reports uncertainty or paired statistical testing.  Several quantitative and bibliographic statements are also demonstrably incorrect, and the source fails to compile.  Major revision is required before the paper can claim causal hallucination mitigation or clinical safety improvement.
+
+\section*{Major technical findings}
+
+\subsection*{1. The BERTScore rule is not a clinical correctness or unsafe-error criterion}
+
+\classification{Unsupported central claim}
+
+\findinglabel{Location.} Abstract; contribution~5; ``Evaluation Metrics for Clinical Text Generation''; Equations~(5)--(6); Table~\texttt{tab:clinical\_safety}; Discussion; Conclusion.
+
+\findinglabel{Problem.} The paper labels an output ``Correct'' whenever it is closer in BERTScore to one reference answer $y^+$ than to one synthetic counter-answer $y^-$, and labels the reverse case ``Unsafe.''  This is a forced two-alternative semantic-preference rule, not a clinical fact check.  An answer can be closer to $y^+$ while still containing a wrong dosage, omitted contraindication, or a different unsafe claim; it can also be unlike the selected $y^-$ but unsafe for another reason.  Conversely, a correct paraphrase may be closer to neither template.  The rule has not been validated against clinician judgments, and \texttt{bert-base-multilingual-cased} is not shown to resolve clinically decisive Vietnamese distinctions.
+
+\findinglabel{Why it matters.} The reported 73.15\% and 77.35\% values are proxy preference rates, not demonstrated clinical correctness rates.  Calling the complement an ``unsafe error rate'' substantially overstates what the metric establishes and makes the title-level hallucination claim circular.
+
+\findinglabel{Suggested fix.} Rename the outcome ``BERTScore reference-preference accuracy'' until it is validated.  Obtain blinded clinician labels for factual correctness and clinical harm, report sensitivity/specificity and calibration of the BERTScore rule against those labels, and include category-specific unsafe-error rates from human adjudication.  Use multiple independently authored counter-answers or contradiction tests rather than one synthetic negative.  Add a margin or indeterminate class for near ties and report tie handling explicitly.
+
+\subsection*{2. Equal initial $\alpha$ does not unconfound cumulative steering magnitude}
+
+\classification{Definite mathematical and causal-inference error}
+
+\findinglabel{Location.} Contribution~4; ``Fair Equal-$\alpha$ Ablation''; Table~\texttt{tab:equal\_alpha\_ablation}; Conclusion.
+
+\findinglabel{Problem.} The manuscript states that holding $\alpha$ constant means the results ``cannot be attributed to reduced cumulative steering energy.''  Under the stated 200-token experiment, however, the cumulative absolute scales are
+\[
+D_{\mathrm{full}}=200\alpha_0,\qquad
+D_{\mathrm{cutoff}}=16\alpha_0,\qquad
+D_{\mathrm{decay}}=
+\sum_{t=1}^{16}\alpha_0\left(1-\frac{t-1}{16}\right)
+=8.5\alpha_0.
+\]
+Thus equal initial $\alpha_0$ produces radically unequal cumulative interventions.  For $\alpha_0=18$, these values are $3600$, $288$, and $153$, respectively.  The row called ``Matched Cumulative Energy Dose Control'' might address this confound, but the paper gives no formula, per-token schedule, $K$, or definition of ``energy.''  It is unclear whether matching uses $\sum_t|\alpha(t)|$, $\sum_t\alpha(t)^2$, or another quantity, and whether it is matched to the hard cutoff or linear decay.
+
+\findinglabel{Why it matters.} The ablation does not presently distinguish a temporal-schedule effect from the effect of applying much less total perturbation.  The claim that temporal decay has been causally isolated is therefore not established.
+
+\findinglabel{Suggested fix.} Define every schedule mathematically and state the matched quantity.  Report both $D_1=\sum_t|\alpha(t)|$ and $D_2=\sum_t\alpha(t)^2$.  Compare (i) equal initial scale, (ii) equal $D_1$, and preferably (iii) equal $D_2$ conditions.  Predefine which comparison tests schedule shape, which tests intervention duration, and which tests total magnitude.  Replace ``unconfounded'' and ``causal'' with descriptive wording until these controls and paired uncertainty estimates are provided.
+
+\subsection*{3. No uncertainty analysis supports the small ablation or safety differences}
+
+\classification{Unsupported significance and generalization claims}
+
+\findinglabel{Location.} Abstract; Results; Tables~\texttt{tab:equal\_alpha\_ablation} and \texttt{tab:clinical\_safety}; Discussion; Conclusion.
+
+\findinglabel{Problem.} Neither table provides confidence intervals, paired tests, or variability across questions.  Several ablation differences are very small: at $\alpha=18$, linear decay exceeds continuous steering by only $0.0017$ BERTScore F1 and lowers Rep-4 by $0.16$ percentage points.  The safety table reports a net change of 21 classifications among 499 included questions, but does not show the paired transition counts (baseline-correct/steered-wrong and baseline-wrong/steered-correct).  Marginal percentages alone are insufficient for a paired significance test.  There is also no multiplicity control across three $\alpha$ values, four schedules, five metrics, and three safety categories.
+
+\findinglabel{Why it matters.} The observed ranking may be sampling variation.  Without the discordant-pair counts, even the direction and strength of a McNemar test cannot be reconstructed.  Consistency across three categories from one model and one dataset does not demonstrate a generalizable effect.
+
+\findinglabel{Suggested fix.} Report paired bootstrap confidence intervals for continuous metrics and McNemar tests with discordant-pair tables for binary outcomes.  Give paired effect sizes and 95\% CIs, adjust for prespecified multiple comparisons, and distinguish exploratory from confirmatory analyses.  Report category-level uncertainty and avoid ``confirm,'' ``genuinely,'' ``generalizable,'' and causal language unless supported by the corrected analysis.
+
+\subsection*{4. Hyperparameter, layer, and schedule selection may use the test set}
+
+\classification{Likely test-set selection bias}
+
+\findinglabel{Location.} Contributions; Methodology; Experimental Setup; both Results subsections.
+
+\findinglabel{Problem.} The manuscript calls $l=8$, $\alpha_0=18$, and $K=16$ optimal or selected, but reports no validation set, search space, selection metric, or frozen selection rule.  All ablations are explicitly reported on $N_{test}=500$.  The size and construction of the vector-estimation and layer-probing data are also absent, and question-disjointness is not shown between those data and the test sources.
+
+\findinglabel{Why it matters.} Selecting the layer, scale, window, schedule, BERTScore threshold rule, or narrative after examining the test set makes the final effects optimistic and invalidates test-set inference.  Source or template leakage could also inflate both the steering effect and the BERTScore proxy.
+
+\findinglabel{Suggested fix.} Provide disjoint vector-estimation, probe-training, validation, and test partitions, grouped by source monograph and question before creating positive/negative variants.  Report every partition size and deduplication rule.  Select $l$, $K$, $\alpha_0$, metric configuration, and schedule on validation data only; freeze them before a single final test evaluation.  Move test-guided exploration to a clearly labeled exploratory analysis or collect a fresh test set.
+
+\subsection*{5. The narrative and table contain concrete result inconsistencies}
+
+\classification{Definite quantitative and presentation errors}
+
+\findinglabel{Location.} Equal-$\alpha$ Results text and table; clinical-safety text and table; Abstract; Conclusion.
+
+\findinglabel{Problem.}
+\begin{enumerate}
+    \item The text says linear decay has the highest BERTScore F1 at $\alpha=18$ with $0.7150$, but hard cutoff is higher at $0.7151$.
+    \item At $\alpha=15$, the table bolds matched-dose ROUGE-L $23.40$, although continuous steering is higher at $23.43$.
+    \item Both $0.7151$ and $0.7150$ are bold at $\alpha=18$ without a stated rounding/tie rule.
+    \item The safety table includes $168+157+174=499$ questions, while its caption and surrounding prose repeatedly state $N_{test}=500$.  The omitted one-sample category must be identified, and abstract/conclusion rates must say whether their denominator is 499 or 500.
+    \item The Conclusion claims ``consistent improvements'' over continuous full steering, but linear decay has lower ROUGE-L than continuous steering at every displayed $\alpha$.  The benefit is metric-specific, not consistent across reported outcomes.
+\end{enumerate}
+
+\findinglabel{Why it matters.} These errors change which method is best and obscure the evaluation population.  They also make the summary stronger than the table supports.
+
+\findinglabel{Suggested fix.} Generate all prose and bolding directly from a checked analysis table.  Define boldface as the best value for a named objective, avoid bolding differences that are not statistically distinguishable, disclose the excluded sample, and use metric-specific claims such as ``higher BERTScore and lower Rep-4, but lower ROUGE-L, in the displayed high-$\alpha$ settings.''
+
+\subsection*{6. EOS results suggest unresolved truncation or an undefined finish metric}
+
+\classification{Likely evaluation artifact}
+
+\findinglabel{Location.} Experimental Setup; Table~\texttt{tab:equal\_alpha\_ablation}; Introduction's premature-termination claim.
+
+\findinglabel{Problem.} With \texttt{max\_new\_tokens=200}, EOS Hit is $0.0\%$ in eleven of twelve rows and $0.2\%$ in the remaining row.  If EOS Hit means generation of the normal end-of-sequence token, almost every output reaches the token cap rather than completing naturally.  If it instead means ``premature EOS,'' the criterion and cutoff are undefined.  Mean output length, cap-hit rate, and finish reasons are not reported.
+
+\findinglabel{Why it matters.} Near-universal truncation can distort BERTScore, ROUGE-L, repetition, and latency.  The displayed EOS values also do not support the Introduction's claim that continuous steering causes severe premature termination.
+
+\findinglabel{Suggested fix.} Define EOS Hit precisely and report natural-EOS rate, maximum-token cap rate, mean/median length, and incomplete-answer rate.  Increase the budget or use a task-appropriate stopping rule, then repeat the metrics on complete outputs.  If the current values represent no natural EOS, treat the 200-token experiment as a truncation stress test rather than normal clinical answer generation.
+
+\subsection*{7. Layer 8 and the hook remain insufficiently specified}
+
+\classification{Unsupported layer claim and implementation ambiguity}
+
+\findinglabel{Location.} Contribution~2; ``Contrastive Representation Extraction''; Equations~(1)--(4); Experimental Setup.
+
+\findinglabel{Problem.} No layer-wise probe table, held-out probe metric, uncertainty, or layer-selection rule is shown, so Layer~8 is not demonstrated to be ``optimal'' or the ``primary linear subspace.''  The prose says the hook is attached to ``the final token position of the prompt sequence,'' while $h_l(x_i,y_i)$ and Equation~(1) include the response.  If $y_i$ is appended, index $-1$ is a response token, not the final prompt token; if only the prompt is processed, the representation cannot depend on $y_i$.  During generation, the paper still does not define prompt-pass handling, the exact residual-stream module, zero/one-based layer indexing, tensor slice, KV-cache behavior, dtype/device conversion, or whether $t$ counts model calls or generated tokens.
+
+\findinglabel{Why it matters.} The vector may encode answer-template or final-token artifacts rather than truthfulness, and independent implementations can intervene at different states and steps.
+
+\findinglabel{Suggested fix.} Add complete source-disjoint probing results for every evaluated layer.  State the exact chat-formatted sequence and token position used for $h_l(x_i,y_i^{\pm})$.  Supply hook pseudocode identifying the model module, output tensor, slice, counter, prompt pass, cache behavior, dtype, device, and cleanup.  Qualify Layer~8 as the selected layer under the reported protocol rather than a general truthfulness subspace.
+
+\subsection*{8. The decay endpoint and tie case are mathematically incomplete}
+
+\classification{Definite missing case and schedule ambiguity}
+
+\findinglabel{Location.} Equations~(3), (5), and (6).
+
+\findinglabel{Problem.} At $t=K$, Equation~(3) gives $\alpha(K)=\alpha_0/K$, followed by an abrupt jump to zero at $K+1$; it does not decay to zero at token $K$.  This may be intentional but is not discussed.  Equations~(5)--(6) use strict opposite inequalities, so a BERTScore tie yields \texttt{Correct}$=0$ and \texttt{Unsafe}$=0$.  The tables nevertheless make the two rates exact complements without stating whether ties occurred or how they were handled.
+
+\findinglabel{Why it matters.} These edge cases affect reproducibility and the denominators of the claimed safety rates.
+
+\findinglabel{Suggested fix.} State whether the desired final nonzero coefficient is $\alpha_0/K$; if the schedule should reach zero at $K$, use $1-(t-1)/(K-1)$ for $K>1$.  Define an explicit tie/indeterminate outcome, specify numerical tolerance, and report its count.  Do not label every non-correct case unsafe unless that classification is independently justified.
+
+\subsection*{9. Dataset provenance and source identity remain unresolved}
+
+\classification{Definite source-name inconsistency and unsupported dataset-quality claim}
+
+\findinglabel{Location.} Abstract; contribution~1; Experimental Setup; bibliography entry \texttt{ref6}.
+
+\findinglabel{Problem.} The manuscript provides no dataset-construction section describing extraction, question generation, counter-answer generation, expert review, deduplication, annotation labels, agreement, or split counts.  ``Expert-validated'' and ``expert-annotated'' are used interchangeably.  More seriously, \texttt{ref6} labels the source in English as the Vietnamese National Pharmacopoeia but gives the Vietnamese parenthetical ``\foreignlanguage{vietnamese}{Dược thư Quốc gia Việt Nam},'' which denotes a different named resource from ``\foreignlanguage{vietnamese}{Dược điển Việt Nam V}.''  The official issuance date, effective date, edition, and publication year are not distinguished.
+
+\findinglabel{Why it matters.} The clinical provenance of 14,700 records is central to every claim.  Confusing a pharmacopoeia with a national drug formulary raises the possibility that the wrong source is cited or that dosage/interaction content has been attributed to a resource that was not actually used.
+
+\findinglabel{Suggested fix.} Identify the exact source document(s) in both Vietnamese and English, cite the official decision and edition accurately, and state which sections support dosage, pregnancy, and interaction records.  Add a dataset card with record counts, provenance, licenses, expert protocol, agreement statistics, transformations, exclusions, and complete split information.  Preserve source identifiers so each test item is auditable.
+
+\subsection*{10. A central reference is factually invalid}
+
+\classification{Definite bibliography error}
+
+\findinglabel{Location.} Introduction and bibliography entry \texttt{ref13}.
+
+\findinglabel{Problem.} Entry \texttt{ref13} attributes arXiv:2312.09876 to A.~Perez and the title ``Representation saturation and repetition in activation-steered language models: An empirical investigation.''  That arXiv identifier corresponds to the unrelated paper ``Automatic Image Colourizer'' by Aditya Parikh.  The cited activation-steering paper therefore does not exist under the supplied identifier and cannot support the claim that continuous steering causes severe saturation, loops, syntax degradation, and premature termination.
+
+\findinglabel{Why it matters.} The invalid citation is used to motivate the paper's central mechanism.  It is a factual reference-integrity failure, not a formatting issue.
+
+\findinglabel{Suggested fix.} Remove \texttt{ref13} immediately or replace it with a real, directly relevant source after verifying title, authors, identifier, and claimed evidence.  If no suitable prior evidence exists, present representation saturation as this paper's hypothesis and measure it directly rather than citing it as established fact.
+
+\section*{Equation, sign, branch, and dimensional audit}
+
+The direction $\mu_l^+-\mu_l^-$, unit normalization, and addition of $+\alpha(t)v_{steer}^{(l)}$ are sign-consistent with the intended positive direction, and the hidden-state/vector dimensions are compatible if $\alpha(t)$ is an activation-scale coefficient.  No inverse-trigonometric functions, coordinate transforms, or quadrant/branch expressions occur.  The concrete mathematical defects are the unequal cumulative doses hidden by the phrase ``equal-$\alpha$,'' the undefined energy-matching control, the nonzero endpoint at $t=K$, the unhandled BERTScore tie, and the inconsistent description of the representation token.  No direct activation measure of the proposed ``representation saturation'' mechanism is reported.
+
+\section*{Meaningful editorial, compilation, and reference findings}
+
+\subsection*{The manuscript does not compile cleanly}
+
+\findinglabel{Location.} Discussion's Vietnamese examples and Vietnamese text in \texttt{ref6}.
+
+\findinglabel{Problem.} A clean \texttt{pdflatex} run stops in the Discussion with \texttt{Command \textbackslash dj unavailable in encoding OT1}.  The current preamble does not select Vietnamese/T5 encoding, while the body uses commands such as \verb|\dj| and \verb|\uhorn|.  The build also reports the wide ablation table as approximately 17.5~pt overfull.
+
+\findinglabel{Why it matters.} The source is not submission-ready, and the displayed Vietnamese text cannot be trusted until rebuilt with a consistent language/encoding setup.
+
+\findinglabel{Suggested fix.} Use a supported Unicode workflow (for example, a venue-compatible XeLaTeX/LuaLaTeX setup) or configure pdfLaTeX with the required T5 encoding and Vietnamese language support.  Enter the Vietnamese examples as verified Unicode text rather than manually composed accent commands.  Rebuild twice from a clean directory and redesign the \texttt{table*} column widths, font size, or layout to eliminate overflow.
+
+\subsection*{Reference-list scope and citation fit need cleanup}
+
+\findinglabel{Location.} Introduction and bibliography.
+
+\findinglabel{Problem.} Entries \texttt{ref17}--\texttt{ref21} are not cited.  Some cited sources are only indirect support: \texttt{ref10} is LoRA rather than a direct source for the broad SFT claim, \texttt{ref12} establishes catastrophic forgetting in neural networks generally rather than the claimed loss of LLM instruction-following ability, and \texttt{ref11} does not by itself establish that internal activation pathways cause models to ignore retrieved evidence.  BLEU is mentioned without a citation.
+
+\findinglabel{Why it matters.} Unused and mismatched references make the literature review look assembled rather than evidence-linked and can conceal unsupported factual claims.
+
+\findinglabel{Suggested fix.} Remove uncited entries, add the original BLEU citation if the metric remains, and attach each claim to a source that directly studies that claim.  Separate established prior findings from hypotheses introduced by this manuscript.
+
+\section*{Proofing sweep}
+
+The bundled mechanical scan was run on both the current source and the available PDF and returned no high-confidence pattern hits.  The bibliography was also checked manually for duplicated commas, malformed quotations, and obvious punctuation artifacts; none were found beyond the substantive reference problems above.
+
+The following bounded copyedits are high-confidence:
+\begin{itemize}
+    \item \textbf{Contribution~4:} change ``A unconfounded 3$\times$4 experimental matrix'' to ``An unconfounded 3$\times$4 experimental matrix''; after correcting the design claim, ``A controlled 3$\times$4 matrix'' is safer.
+    \item \textbf{Equal-$\alpha$ table:} correct the boldface at $\alpha=15$ and define whether bold denotes a maximum, minimum, or statistically supported best value.
+    \item \textbf{Clinical table and prose:} use $N=499$ for the displayed analysis and identify the excluded record, or restore an all-500 analysis.
+    \item \textbf{Terminology:} replace ``BERTScore-based clinical correctness'' and ``semantic unsafe error rate'' with explicitly proxy-qualified terms until clinician validation is available.
+    \item \textbf{Style:} use ``lightweight'' rather than ``light-weight,'' and define why a 7B-parameter model is categorized as a Small Language Model.
+\end{itemize}
+
+\section*{Items requiring external verification}
+
+\begin{itemize}
+    \item Verify the exact identity, official Vietnamese title, issuance date, effective date, edition, publisher, and reuse permissions of the source behind ViHaluEval-Medical; distinguish \foreignlanguage{vietnamese}{\emph{Dược điển Việt Nam V}} from \foreignlanguage{vietnamese}{\emph{Dược thư Quốc gia Việt Nam}}.
+    \item Verify that the source actually contains the dosage, pregnancy/lactation, and interaction statements used for all reference and counter-answers, and independently review those statements against current clinical guidance.
+    \item Validate \texttt{bert-base-multilingual-cased} BERTScore for Vietnamese clinical entailment, including layer choice, IDF, rescaling, tokenizer, and sensitivity to negation, numbers, units, and contraindication reversals.
+    \item Verify novelty against real work on temporal or token-dependent activation steering after removing the invalid \texttt{ref13} entry.
+    \item Verify privacy-preserving and resource-constrained deployment claims using an explicit threat model, memory footprint, throughput, and hospital-infrastructure assumptions; these properties are not demonstrated by the present experiments.
+\end{itemize}
+
+\section*{Highest-priority revision sequence}
+
+\begin{enumerate}
+    \item Replace clinical-safety claims with proxy-qualified language and obtain clinician-adjudicated correctness/harm labels.
+    \item Define the matched-dose control and rerun schedule comparisons with equal initial scale and equal cumulative-dose conditions, with paired uncertainty.
+    \item Establish disjoint validation/test protocols and rerun the frozen final configuration on an untouched test set.
+    \item Correct the ablation narrative, boldface, $N=499/500$ denominator, and metric-specific conclusion claims.
+    \item Investigate the zero-EOS result and repeat evaluation on complete, naturally terminated outputs.
+    \item Add layer-probing evidence, exact representation extraction, hook pseudocode, data provenance, expert annotation protocol, and full software/hardware details.
+    \item Remove the invalid \texttt{ref13}, resolve the pharmacopoeia/formulary source identity, clean unused references, and repair the LaTeX encoding and table overflow.
+\end{enumerate}
+
+\end{document}

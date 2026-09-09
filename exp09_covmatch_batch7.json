@@ -1,0 +1,36 @@
+{
+  "batch_idx": 7,
+  "v_start": 19,
+  "v_end": 20,
+  "results": [
+    {
+      "name": "CovMatch_19",
+      "refpref_pct": 74.6,
+      "refpref_count": 373,
+      "total": 500,
+      "bertscore_f1": 0.7179567217826843,
+      "gen_time_min": 188.11375432809194,
+      "bs_time_min": 0.38906927506128947,
+      "avg_latency": 22.570950055122374,
+      "avg_tokens": 199.308
+    },
+    {
+      "name": "CovMatch_20",
+      "refpref_pct": 76.4,
+      "refpref_count": 382,
+      "total": 500,
+      "bertscore_f1": 0.7196775674819946,
+      "gen_time_min": 187.71901434262594,
+      "bs_time_min": 0.2887799382209778,
+      "avg_latency": 22.519921120166778,
+      "avg_tokens": 198.758
+    }
+  ],
+  "mean_refpref": 75.5,
+  "std_refpref": 0.9000000000000057,
+  "mean_bertscore_f1": 0.7188171446323395,
+  "cosines": [
+    0.08630883806447653,
+    -0.05256803360299216
+  ]
+}

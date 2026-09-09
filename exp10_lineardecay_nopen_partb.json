@@ -1,0 +1,21 @@
+{
+  "name": "LinearDecay_NoPen_PartB",
+  "refpref_pct": 75.6,
+  "refpref_n": 189,
+  "total": 250,
+  "bs_f1": 0.6626749634742737,
+  "bs_std": 0.04319990798830986,
+  "rep4": 40.48917786977451,
+  "rep4_std": 20.340116418215903,
+  "eos_pct": 0.0,
+  "eos_n": 0,
+  "lat": 80.70496279716491,
+  "tok": 729.484,
+  "peak_gpu": 1.934335708618164,
+  "rep_pen": 1.0,
+  "gen_min": 336.28568085829414,
+  "bs_min": 0.5040734012921652,
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "params_B": 4.352972288,
+  "peak_load_gpu": 2.361870288848877
+}

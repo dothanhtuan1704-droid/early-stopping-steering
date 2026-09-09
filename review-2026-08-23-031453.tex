@@ -1,0 +1,222 @@
+\documentclass[11pt]{article}
+\usepackage[T5,T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese,english]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{microtype}
+
+\ifdefined\pdfcatalog
+  \pdfcatalog{/Lang (en-US)}
+\fi
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlength{\emergencystretch}{2em}
+\setlist{nosep,leftmargin=*}
+
+\newcommand{\findinglabel}[1]{\textbf{#1}}
+\newcommand{\classification}[1]{\textit{Classification: #1.}}
+
+\title{Technical Review of ``Early-Stopping Activation Steering for Hallucination Mitigation in Vietnamese Clinical Language Models''}
+\author{Manuscript review}
+\date{August 23, 2026}
+
+\begin{document}
+\selectlanguage{english}
+\maketitle
+
+\section*{Overall assessment}
+
+The manuscript has addressed several earlier reproducibility and interpretation problems.  It now distinguishes BERTScore reference preference from clinician-adjudicated correctness, defines the $D_1$-matched control, discloses the $N=499$ analysis population, reports paired tests for the main proxy comparison, and qualifies the cumulative-dose confound.  These are substantive improvements.  Important problems nevertheless remain: the title and abstract still frame a semantic proxy as hallucination suppression; the natural-termination experiment reduces the effect to an untested $+1.00$ percentage point; the ``equal-initial-$\alpha$'' matrix includes a matched-dose row that does not share the initial $\alpha_0$; the ablation and layer-sweep differences have no uncertainty analysis; the dataset source is cited with the wrong edition; and the source does not compile.  The work is promising but still requires major revision before clinical or causal claims are justified.
+
+\section*{Major technical findings}
+
+\subsection*{1. The title-level hallucination claim still exceeds the proxy evidence}
+
+\classification{Unsupported central claim}
+
+\findinglabel{Location.} Title; Abstract; Introduction; contribution~3; BERTScore criterion; Conclusion.
+
+\findinglabel{Problem.} The manuscript correctly states that reference-preference accuracy is a semantic proxy and not clinically adjudicated correctness.  However, the title still claims ``Hallucination Mitigation,'' and the Abstract says the framework ``dynamically suppress[es] hallucinations'' and prevents representation saturation.  The evaluation only establishes whether an output is closer in BERTScore to one reference $y^+$ than to one constructed counter-answer $y^-$.  An output may win that comparison while containing a wrong dose, omitted contraindication, or a different unsafe claim.
+
+\findinglabel{Why it matters.} A limitation acknowledged later does not make the stronger title and abstract claims valid.  Clinical hallucination mitigation requires direct factual/harm labels, not only similarity to two templates.
+
+\findinglabel{Suggested fix.} Either add blinded clinician adjudication with factual-correctness and harm endpoints, or narrow the title and headline claims to ``BERTScore Reference-Preference and Repetition.''  Report the proxy as preliminary evidence only.  Validate its sensitivity, specificity, and failure modes against clinician labels, especially for numbers, units, negation, pregnancy status, and drug interactions.
+
+\subsection*{2. The natural-termination experiment does not confirm a persistent binary benefit}
+
+\classification{Definite statistical overstatement}
+
+\findinglabel{Location.} ``Natural Termination Validation'' in Discussion; Abstract's main $+4.21$-point result.
+
+\findinglabel{Problem.} At 800 tokens, reference-preference accuracy changes from $64.80\%$ to $65.80\%$ over 500 questions, corresponding to 324 versus 329 reference-preferred outputs: only five net additional successes.  No McNemar table, confidence interval, or $p$-value is reported.  For a two-sided exact McNemar test, even the most favorable possible discordant table---zero regressions and five improvements---has $p=0.0625$; any additional discordant pairs make the evidence weaker.  The accompanying BERTScore change from $0.6804$ to $0.6834$ also has no paired interval or test.
+
+\findinglabel{Why it matters.} The sentence ``confirming that steering benefits persist'' is not supported for the binary proxy.  More importantly, the effect shrinks from $+4.21$ points under forced 200-token generation to $+1.00$ point under natural termination, indicating that truncation materially affects the headline result.
+
+\findinglabel{Suggested fix.} Move the 800-token experiment into Methods and Results, provide the full paired transition table, exact McNemar result, BERTScore paired effect and CI, output-length distribution, and category results.  Use naturally terminated generation as the primary clinically relevant analysis.  Describe the 200-token result as a fixed-length stress test and replace ``confirming'' with descriptive wording unless the natural-termination effect is statistically and clinically supported.
+
+\subsection*{3. The main paired statistics are not fully reproducible}
+
+\classification{Implementation and reporting ambiguity}
+
+\findinglabel{Location.} Abstract; BERTScore Reference-Preference Results; ``Effect Sizes and Uncertainty.''
+
+\findinglabel{Problem.} The $N=499$ marginal rates imply 365 baseline and 386 steered reference-preferred outputs, but the manuscript does not report the discordant-pair counts required to reproduce McNemar's $p=0.006$, nor whether an exact, continuity-corrected, or asymptotic test was used.  Ties are defined as neither class, but their counts and encoding in McNemar's test are omitted.  The Wilcoxon signed-rank result ($p=0.017$) is paired with a ``95\% CI for mean difference,'' although Wilcoxon targets a rank/location contrast; the CI construction and the actual baseline/steered mean BERTScore values are not reported.
+
+\findinglabel{Why it matters.} A plausible $p$-value is not enough for reproduction.  Test choice, tie handling, effect estimate, and interval method determine the interpretation.
+
+\findinglabel{Suggested fix.} Report the $2\times2$ paired table, tie counts, test variant, alternative hypothesis, and software call.  Give the point estimate of the paired BERTScore difference and state whether its CI is paired-bootstrap, $t$-based, or another method.  If Wilcoxon is retained, report the rank-based effect or Hodges--Lehmann estimate separately from a bootstrap CI for the mean.  Predefine primary outcomes and multiplicity handling.
+
+\subsection*{4. The ``equal-initial-$\alpha$'' matrix does not have equal initial magnitude in all four rows}
+
+\classification{Definite terminology and design-description error}
+
+\findinglabel{Location.} Contribution~4; Methodology's matched-dose definition; Equal-Initial-$\alpha$ Results and table.
+
+\findinglabel{Problem.} Continuous, hard-cutoff, and linear-decay schedules begin at $\alpha_0$.  The matched-dose control instead applies
+\[
+\alpha_{\mathrm{match}}=D_{\mathrm{decay}}/T
+=\frac{K+1}{2T}\alpha_0.
+\]
+With $K=16$ and $T=200$, its actual constant coefficients are $0.6375$, $0.765$, and $0.85$ for source values $\alpha_0=15$, 18, and 20.  Therefore the matched-dose row does not share the stated initial magnitude and should not be described as the fourth schedule in a matrix ``holding initial steering strength constant.''  The table's first column labels that row with $\alpha_0$, although the applied coefficient is $\alpha_{\mathrm{match}}$.
+
+\findinglabel{Why it matters.} The experiment contains two distinct control families: three equal-initial-scale schedules and a separate equal-$D_1$ control.  Conflating them obscures which variable is held constant.
+
+\findinglabel{Suggested fix.} Present a $3\times3$ equal-initial-$\alpha_0$ comparison plus a separately labeled $D_1$-matched control.  Add an ``actual per-token coefficient'' column showing $\alpha_{\mathrm{match}}$.  Continue to state that $D_2=\sum_t\alpha(t)^2$ and temporal distribution remain unmatched.  Use ``cumulative magnitude'' rather than ``energy'' for $D_1$.
+
+\subsection*{5. Fine-grained schedule rankings lack uncertainty}
+
+\classification{Unsupported comparative claim}
+
+\findinglabel{Location.} Abstract; contribution~3; Equal-Initial-$\alpha$ Results and table; Conclusion.
+
+\findinglabel{Problem.} The paper reports no confidence intervals or paired tests for the ablation table.  The differences supporting the schedule claim are small: at $\alpha_0=18$, hard cutoff and linear decay exceed continuous steering by $0.0018$ and $0.0017$ BERTScore F1, while hard cutoff lowers Rep-4 by only $0.01$ percentage point.  Twelve schedule/intensity conditions and several metrics are inspected, but no prespecified contrast or multiplicity control is given.
+
+\findinglabel{Why it matters.} Raw rank ordering does not establish that early stopping reliably outperforms continuous steering.  The best schedule also changes by metric and $\alpha_0$, and ROUGE-L consistently favors continuous steering.
+
+\findinglabel{Suggested fix.} Report paired differences and 95\% CIs for prespecified early-stop versus continuous comparisons at each $\alpha_0$, with multiplicity control or an explicitly exploratory designation.  Avoid ``achieve higher'' as a general finding if intervals include zero.  State the multi-objective trade-off rather than selecting a winner from tiny untested differences.
+
+\subsection*{6. Layer-selection evidence is incomplete and partly misstated}
+
+\classification{Definite arithmetic error and unsupported representation claim}
+
+\findinglabel{Location.} Contribution~2; ``Layer-Wise Subspace Probing'' in Discussion; Methodology.
+
+\findinglabel{Problem.} Only a range, $0.7040$--$0.7140$, is reported for layers 4--15; the per-layer results, Layer~8 value, uncertainty, and selection criterion are absent.  The displayed range has width $0.0100$, so the statement $\Delta<0.01$ is false as written.  The text calls the experiment ``subspace probing,'' but describes sweeping activation steering across layers, which measures downstream intervention performance rather than linear probe separability.  It then infers that truthfulness representations are distributed across layers, a representation-level conclusion that does not follow from the reported intervention-score range alone.
+
+\findinglabel{Why it matters.} Readers cannot verify why Layer~8 was selected or distinguish a probe result from a steering ablation.  The same $N_{eval}=100$ subset may also have been used for tuning, so ``held-out'' is ambiguous.
+
+\findinglabel{Suggested fix.} Add a per-layer validation table with the exact metric, uncertainty, and selected tie rule.  Call it a steering-layer sweep unless a separate trained probe is reported.  Identify the subset as validation or test, not merely held-out, and do not infer distributed truthfulness representations without direct representation analysis.
+
+\subsection*{7. Vector extraction may encode completed-answer artifacts rather than an early-generation truthfulness direction}
+
+\classification{Likely representation confound}
+
+\findinglabel{Location.} ``Contrastive Representation Extraction'' and ``Early-Stopping Steering Hook.''
+
+\findinglabel{Problem.} The vector is estimated at the final token of the complete concatenated sequence $x_i\oplus y_i^{\pm}$, after the model has seen the entire truthful or hallucinated answer.  It is then injected into the first 16 generated-token states, which have a different context and temporal role.  Synthetic counter-answers may also contain lexical or template cues at their final token.  No test shows that the resulting direction generalizes from answer-final states to early-generation states or to independently authored errors.
+
+\findinglabel{Why it matters.} The intervention can work empirically without the direction being a general truthfulness representation.  The current mechanism claim may instead reflect response-style or perturbation-template artifacts.
+
+\findinglabel{Suggested fix.} Compare final-token extraction with prompt-only, first-answer-token, and pooled answer representations.  Keep all variants of each source/question in one split, test template- and source-disjoint transfer, and evaluate independently written hallucinations.  Report a control direction based on matched lexical/style contrasts.
+
+\subsection*{8. Dataset provenance and splitting remain insufficient, and the cited edition is wrong}
+
+\classification{Definite bibliographic error and likely leakage risk}
+
+\findinglabel{Location.} Abstract; contribution~1; Experimental Setup; bibliography entry \texttt{ref6}.
+
+\findinglabel{Problem.} The manuscript calls the source the Vietnamese National Drug Formulary, 5th Edition, 2018.  The 2018 formulary is identified as the \emph{second} edition; a third edition was subsequently issued in 2022.  The fifth-edition label appears to be inherited from the distinct Vietnamese Pharmacopoeia and is not valid for the Drug Formulary.  The paper also gives no dataset-construction section describing source passages, Q\&A generation, hallucinated counter-answer construction, quality control, deduplication, licensing, or release.  A 70/15/15 split of 14,700 yields 2,205 nominal test records, yet only 500 are sampled without a sampling rule or seed.  ``Question-disjoint'' does not guarantee monograph-, drug-, or template-disjoint evaluation.
+
+\findinglabel{Why it matters.} Incorrect source identity undermines auditability, and source/template overlap can inflate vector transfer and BERTScore preference on the test set.
+
+\findinglabel{Suggested fix.} Correct \texttt{ref6} to the exact edition actually used and cite the official issuance record.  Add a dataset card with provenance, item-generation rules, expert review if any, licenses, category counts, split counts, sampling seed, and source identifiers.  Group splits by source monograph/drug and generation template before producing positive/negative variants, and quantify cross-split similarity.
+
+\subsection*{9. Fixed-length and natural-generation protocols are incompletely connected}
+
+\classification{Evaluation-design ambiguity}
+
+\findinglabel{Location.} Experimental Setup; ablation table; Natural Termination Validation; Abstract.
+
+\findinglabel{Problem.} The 200-token evaluation deliberately truncates almost every response, while the 800-token experiment allows natural completion.  The manuscript does not report mean/median lengths, finish-reason distributions, prompt lengths, or whether reference answers have comparable lengths.  The main abstract effect comes from the fixed-length condition even though the natural condition produces a substantially smaller result.  The 800-token experiment is described only in Discussion and lacks a table, decoding details, repetition, ROUGE-L, latency, and category breakdown.
+
+\findinglabel{Why it matters.} Long irrelevant continuations and truncation can change every reported similarity and repetition metric.  A clinical deployment claim should be based on realistic complete answers, not a fixed-length stress condition.
+
+\findinglabel{Suggested fix.} Define one primary generation protocol with natural stopping and a clinically appropriate maximum.  Report length and finish-reason distributions and all primary metrics under that protocol.  Retain the 200-token experiment only as a secondary stress test and explain why fixed-length output is scientifically useful.
+
+\subsection*{10. Metric and hook implementations remain incomplete}
+
+\classification{Implementation ambiguity}
+
+\findinglabel{Location.} Methodology and Experimental Setup.
+
+\findinglabel{Problem.} Rep-4 is not mathematically defined (macro versus micro averaging, repeated $n$-gram denominator, tokenizer, and treatment of short outputs are unknown).  ROUGE-L tokenization for Vietnamese is unspecified.  BERTScore identifies model and layer but omits IDF use, baseline rescaling, package/version, and numerical tie tolerance.  The hook description omits the exact Qwen module, zero/one-based layer indexing, prompt-forward handling, whether the vector is added to all positions or only $[:, -1, :]$, KV-cache behavior, dtype/device placement, and hook removal.  Hardware count, batch size, software versions, random seeds, and latency methodology are absent.
+
+\findinglabel{Why it matters.} These choices can materially change the metrics, intervention timing, and runtime.  ``No consistent latency penalty'' is not statistically evaluable from one mean per condition.
+
+\findinglabel{Suggested fix.} Provide explicit metric formulas and complete library configurations, release evaluation code, and include minimal hook pseudocode.  Report synchronized repeated latency measurements after warm-up with batch size, prompt/output lengths, mean, and dispersion.  Replace the broad ``architecture-agnostic'' claim with ``conceptually applicable to other residual-stream transformers, subject to architecture-specific validation.''
+
+\section*{Equation, notation, sign, branch, and dimensional audit}
+
+The mean-difference direction $\mu_l^+-\mu_l^-$, unit normalization, and addition of $+\alpha(t)v_{steer}^{(l)}$ are sign-consistent, and the hidden-state/vector dimensions are compatible.  The formulas for $D_{\mathrm{continuous}}$, $D_{\mathrm{cutoff}}$, and $D_{\mathrm{decay}}=(K+1)\alpha_0/2$ are arithmetically correct for nonnegative $\alpha_0$ and the stated endpoint $\alpha(K)=\alpha_0/K$.  No inverse-trigonometric, coordinate-transform, or branch/quadrant expressions occur.  The remaining implementation-facing notation issue is role drift: $\alpha_0$ means the actual initial coefficient for three schedules but only indexes the source decay dose for the matched row, whose applied coefficient is $\alpha_{\mathrm{match}}$.  The concatenation operator $\oplus$, token position, chat template, and generation-step counter also require explicit definitions.
+
+\section*{Meaningful editorial, compilation, and reference findings}
+
+\subsection*{The source still does not compile with pdfLaTeX}
+
+\findinglabel{Location.} Bibliography entry \texttt{ref6}.
+
+\findinglabel{Problem.} A clean \texttt{pdflatex} run stops at \texttt{ref6} because commands such as \verb|\uhorn| are undefined under the current OT1-only setup.  The source reaches the bibliography but produces no PDF from a clean build.
+
+\findinglabel{Why it matters.} The manuscript is not submission-ready, and the Vietnamese title cannot be verified typographically in the generated document.
+
+\findinglabel{Suggested fix.} Use a venue-compatible Unicode engine or configure pdfLaTeX with T5/Vietnamese encoding, then enter the verified Vietnamese title consistently.  Rebuild twice from a clean directory and inspect all citation, table-width, and font warnings.
+
+\subsection*{Citation fit remains uneven}
+
+\findinglabel{Location.} Introduction and bibliography.
+
+\findinglabel{Problem.} \texttt{ref10} is a LoRA paper rather than a direct source for the broad SFT mitigation claim; \texttt{ref12} establishes catastrophic forgetting generally rather than loss of LLM instruction-following ability after the described SFT; and \texttt{ref11} does not directly establish that ``internal activation pathways'' cause RAG models to ignore evidence.  The dataset source entry is factually mis-editioned as noted above.
+
+\findinglabel{Why it matters.} Indirect citations blur the boundary between prior evidence and the manuscript's hypotheses.
+
+\findinglabel{Suggested fix.} Cite studies directly evaluating SFT/DPO for hallucination, LLM forgetting after domain adaptation, and evidence-use failures in RAG.  Rewrite mechanistic language as a hypothesis when the cited work does not test that mechanism.
+
+\section*{Proofing sweep}
+
+The bundled mechanical scan was run on both the current source and the available PDF and returned no high-confidence pattern hits.  The bibliography was checked manually for duplicate punctuation and malformed quotation marks; no such micro-defects were found.
+
+The following bounded manual corrections are high-confidence:
+\begin{itemize}
+    \item \textbf{Abstract/contribution~5:} the displayed $73.15\%$ and $77.35\%$ subtract to $4.20$ points, while the count-derived unrounded difference is $21/499\approx4.21$ points.  Report the counts or state that deltas use unrounded rates.
+    \item \textbf{Category table:} the same rounding issue produces displayed differences of $5.96$ and $2.88$ for Pregnancy and Dosage, versus count-derived $5.95$ and $2.87$.  Add counts or calculate display-consistent deltas.
+    \item \textbf{Layer sweep:} change $\Delta<0.01$ to $\Delta=0.0100$ based on the displayed endpoints, or report sufficient precision to justify a strict inequality.
+    \item \textbf{Matched Dose row:} display $\alpha_{\mathrm{match}}$ rather than implying that the applied initial coefficient equals the row's $\alpha_0$.
+    \item \textbf{Terminology:} replace ``zero-training'' with ``no model-weight updates'' or ``no model retraining,'' since vector estimation, validation, and layer selection require labeled data and computation.
+\end{itemize}
+
+\section*{Items requiring external verification}
+
+\begin{itemize}
+    \item Verify the exact National Drug Formulary edition, official Vietnamese/English title, issuance record, year, publisher, and reuse permissions; the stated fifth edition is inconsistent with the documented 2018 second edition.
+    \item Verify every dosage, contraindication, pregnancy/lactation, and interaction reference and counter-answer against current authoritative clinical sources and clinician review.
+    \item Validate the BERTScore proxy and the selected multilingual BERT layer for Vietnamese clinical negation, numbers, units, and entailment before using it as evidence of factual alignment.
+    \item Verify novelty against current token-dependent and schedule-based activation-steering work and test the claimed applicability beyond Qwen2.5-7B-Instruct.
+    \item Verify privacy and resource-constrained deployment claims with an explicit threat model, memory footprint, throughput, and hospital-infrastructure assumptions.
+\end{itemize}
+
+\section*{Highest-priority revision sequence}
+
+\begin{enumerate}
+    \item Make naturally terminated generation the primary evaluation and correctly test/report the 800-token results.
+    \item Obtain clinician-adjudicated correctness and harm labels or narrow the title and abstract to the BERTScore proxy.
+    \item Report complete paired statistics, uncertainty, and prespecified schedule contrasts, including ablation CIs.
+    \item Separate the equal-initial-$\alpha_0$ experiment from the equal-$D_1$ matched control and display the actual $\alpha_{\mathrm{match}}$ values.
+    \item Add per-layer results, clarify the validation split, and test whether final-answer vectors transfer to early-generation states without template leakage.
+    \item Correct the National Drug Formulary edition and add complete dataset provenance, source-grouped splits, and counter-answer construction details.
+    \item Complete metric/hook specifications, correct numerical/rounding statements, repair the Vietnamese LaTeX encoding, and strengthen citation fit.
+\end{enumerate}
+
+\end{document}

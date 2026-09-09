@@ -1,0 +1,227 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{microtype}
+
+\ifdefined\pdfcatalog
+  \pdfcatalog{/Lang (en-US)}
+\fi
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlength{\emergencystretch}{2em}
+\setlist{nosep,leftmargin=*}
+
+\newcommand{\findinglabel}[1]{\textbf{#1}}
+\newcommand{\classification}[1]{\textit{Classification: #1.}}
+
+\title{Technical Review of ``Early-Stopping Activation Steering for Factual Preference Alignment in Vietnamese Medical Language Models''}
+\author{Manuscript review}
+\date{August 23, 2026}
+
+\begin{document}
+\selectlanguage{english}
+\maketitle
+
+\section*{Overall assessment}
+
+The manuscript has improved its title, source edition, dataset split description, matched-$D_1$ control, paired contingency table, and separation of natural-completion from bounded-generation evaluation.  It also adds placebo and RAG comparisons.  These additions are useful, but the new evidence contains serious internal inconsistencies.  The placebo/RAG table mixes incompatible analysis denominators, its steering latency contradicts the ablation table by more than a factor of three, and the RAG protocol alternates between BM25 retrieval and insertion of ``ground-truth passages.''  A single harmful random vector cannot prove causal directionality.  The reported ``exact'' McNemar $p$-value does not match the displayed discordant counts, the natural-completion gain remains statistically unsupported, the ablation has no uncertainty analysis, an invalid bibliography entry has been reintroduced, and the LaTeX source does not compile.  The paper therefore still requires major revision.
+
+\section*{Major technical findings}
+
+\subsection*{1. The placebo experiment does not prove causal directionality}
+
+\classification{Unsupported causal claim}
+
+\findinglabel{Location.} Abstract; contribution~3; ``Contrastive Vector Estimation \& Placebo Controls''; Placebo/RAG Results; Conclusion.
+
+\findinglabel{Problem.} Only one normalized isotropic random vector $v_{\mathrm{rand}}$ is reported.  Its poor result can show that this particular perturbation is harmful, but it does not establish that $v_{\mathrm{steer}}$ is uniquely factual or that the positive result is not within the distribution of generic directions.  No random seed, number of independently sampled directions, paired confidence interval, sign-flipped control, or comparison test is given.  The phrase ``proving causal directionality'' therefore exceeds the design.
+
+\findinglabel{Why it matters.} A single random draw has uncontrolled directional variance.  General activation disruption can lower quality without validating the semantic interpretation of the chosen direction.
+
+\findinglabel{Suggested fix.} Evaluate many independently sampled, norm- and schedule-matched random directions and report their distribution with the location of $v_{\mathrm{steer}}$ within it.  Add a sign-flipped $-v_{\mathrm{steer}}$ condition and paired tests on the same questions.  State all random seeds.  Use ``direction-specific evidence'' rather than ``proof'' or ``causal directionality'' unless a prespecified intervention analysis supports that conclusion.
+
+\subsection*{2. The placebo/RAG table mixes incompatible denominators}
+
+\classification{Definite data-reporting error}
+
+\findinglabel{Location.} Abstract; contribution~3; Placebo/RAG Results; Table~\texttt{tab:baselines}.
+
+\findinglabel{Problem.} The table caption states $N_{test}=500$, but the baseline and early-stop accuracies, $73.15\%$ and $77.35\%$, are explicitly derived elsewhere from 365/499 and 386/499.  Neither percentage corresponds to an integer count out of 500.  The placebo value $62.60\%$ and RAG value $79.20\%$ do correspond to 313/500 and 396/500, respectively, if reported exactly.  The claimed $-10.55$-point placebo change therefore compares rates with different or undisclosed denominators.
+
+\findinglabel{Why it matters.} Conditions must be evaluated on the same paired records for valid effect estimates and statistical comparisons.  Mixing 499- and 500-item analyses invalidates the stated placebo drop and the apparent RAG/steering ranking.
+
+\findinglabel{Suggested fix.} Recompute every method on one identical test population, including the storage-condition record or excluding it for all methods.  Report integer preferred/non-preferred/tie counts and paired transition tables.  Update the abstract, contribution, table caption, deltas, and all tests from the unified output.
+
+\subsection*{3. Latency results are internally contradictory}
+
+\classification{Definite quantitative inconsistency}
+
+\findinglabel{Location.} Table~\texttt{tab:baselines}; Table~\texttt{tab:equal\_alpha\_ablation}; Abstract; Placebo/RAG Results; Conclusion.
+
+\findinglabel{Problem.} The placebo/RAG table reports 7.32~s for early-stop steering with the 200-token setting.  The ablation table reports 23,414~ms (23.414~s) for the same displayed configuration: greedy decoding, $\alpha_0=18$, $K=16$, linear decay, $N=500$, and \texttt{max\_new\_tokens=200}.  BERTScore F1 is $0.7150$ in both tables, suggesting that the rows are intended to represent the same outputs.  The claim of ``0 latency overhead'' is therefore incompatible with another result in the manuscript.
+
+\findinglabel{Why it matters.} The efficiency comparison with RAG is a headline contribution.  A factor-of-3.2 discrepancy cannot be attributed to rounding and makes the $+81.3\%$ RAG overhead uninterpretable.
+
+\findinglabel{Suggested fix.} Trace every table entry to one logged run and document hardware count, batch size, prompt/output lengths, warm-up, synchronization, repetitions, and timing boundaries.  Report means and dispersion from repeated measurements.  Do not claim zero overhead until the duplicate condition has one reconciled value and an uncertainty interval.
+
+\subsection*{4. The RAG baseline is underspecified and may be oracle-assisted}
+
+\classification{Likely unfair baseline and implementation ambiguity}
+
+\findinglabel{Location.} Experimental Setup; Placebo/RAG Results and table.
+
+\findinglabel{Problem.} The setup calls the baseline BM25 retrieval of relevant Drug Formulary passages, while the Results say RAG works ``by injecting ground-truth passages.''  These are different experiments.  No corpus, chunking, query construction, top-$k$, BM25 implementation, retrieval recall, prompt template, or failure policy is given.  If the gold source passage is selected using test annotations, this is an oracle-context baseline rather than ordinary retrieval.  No paired uncertainty is reported for the 79.20\% result.
+
+\findinglabel{Why it matters.} An oracle passage overestimates deployable RAG accuracy, while an unreported retrieval stage prevents reproduction.  Conversely, a weak BM25 setup can unfairly inflate steering's efficiency narrative.
+
+\findinglabel{Suggested fix.} State explicitly whether the condition is BM25 RAG or gold-context/oracle RAG; ideally report both.  Define the corpus, chunking, query, $k$, retrieval metrics, prompt, and generation settings.  Evaluate all methods on the same paired test records and provide accuracy/latency confidence intervals.  Report retrieval-index memory separately from prompt KV-cache cost.
+
+\subsection*{5. ``Retrieval-ignoring errors'' and zero-memory claims are unsupported}
+
+\classification{Definite interpretation error and overclaim}
+
+\findinglabel{Location.} Contribution~3; Placebo/RAG Results; Conclusion.
+
+\findinglabel{Problem.} The stated 20.8\% ``retrieval-ignoring'' rate is simply $100\%-79.20\%$, the complement of the BERTScore reference-preference proxy.  A non-preferred output can arise from failed retrieval, incomplete context, generation error, metric failure, or a clinically correct paraphrase; it does not establish that the model ignored retrieved evidence.  Steering also does not have a ``zero-memory advantage'': it requires the steering vector, hook state, and model activations.  What it avoids is a retrieval index and extra prompt/KV-cache tokens.
+
+\findinglabel{Why it matters.} These labels convert a proxy outcome into an unmeasured mechanism and exaggerate the systems comparison.
+
+\findinglabel{Suggested fix.} Rename the 20.8\% quantity ``non-reference-preferred outputs under RAG.''  Diagnose retrieval failures and evidence use separately, for example with retrieval recall and grounded citation/entailment checks.  Replace ``zero-memory'' with ``no retrieval-index or additional context-token overhead,'' and measure actual peak GPU/CPU memory for every method.
+
+\subsection*{6. The natural-completion result remains statistically unsupported}
+
+\classification{Definite statistical overstatement}
+
+\findinglabel{Location.} Abstract; Primary Natural Completion Results; Discussion; Conclusion.
+
+\findinglabel{Problem.} The primary 800-token result changes reference preference from 324/500 to 329/500, a net difference of five outcomes.  The paired discordant counts are not reported.  Even in the most favorable possible table (zero regressions and five improvements), a two-sided exact McNemar test gives $p=0.0625$; any additional discordant pairs weaken the evidence.  No paired CI or test is supplied for the BERTScore change $0.6804\rightarrow0.6834$.  Nevertheless, Discussion says this ``prov[es]'' that benefits persist.
+
+\findinglabel{Why it matters.} The primary deployable evaluation does not establish a reliable binary preference improvement.  The larger $+4.21$-point result occurs only in the fixed-length stress test.
+
+\findinglabel{Suggested fix.} Report the 800-token paired $2\times2$ table, exact test, BERTScore paired CI, output lengths, Rep-4, and category effects.  Describe the direction as a nonsignificant trend unless supported.  An EOS rate of 100\% confirms termination but does not prove the absence of repetition loops; report repetition and length distributions.
+
+\subsection*{7. The reported ``exact'' McNemar value does not match the displayed counts}
+
+\classification{Definite statistical-labeling error}
+
+\findinglabel{Location.} Abstract; contribution~4; bounded-stress Results; Table~\texttt{tab:mcnemar}.
+
+\findinglabel{Problem.} For the displayed discordant counts $b=16$ and $c=37$, a standard two-sided exact binomial McNemar test gives approximately $p=0.005486$.  The continuity-corrected asymptotic chi-square test gives approximately $p=0.006010$.  The manuscript reports ``exact McNemar $p=0.006$,'' which matches the continuity-corrected result, not the exact result.  Standard rounding of the exact value to three decimals is $0.005$, not $0.006$.
+
+\findinglabel{Why it matters.} The paper advertises reproducible exact testing as a contribution, so the test label and value must agree.
+
+\findinglabel{Suggested fix.} Report the software/function and settings.  If the exact binomial test was used, give $p\approx0.00549$ (or an appropriately rounded value).  If the continuity-corrected asymptotic test was used, label it accordingly.  Also state how BERTScore ties are encoded in the binary table.
+
+\subsection*{8. The ablation supports only exploratory metric-specific rankings}
+
+\classification{Unsupported comparative and ``unconfounded'' claim}
+
+\findinglabel{Location.} Contribution~5; ``Unconfounded Factorial Ablation Matrix''; Discussion; Conclusion.
+
+\findinglabel{Problem.} No confidence intervals or paired tests are provided for the ablation.  The decisive differences are small: at $\alpha_0=18$, hard cutoff and linear decay exceed continuous steering by $0.0018$ and $0.0017$ BERTScore F1, and hard cutoff reduces Rep-4 by only $0.01$ percentage point.  Multiple schedules, scales, and metrics are inspected without a prespecified contrast or multiplicity treatment.  Moreover, the section calls the design ``Unconfounded,'' while Discussion acknowledges that $D_2=\sum_t\alpha(t)^2$ and temporal distribution remain uncontrolled.
+
+\findinglabel{Why it matters.} Raw rankings do not show that early stopping reliably outperforms continuous steering, and the paper itself recognizes residual confounding.
+
+\findinglabel{Suggested fix.} Rename the section ``Controlled Factorial Ablation.''  Report paired differences and CIs for prespecified comparisons, with multiplicity control or explicit exploratory status.  Treat the BERTScore/repetition versus ROUGE-L results as a multi-objective trade-off rather than a single winning method.
+
+\subsection*{9. Layer and vector evidence remains incomplete}
+
+\classification{Unsupported representation claim and likely artifact risk}
+
+\findinglabel{Location.} Contribution~2; Contrastive Vector Estimation; Layer-Wise Subspace Probing.
+
+\findinglabel{Problem.} The layer sweep is summarized only by a range ($0.7040$--$0.7140$) over layers 4--15, without per-layer scores, uncertainty, or the Layer~8 value.  The experiment is described as ``probing'' but apparently sweeps downstream steering performance, which is not a linear probe.  Similar scores do not establish that truthfulness representations are distributed across layers or ``confirm'' robustness.  In addition, $v_{\mathrm{steer}}$ is extracted from the final token after the complete answer $y_i^{\pm}$, then injected into the first 16 generated-token states.  This temporal/context transfer and possible synthetic-template artifact are not tested.
+
+\findinglabel{Why it matters.} The intervention may work without the direction representing general truthfulness.  Layer selection and the mechanism cannot be independently assessed.
+
+\findinglabel{Suggested fix.} Add per-layer validation results and correctly label the experiment as a steering-layer sweep unless a classifier probe exists.  Compare prompt-only, first-answer-token, final-token, and pooled extraction; test source/template-disjoint and independently authored errors; and report controls for lexical/style artifacts.
+
+\subsection*{10. Dataset construction and evaluation sampling are not auditable}
+
+\classification{Likely leakage and validity issue}
+
+\findinglabel{Location.} ViHaluEval-Medical Benchmark Construction; Experimental Setup.
+
+\findinglabel{Problem.} ``Expert-structured'' is undefined: the paper provides no annotator qualifications, review fraction, agreement, adjudication, or clinical validation.  The synthetic counter-answer generation rules, quality checks, deduplication, source identifiers, and license are absent.  A 500-question subset is sampled from 2,205 test pairs without a sampling rule or seed.  Question-disjointness does not ensure drug-, source-entry-, or perturbation-template-disjointness.
+
+\findinglabel{Why it matters.} Shared formulary entries or generation templates across splits can inflate both vector estimation and BERTScore reference preference.  The test subset cannot be reproduced.
+
+\findinglabel{Suggested fix.} Add a dataset card and construction algorithm, expert protocol, licenses, category counts, source identifiers, deduplication analysis, sampling seed, and released split manifests.  Group splits by drug/source entry and perturbation template before producing answer variants.  Validate a representative sample with clinicians.
+
+\subsection*{11. Metric, decoding, and hook implementations remain incomplete}
+
+\classification{Implementation ambiguity}
+
+\findinglabel{Location.} Methodology and Experimental Setup.
+
+\findinglabel{Problem.} Rep-4 has no formula or tokenizer definition; Vietnamese ROUGE tokenization is unspecified; BERTScore omits IDF, rescaling, package version, and tie tolerance.  ``Greedy decoding'' is described only with \texttt{temperature=0.0}; \texttt{do\_sample=False} and other generation parameters are not stated.  The hook description omits the exact Qwen module, layer-index convention, prompt-forward behavior, modified tensor positions, KV-cache handling, dtype/device placement, and removal.  ``NVIDIA Tesla T4 GPUs (16GB VRAM)'' does not state the GPU count or total memory.
+
+\findinglabel{Why it matters.} These details can change both outputs and timing and prevent independent reproduction.
+
+\findinglabel{Suggested fix.} Give complete metric formulas/configurations, all decoding arguments, software/CUDA/bitsandbytes versions, hardware count, seeds, and minimal hook pseudocode.  Release the evaluation code and raw per-question outputs/statistics.
+
+\section*{Equation, notation, sign, branch, and dimensional audit}
+
+The direction $\mu_l^+-\mu_l^-$, unit normalization, and addition of $+\alpha(t)v_{\mathrm{steer}}^{(l)}$ are sign-consistent, and the hidden-state/vector dimensions match.  The formulas for $D_{\mathrm{continuous}}$, $D_{\mathrm{cutoff}}$, $D_{\mathrm{decay}}=(K+1)\alpha_0/2$, and $\alpha_{\mathrm{match}}=(K+1)\alpha_0/(2T)$ are arithmetically correct for nonnegative $\alpha_0$.  No inverse-trigonometric, coordinate-transform, or branch/quadrant expressions occur.  Terminology still drifts: $D_1=\sum_t|\alpha(t)|$ is called ``energy,'' although energy would more naturally correspond to a squared quantity such as $D_2$; ``probing'' denotes a steering sweep; and ``causal directionality'' denotes a one-vector placebo comparison.  Define $\oplus$, $N$, the token position, and the generation-step counter explicitly.
+
+\section*{Meaningful editorial, compilation, and reference findings}
+
+\subsection*{The source does not compile}
+
+\findinglabel{Location.} Contribution~3 and multiple later headings.
+
+\findinglabel{Problem.} A clean \texttt{pdflatex} run stops at ``\verb|\textbf{Placebo & RAG Baseline Validation}|'' because the ampersand is unescaped.  Additional unescaped ampersands occur in subsection headings.  The source also contains Markdown syntax such as \verb|**...**|, backtick code spans, and hyphen-prefixed/numbered plain-text lists, none of which produce the intended LaTeX formatting.
+
+\findinglabel{Why it matters.} The submission source is currently nonbuildable and visibly mixes markup languages.
+
+\findinglabel{Suggested fix.} Escape prose ampersands as \verb|\&|, replace Markdown bold with \verb|\textbf{...}|, replace backticks with \verb|\texttt{...}|, and use \texttt{enumerate}/\texttt{itemize}.  Rebuild twice from a clean directory and resolve all remaining warnings.
+
+\subsection*{A central bibliography entry is invalid}
+
+\findinglabel{Location.} Related Work and bibliography entry \texttt{ref13}.
+
+\findinglabel{Problem.} \texttt{ref13} again attributes arXiv:2312.09876 to A.~Perez and an activation-steering saturation paper.  That identifier belongs to the unrelated paper ``Automatic Image Colourizer'' by Aditya Parikh.  It cannot support the continuous-steering saturation claim.
+
+\findinglabel{Why it matters.} The invalid reference is used to motivate the paper's central mechanism and is a substantive reference-integrity failure.
+
+\findinglabel{Suggested fix.} Remove \texttt{ref13} or replace it only after verifying the real title, authors, identifier, and evidence.  If no direct source exists, present saturation as a hypothesis and measure activation behavior rather than citing it as established.
+
+\section*{Proofing sweep}
+
+The bundled mechanical scan was run on both the source and available PDF and returned no high-confidence pattern hits.  Manual source and bibliography checks identified the following bounded, unambiguous corrections:
+\begin{itemize}
+    \item \textbf{Abstract and placebo paragraph:} replace ``a drop of --10.55~pp'' with ``a drop of 10.55~pp'' or ``a change of $-10.55$~pp.''
+    \item \textbf{Prompt-token table:} \verb|~118.0| creates a nonbreaking space, not an approximation symbol; use $\sim118.0$.
+    \item \textbf{RAG context ratio:} $304.4/118.0\approx2.58$, so report approximately $2.58\times$ rather than $2.5\times$ if two-decimal precision is otherwise used.
+    \item \textbf{Natural-completion table:} \verb|\begin{tabular}{lcccc}| declares five columns, but the table supplies four; use \verb|{lccc}|.  The reference-preference table similarly declares one extra column (\verb|{lcrrrr}| versus five supplied fields).
+    \item \textbf{Boldface:} remove Markdown asterisks and define whether LaTeX bold in result tables marks the maximum, minimum, or a statistically supported result.
+\end{itemize}
+
+\section*{Items requiring external verification}
+
+\begin{itemize}
+    \item Verify every Drug Formulary-derived reference and synthetic counter-answer against the official second edition and current clinical guidance, including reuse permissions.
+    \item Validate the BERTScore reference-preference proxy against blinded clinician judgments for Vietnamese negation, quantities, units, contraindications, and interaction mechanisms.
+    \item Verify RAG performance with a reproducible non-oracle retriever and measure retrieval recall, index memory, KV-cache memory, and end-to-end latency under identical hardware/batching.
+    \item Verify novelty against real continuous and token-dependent activation-steering literature after deleting the invalid \texttt{ref13}.
+    \item Verify privacy-preserving and hospital-edge-deployment claims with a threat model and measured resource envelope.
+\end{itemize}
+
+\section*{Highest-priority revision sequence}
+
+\begin{enumerate}
+    \item Reconcile the 499/500 denominators and the 7.32/23.414-second latency contradiction from raw logs.
+    \item Replace the one-vector causal claim with a multi-random-direction and sign-flip analysis on the same paired records.
+    \item Define and rerun a fair BM25 RAG baseline distinct from oracle gold-context evaluation, with paired uncertainty and systems measurements.
+    \item Correct the exact McNemar calculation and properly test/report the natural-completion result.
+    \item Add uncertainty for the ablation, rename it controlled rather than unconfounded, and clarify metric trade-offs.
+    \item Complete dataset provenance, layer/vector validation, metric/hook implementation details, and clinician proxy validation.
+    \item Remove the invalid \texttt{ref13} and repair all LaTeX/Markdown, table-column, and copyediting defects until the manuscript compiles cleanly.
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,26 @@
+{
+  "baseline_200_greedy": {
+    "rouge_l": 0.2363,
+    "bertscore": 0.7173,
+    "rep4gram": 0.0359,
+    "eos_rate": 0.0,
+    "avg_len": 195.0,
+    "avg_latency_ms": 22855
+  },
+  "es_best_200_greedy": {
+    "rouge_l": 0.2371,
+    "bertscore": 0.7189,
+    "rep4gram": 0.0385,
+    "eos_rate": 0.0,
+    "avg_len": 196.4,
+    "avg_latency_ms": 23020
+  },
+  "full_200_greedy": {
+    "rouge_l": 0.2395,
+    "bertscore": 0.7164,
+    "rep4gram": 0.0414,
+    "eos_rate": 0.0,
+    "avg_len": 193.6,
+    "avg_latency_ms": 22743
+  }
+}

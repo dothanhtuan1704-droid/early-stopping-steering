@@ -1,0 +1,42 @@
+{
+  "Early (1-16)": {
+    "condition": "Early (1-16)",
+    "max_new_tokens": 800,
+    "total_samples": 500,
+    "pref_count": "122/500",
+    "overlap_refpref_pct": 24.4,
+    "rep4_pct": 5.24,
+    "eos_hit_rate_pct": 99.8,
+    "mean_token_length": 294.82
+  },
+  "Delayed (17-32)": {
+    "condition": "Delayed (17-32)",
+    "max_new_tokens": 800,
+    "total_samples": 500,
+    "pref_count": "129/500",
+    "overlap_refpref_pct": 25.8,
+    "rep4_pct": 5.56,
+    "eos_hit_rate_pct": 99.6,
+    "mean_token_length": 294.61
+  },
+  "Later (33-48)": {
+    "condition": "Later (33-48)",
+    "max_new_tokens": 800,
+    "total_samples": 500,
+    "pref_count": "129/500",
+    "overlap_refpref_pct": 25.8,
+    "rep4_pct": 5.25,
+    "eos_hit_rate_pct": 99.8,
+    "mean_token_length": 296.39
+  },
+  "Continuous (1-inf)": {
+    "condition": "Continuous (1-inf)",
+    "max_new_tokens": 800,
+    "total_samples": 500,
+    "pref_count": "136/500",
+    "overlap_refpref_pct": 27.2,
+    "rep4_pct": 5.0,
+    "eos_hit_rate_pct": 100.0,
+    "mean_token_length": 251.99
+  }
+}

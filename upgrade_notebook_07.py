@@ -1,0 +1,160 @@
+import json
+import os
+
+def make_notebook(cells):
+    nb_cells = []
+    for cell_type, source in cells:
+        nb_cells.append({
+            'cell_type': cell_type,
+            'metadata': {},
+            'execution_count': None if cell_type == 'code' else None,
+            'outputs': [] if cell_type == 'code' else None,
+            'source': source.splitlines(keepends=True) if isinstance(source, str) else source
+        })
+    return {
+        'cells': nb_cells,
+        'metadata': {
+            'language_info': {'name': 'python'}
+        },
+        'nbformat': 4,
+        'nbformat_minor': 2
+    }
+
+nb7_cells = [
+    ('markdown', '# 🌐 GPU Experiment 7: Complete Dense (BGE-M3) and Hybrid RAG Benchmark + Profiling\n'
+                 '**Author:** Phan Do Thanh Tuan  \n'
+                 '**Objective:** Evaluate Dense Retrieval (`BAAI/bge-m3`) and Hybrid RAG (BM25 + BGE-M3 via RRF) across 14,576 Vietnamese National Drug Formulary passages.\n'
+                 'Report Recall@1/3/5, MRR, Accuracy on N_test=500 test questions, and measure component-wise latency/VRAM.'),
+    ('code', '# Cell 0: Automated Package Installation for Kaggle / Colab\n'
+             '!pip install -q pyvi sentence-transformers rank_bm25 pandas numpy torch\n'
+             'print("[+] All required packages installed successfully!")\n'),
+    ('code', '# Cell 1: Environment Setup & Library Imports\n'
+             'import os\n'
+             'import sys\n'
+             'import json\n'
+             'import time\n'
+             'import torch\n'
+             'import numpy as np\n'
+             'import pandas as pd\n'
+             'from typing import Dict, List, Tuple\n'
+             'from rank_bm25 import BM25Okapi\n'
+             'from sentence_transformers import SentenceTransformer, util\n'
+             'from pyvi import ViTokenizer\n'
+             '\n'
+             'print("PyTorch Version:", torch.__version__)\n'
+             'print("CUDA Available:", torch.cuda.is_available())\n'
+             'if torch.cuda.is_available():\n'
+             '    print("GPU Device:", torch.cuda.get_device_name(0))\n'),
+    ('code', '# Cell 2: Load Drug Formulary Passages & Test Benchmark Questions\n'
+             'data_path = "/kaggle/input/datasets/tunthanh66/vnese-data/vietnamese_medical_halueval_15k_specialized.json"\n'
+             'if not os.path.exists(data_path):\n'
+             '    data_path = "vietnamese_medical_halueval_15k_specialized.json"\n'
+             'if not os.path.exists(data_path):\n'
+             '    data_path = "../data/vietnamese_medical_halueval_15k_specialized.json"\n'
+             '\n'
+             'with open(data_path, "r", encoding="utf-8") as f:\n'
+             '    dataset = json.load(f)\n'
+             '\n'
+             'passages = [item["knowledge_context"] for item in dataset[:14576]]\n'
+             'test_items = dataset[:500]\n'
+             'print(f"[*] Loaded {len(passages)} formulary passages and {len(test_items)} evaluation questions.")\n'),
+    ('code', '# Cell 3: Build Vietnamese Tokenized BM25 Lexical Indexer (PyVi)\n'
+             'print("[*] Tokenizing 14,576 passages using PyVi Vietnamese Tokenizer for BM25...")\n'
+             'tokenized_corpus = [ViTokenizer.tokenize(doc.lower()).split() for doc in passages]\n'
+             'bm25_indexer = BM25Okapi(tokenized_corpus)\n'
+             'print("[+] Vietnamese PyVi BM25 Indexer constructed successfully!")\n'),
+    ('code', '# Cell 4: Build Dense Embedding Vector Indexer (BAAI/bge-m3)\n'
+             'DENSE_MODEL_ID = "BAAI/bge-m3"\n'
+             'print(f"[*] Loading Dense Embedding Model {DENSE_MODEL_ID} on GPU...")\n'
+             'dense_model = SentenceTransformer(DENSE_MODEL_ID, device="cuda" if torch.cuda.is_available() else "cpu")\n'
+             'print("[*] Encoding 14,576 formulary passages into dense embeddings...")\n'
+             'corpus_embeddings = dense_model.encode(passages, convert_to_tensor=True, show_progress_bar=True)\n'
+             'print("[+] Dense Passage Embeddings shape:", corpus_embeddings.shape)\n'),
+    ('code', '# Cell 5: Define Reciprocal Rank Fusion (RRF) Hybrid Function\n'
+             'def reciprocal_rank_fusion(bm25_scores, dense_scores, top_k=5, rrf_k=60):\n'
+             '    bm25_sorted_ids = np.argsort(bm25_scores)[::-1][:50]\n'
+             '    dense_sorted_ids = torch.topk(dense_scores, k=50).indices.cpu().numpy()\n'
+             '    \n'
+             '    rrf_dict = {}\n'
+             '    for rank, doc_id in enumerate(bm25_sorted_ids):\n'
+             '        rrf_dict[doc_id] = rrf_dict.get(doc_id, 0.0) + 1.0 / (rrf_k + rank + 1)\n'
+             '    for rank, doc_id in enumerate(dense_sorted_ids):\n'
+             '        rrf_dict[doc_id] = rrf_dict.get(doc_id, 0.0) + 1.0 / (rrf_k + rank + 1)\n'
+             '        \n'
+             '    sorted_rrf = sorted(rrf_dict.items(), key=lambda x: x[1], reverse=True)[:top_k]\n'
+             '    return [doc_id for doc_id, _ in sorted_rrf]\n'
+             '\n'
+             'print("[+] Hybrid RRF Fusion function defined successfully!")\n'),
+    ('code', '# Cell 6: Component-wise System Profiler & Evaluation Loop (N_test=500)\n'
+             'def profile_pipeline(retriever_type="hybrid", n_questions=500):\n'
+             '    recalls_at_1, recalls_at_3, recalls_at_5, mrrs = [], [], [], []\n'
+             '    ret_latencies = []\n'
+             '    \n'
+             '    for item in test_items[:n_questions]:\n'
+             '        query = item["question"]\n'
+             '        gold_passage = item["knowledge_context"]\n'
+             '        \n'
+             '        t_start = time.time()\n'
+             '        if retriever_type == "bm25":\n'
+             '            tokenized_query = ViTokenizer.tokenize(query.lower()).split()\n'
+             '            scores = bm25_indexer.get_scores(tokenized_query)\n'
+             '            top_ids = np.argsort(scores)[::-1][:5]\n'
+             '        elif retriever_type == "dense":\n'
+             '            q_emb = dense_model.encode(query, convert_to_tensor=True)\n'
+             '            scores = util.cos_sim(q_emb, corpus_embeddings)[0]\n'
+             '            top_ids = torch.topk(scores, k=5).indices.cpu().numpy()\n'
+             '        elif retriever_type == "hybrid":\n'
+             '            tokenized_query = ViTokenizer.tokenize(query.lower()).split()\n'
+             '            bm25_s = bm25_indexer.get_scores(tokenized_query)\n'
+             '            q_emb = dense_model.encode(query, convert_to_tensor=True)\n'
+             '            dense_s = util.cos_sim(q_emb, corpus_embeddings)[0]\n'
+             '            top_ids = reciprocal_rank_fusion(bm25_s, dense_s, top_k=5)\n'
+             '        t_ret = (time.time() - t_start) * 1000.0\n'
+             '        \n'
+             '        retrieved_texts = [passages[i] for i in top_ids]\n'
+             '        hit1 = 1 if gold_passage in retrieved_texts[:1] else 0\n'
+             '        hit3 = 1 if gold_passage in retrieved_texts[:3] else 0\n'
+             '        hit5 = 1 if gold_passage in retrieved_texts[:5] else 0\n'
+             '        \n'
+             '        mrr = 0.0\n'
+             '        for r_idx, txt in enumerate(retrieved_texts):\n'
+             '            if txt == gold_passage:\n'
+             '                mrr = 1.0 / (r_idx + 1)\n'
+             '                break\n'
+             '                \n'
+             '        recalls_at_1.append(hit1)\n'
+             '        recalls_at_3.append(hit3)\n'
+             '        recalls_at_5.append(hit5)\n'
+             '        mrrs.append(mrr)\n'
+             '        ret_latencies.append(t_ret)\n'
+             '        \n'
+             '    return {\n'
+             '        "pipeline": retriever_type,\n'
+             '        "Recall@1": np.mean(recalls_at_1),\n'
+             '        "Recall@3": np.mean(recalls_at_3),\n'
+             '        "Recall@5": np.mean(recalls_at_5),\n'
+             '        "MRR": np.mean(mrrs),\n'
+             '        "Mean_Retrieval_Latency_ms": np.mean(ret_latencies)\n'
+             '    }\n'
+             '\n'
+             'print("[+] Profiling function updated with PyVi Vietnamese Word Segmentation!")\n'),
+    ('code', '# Cell 7: Execute Benchmark on Full N_test=500 Questions & Export CSV\n'
+             'summary_metrics = []\n'
+             'for p_type in ["bm25", "dense", "hybrid"]:\n'
+             '    print(f"[*] Running full evaluation (N_test=500) for pipeline: {p_type}...")\n'
+             '    res = profile_pipeline(retriever_type=p_type, n_questions=500)\n'
+             '    summary_metrics.append(res)\n'
+             '\n'
+             'df_rag = pd.DataFrame(summary_metrics)\n'
+             'df_rag.to_csv("dense_hybrid_rag_summary.csv", index=False, encoding="utf-8")\n'
+             'print("[+] Saved Dense & Hybrid RAG Benchmark results to dense_hybrid_rag_summary.csv")\n'
+             'print(df_rag)\n')
+]
+
+nb7 = make_notebook(nb7_cells)
+dirs = [r'E:\Paper_Steering_VN_15K\FINAL_SUBMISSION_PACKAGE', r'E:\Paper_Steering_VN_15K']
+for d in dirs:
+    with open(os.path.join(d, '07_dense_bge_m3_hybrid_rag_eval.ipynb'), 'w', encoding='utf-8') as f:
+        json.dump(nb7, f, indent=2, ensure_ascii=False)
+
+print("[SUCCESS] Notebook 07 upgraded with PyVi Vietnamese Word Segmentation and N_test=500 full evaluation!")

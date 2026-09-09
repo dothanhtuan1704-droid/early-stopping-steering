@@ -1,0 +1,10 @@
+{
+  "experiment": "Exp09_Full_50pct_Label_Permutation_Kaggle",
+  "n_flipped": 6322,
+  "n_train": 12495,
+  "flip_pct": 50.59623849539816,
+  "n_test": 500,
+  "refpref_pct": 68.60000000000001,
+  "preferred_count": 343,
+  "mean_bertscore_f1": 0.6845490901470185
+}

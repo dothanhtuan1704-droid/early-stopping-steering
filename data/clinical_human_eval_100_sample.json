@@ -1,0 +1,902 @@
+[
+  {
+    "id": "med_15k_spec_14655",
+    "knowledge_context": "Phải theo dõi đau cơ để phân biệt bệnh cơ do thuốc hay do bệnh HIV để tiếp tục hay ngừng dùng thuốc.\nLiều lượng và cách dùng Cách dùng:\nZidovudin có thể uống, tiêm truyền tĩnh mạch liên tục hoặc gián đoạn. Liệu pháp uống phải thay thế liệu pháp tiêm mỗi khi có thể.\nZidovudin không được tiêm nhanh hoặc cả liều ngay một lúc. Để tránh nguy cơ kích ứng thực quản gây loét, người bệnh uống viên nang phải ở tư thế đứng thẳng và với đủ lượng nước (ít nhất 120 ml nước). Tuy thức ăn có thể làm giảm nồng độ đỉnh zidovudin trong huyết tương nhưng không tác động đến diện tích dưới đường cong nồng độ - thời gian (AUC) nên khi uống thuốc không cần chú ý đến bữa ăn. Dung dịch đậm đặc zidovudin để truyền tĩnh mạch chứa 10 mg/ml phải pha loãng trước khi truyền với dung dịch tiêm dextrose 5% để có một dung d",
+    "question": "Câu hỏi về An toàn Thai kỳ: Zidovudin có an toàn khi dùng cho phụ nữ mang thai không?",
+    "right_answer": "Zidovudin không được khuyến cáo sử dụng cho phụ nữ mang thai vì có thể gây hại cho thai nhi. Tuy nhiên, nếu cần thiết, nên cân nhắc lợi ích và rủi ro.",
+    "hallucinated_answer": "Zidovudin an toàn khi dùng cho phụ nữ mang thai và không gây hại cho thai nhi.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14253",
+    "knowledge_context": "Vắc xin VNNB bất hoạt còn được dùng để tạo miễn dịch chủ động cho nhân viên phòng thí nghiệm có nguy cơ tiếp xúc cao với virus.\nChống chỉ định Mẫn cảm với vắc xin hoặc bất cứ thành phần nào trong vắc xin, mẫn cảm với sản phẩm có nguồn gốc từ động vật, có phản ứng dị ứng nghiêm trọng khi dùng liều vắc xin trước.\nThận trọng Vắc xin VNNB bất hoạt có thể gây ra các phản ứng không mong muốn, nhưng tỷ lệ phản ứng quá mẫn trầm trọng (như nổi mày đay toàn thể, phù mạch) thấp (0,1 - 1,0%) có thể xảy ra trong vòng từ vài phút đến 17 ngày sau khi dùng vắc xin, phần lớn xảy ra trong vòng 48 giờ. Các biện pháp cấp cứu khi bị sốc phản vệ phải sẵn sàng khi sử dụng vắc xin. Người bệnh nên được theo dõi trong vòng 30 phút sau khi tiêm vắc xin. Không nên khởi hành du lịch trong vòng 10 ngày sau khi tiêm vắc",
+    "question": "Câu hỏi về An toàn Thai kỳ: Vắc xin VNNB bất hoạt có an toàn khi sử dụng cho phụ nữ mang thai?",
+    "right_answer": "Vắc xin VNNB bất hoạt không được khuyến nghị sử dụng cho phụ nữ mang thai do khả năng gây hại cho thai nhi. Nên tránh sử dụng vắc xin này trong thai kỳ.",
+    "hallucinated_answer": "Vắc xin VNNB bất hoạt có thể được sử dụng an toàn cho phụ nữ mang thai trong một số trường hợp đặc biệt.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14211",
+    "knowledge_context": "Liều lượng và cách dùng Vắc xin thương hàn Typhim Vi để tiêm bắp, không tiêm tĩnh mạch.\nỞ người lớn, tốt nhất là tiêm vào vùng cơ delta. Ở trẻ em, nên tiêm vào vùng cơ delta hoặc cơ đùi. Tránh tiêm ở vùng cơ có dây thần kinh, không tiêm vào hoặc gần mạch máu. Liều vắc xin mới nên tiêm ở vị trí khác, sử dụng bơm và kim tiêm mới.\nĐể tạo miễn dịch cơ bản dùng vắc xin thương hàn Typhim Vi với liều đơn 25 microgam (0,5 ml). Liều thường dùng cho người lớn và trẻ em 2 tuổi hoặc lớn hơn là 0,5 ml. Thời gian đáp ứng miễn dịch sau 10 ngày tiêm chủng và lịch tiêm nhắc lại tối ưu của vắc xin là sau 3 năm theo khuyến cáo của nhà sản xuất. Khuyến cáo cách 2 năm nên tiêm thêm 1 liều 0,5 ml nếu phải đi vào nơi có dịch lưu hành.\nVắc xin polysacarid Vi cộng hợp giải độc tố uốn ván được chỉ định để tiêm cho ",
+    "question": "Câu hỏi về An toàn Thai kỳ: Vắc xin thương hàn Typhim Vi có an toàn khi sử dụng cho phụ nữ mang thai?",
+    "right_answer": "Vắc xin thương hàn Typhim Vi không được chỉ định sử dụng cho phụ nữ mang thai.",
+    "hallucinated_answer": "Vắc xin thương hàn Typhim Vi an toàn và có thể sử dụng cho phụ nữ mang thai.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14403",
+    "knowledge_context": "Cũng như các thuốc chống trầm cảm khác, venlafaxin có thể gây chóng mặt, hạ huyết áp thế đứng nhất là ở người cao tuổi, vì vậy không nên lái tàu xe hoặc vận hành máy móc.\nKhi đang điều trị bằng venlafaxin mà ngừng thuốc hoặc giảm liều đột ngột có thể gây các triệu chứng mệt mỏi, ngủ gà, nhức đầu, buồn nôn, chán ăn, khô miệng, tiêu chảy, kích động, lo âu, căng thẳng, lú lẫn, hưng cảm nhẹ, cảm giác bất thường, tăng tiết mồ hôi và chóng mặt. Do đó, venlafaxin được khuyến cáo trước khi ngừng thuốc phải giảm liều dần dần ít nhất trong một tuần sau đợt điều trị kéo dài trên một tuần. Đồng thời phải giám sát người bệnh để làm giảm phản ứng khi ngừng thuốc.\nThời kỳ mang thai Các bà mẹ mang thai dùng venlafaxin gần ngày sinh có thể gặp các phản ứng ngừng thuốc ở trẻ sau khi sinh. Một nghiên cứu ở 1",
+    "question": "Câu hỏi về An toàn Thai kỳ: Venlafaxin có an toàn khi dùng trong thời kỳ mang thai?",
+    "right_answer": "Venlafaxin không được khuyến nghị sử dụng trong thời kỳ mang thai trừ khi thật cần thiết vì có thể gây ra các phản ứng ngừng thuốc ở trẻ sau khi sinh.",
+    "hallucinated_answer": "Venlafaxin là an toàn và không gây hại cho thai nhi trong suốt thời kỳ mang thai.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14392",
+    "knowledge_context": "Thời kỳ mang thai Các bà mẹ mang thai dùng venlafaxin gần ngày sinh có thể gặp các phản ứng ngừng thuốc ở trẻ sau khi sinh. Một nghiên cứu ở 150 người dùng venlafaxin vào 3 tháng đầu của thai kỳ thấy 25 người xảy thai và thai chết, 2 người có thai dị dạng. Mặc dù tỉ lệ này cao hơn không có ý nghĩa so với nhóm chứng nhưng các nhà sản xuất khuyến cáo không dùng venlafaxin cho phụ nữ mang thai trừ khi thật cần thiết.\nThời kỳ cho con bú Venlafaxin và chất chuyển hóa O-desmethylvenlafaxin bài tiết vào sữa mẹ nên có thể gây tác dụng không mong muốn trên trẻ bú mẹ.\nKhông dùng thuốc cho phụ nữ nuôi con bú.\nTác dụng không mong muốn (ADR) Thường gặp, ADR > 1/100 Thần kinh: Nhức đầu, mất ngủ, buồn ngủ, chóng mặt, suy nhược, lo âu, căng thẳng, kích động, ác mộng, hoang mang.\nTim mạch: Run rẩy, giãn mạ",
+    "question": "Câu hỏi về Tương tác thuốc: Khi sử dụng venlafaxin cho phụ nữ mang thai, có thể gặp phản ứng ngừng thuốc ở trẻ sau khi sinh?",
+    "right_answer": "Có thể gặp phản ứng ngừng thuốc ở trẻ sau khi sinh.",
+    "hallucinated_answer": "Venlafaxin không gây ra bất kỳ phản ứng ngừng thuốc nào ở trẻ sau khi sinh.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14379",
+    "knowledge_context": "Vecuronium bromid 10 mg: Trước khi sử dụng, cho thêm 5 ml nước cất tiêm vào lọ, để pha thành dung dịch đẳng trương có pH 4 với hàm lượng 2 mg vecuronium bromid/ml. Không được trộn vecuronium bromid với các thuốc khác trong cùng một bơm tiêm hoặc với các dịch tiêm truyền tĩnh mạch khác, trừ những dịch truyền đã được biết là tương hợp với vecuronium bromid (xem phần sau).\nLiều lượng:\nLiều vecuronium bromid dùng cho đặt ống nội khí quản và các phẫu thuật tiếp theo như sau:\nLiều dùng cho đặt ống nội khí quản: Liều khởi đầu thường dùng là 0,08 - 0,10 mg/kg, tiêm tĩnh mạch. Sau liều khởi đầu khoảng 2,5 - 3 phút có thể thực hiện đặt ống nội khí quản trên phần lớn người bệnh và đạt mức phong bế thần kinh - cơ tối đa trong vòng 3 - 5 phút. Thời gian tác dụng của thuốc kéo dài 25 - 30 phút. Nếu dùng",
+    "question": "Vecuronium bromid có an toàn khi sử dụng cho phụ nữ mang thai không?",
+    "right_answer": "Vecuronium bromid không được khuyến nghị sử dụng cho phụ nữ mang thai do khả năng gây hại cho thai nhi.",
+    "hallucinated_answer": "Vecuronium bromid là an toàn và không gây hại khi sử dụng cho phụ nữ mang thai.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14280",
+    "knowledge_context": "Thời kỳ cho con bú Dữ liệu thực nghiệm trên chuột cho thấy valsartan được bài tiết vào sữa mẹ. Hiện chưa rõ liệu valsartan có được bài tiết vào sữa mẹ ở người hay không. Do nguy cơ bất lợi trên trẻ bú mẹ, nên ngừng cho con bú trong thời gian điều trị bằng valsartan hoặc ngừng thuốc và điều trị thay thế bằng thuốc khác.\nTác dụng không mong muốn (ADR) Thường gặp, ADR >1/100 TKTW: Hoa mắt, chóng mặt, mệt, đau đầu.\nThận: Tăng urê máu.\nÍt gặp, 1/1 000 < ADR < 1/100 Tim mạch: Hạ huyết áp, hạ huyết áp tư thế, ngất.\nNội tiết và chuyển hóa: Tăng kali máu.\nTiêu hóa: Tiêu chảy, đau bụng, buồn nôn, đau bụng trên.\nMáu: Giảm bạch cầu trung tính.\nCơ xương: Đau khớp, đau lưng.\nMắt: Nhìn mờ.\nThận: Tăng creatinin máu, rối loạn chức năng thận.\nHô hấp: Ho khan.\nKhác: Nhiễm virus.\nHiếm gặp, ADR < 1/1 000 Miễn ",
+    "question": "Câu hỏi về An toàn valsartan cho phụ nữ mang thai?",
+    "right_answer": "Valsartan được phân loại là D trong thời kỳ mang thai, nghĩa là không có dữ liệu về an toàn sử dụng thuốc trong thai kỳ. Do đó, valsartan không được khuyến nghị sử dụng cho phụ nữ mang thai trừ khi lợi ích vượt trội so với nguy cơ.",
+    "hallucinated_answer": "Valsartan an toàn để sử dụng trong thai kỳ và không gây hại cho thai nhi.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14235",
+    "knowledge_context": "Hướng dẫn cách xử trí ADR Đối với trường hợp quá mẫn nhẹ: Dùng các loại kháng histamin, và nếu cần, dùng corticoid.\nĐối với trường hợp quá mẫn nặng và phản ứng phản vệ: Dùng adrenalin. Cũng có thể dùng các thuốc kháng histamin hoặc corticoid.\nLiều lượng và cách dùng Cách dùng:\nVắc xin viêm gan B thường được tiêm bắp, chỉ tiêm dưới da khi cần thiết ở những người có nguy cơ xuất huyết nếu tiêm bắp, không tiêm tĩnh mạch hay tiêm trong da. Dạng phối hợp chỉ được tiêm bắp. Kiểm tra bằng mắt thường phát hiện tiểu phân hoặc sự biến màu trước khi tiêm vắc xin. Lắc kỹ ngay trước khi tiêm. Không pha loãng hay trộn lẫn với vắc xin hay dung dịch khác. Tiêm bắp tại cơ delta hoặc cơ đùi trước: Người lớn và trẻ em trên 3 tuổi ưu tiên cơ delta, trẻ em dưới 3 tuổi ưu tiên cơ đùi trước. Không tiêm vắc xin ở",
+    "question": "Câu hỏi về An toàn Thai kỳ: Phụ nữ mang thai có thể tiêm vắc xin viêm gan B không?",
+    "right_answer": "Không, vắc xin viêm gan B không được chỉ định cho phụ nữ mang thai.",
+    "hallucinated_answer": "Có, vắc xin viêm gan B an toàn cho phụ nữ mang thai.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14613",
+    "knowledge_context": "Thời kỳ mang thai\nChống chỉ định hoặc chỉ dùng sau khi cân nhắc giữa lợi và hại do thuốc.\nThời kỳ cho con bú Chưa biết thuốc có bài tiết ra sữa mẹ không, nhưng cần tạm ngừng cho con bú khi bà mẹ phải điều trị với xanh methylen.\nTác dụng không mong muốn (ADR) Xanh methylen thường đươc dùng trong thời gian ngắn. Thuốc có thể gây thiếu máu và một số triệu chứng ở đường tiêu hóa khi uống hoặc tiêm tĩnh mạch liều cao.\nThường gặp, ADR > 1/100 Huyết học: Thiếu máu, tan máu.\nÍt gặp, 1/1 000 < ADR < 1/100 Tiêu hóa: Buồn nôn, nôn, đau bụng.\nThần kinh trung ương: Chóng mặt, đau đầu, sốt. Tim mạch: Tăng huyết áp, đau vùng trước tim. Tiết niệu: Kích ứng bàng quang.\nDa: Da có màu xanh.\nLiều lượng và cách dùng Liều tiêm tĩnh mạch cho người lớn và trẻ em là: 1 - 2 mg/kg, tiêm chậm trong vài phút. Nếu cần,",
+    "question": "Câu hỏi về An toàn Thai kỳ và cho con bú?",
+    "right_answer": "Xanh methylen bị chống chỉ định trong thời kỳ mang thai do khả năng gây hại cho thai nhi. Khi cho con bú, cần tạm ngừng cho con bú vì thuốc có thể bài tiết ra sữa mẹ.",
+    "hallucinated_answer": "Xanh methylen an toàn trong thời kỳ mang thai và cho con bú.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14232",
+    "knowledge_context": "Thời kỳ mang thai Mặc dầu chưa có dẫn liệu về độ an toàn của vắc xin tái tổ hợp đối với phát triển bào thai, nhưng vắc xin viêm gan B chỉ nên dùng khi thật sự cần thiết. Vắc xin viêm gan B không chống chỉ định với phụ nữ mang thai do nguy cơ nhiễm viêm gan Bở đối tượng này và nguy cơ nhiễm virus mạn tính ở trẻ sơ sinh.\nThời kỳ cho con bú Còn chưa rõ vắc xin có phân bố vào sữa mẹ hay không. Phụ nữ cho con bú nên tiêm vắc xin như khuyến cáo với người lớn khác.\nTác dụng không mong muốn (ADR) Nhìn chung vắc xin có độ dung nạp tốt. Không thấy các tác dụng ngoại ý nghiêm trọng do vắc xin trong suốt quá trình thử nghiệm trên lâm sàng.\nMột số trường hợp gây ra hội chứng Guillain - Barré sau khi tiêm vắc xin viêm gan B loại tái tổ hợp đã được thông báo, nhưng mối quan hệ với vắc xin còn chưa rõ.\nTh",
+    "question": "Câu hỏi về An toàn Thai kỳ: Vắc xin viêm gan B có an toàn khi sử dụng trong thời kỳ mang thai không?",
+    "right_answer": "Vắc xin viêm gan B không chống chỉ định với phụ nữ mang thai, nhưng chỉ nên sử dụng khi thật sự cần thiết do nguy cơ nhiễm viêm gan B ở đối tượng này và nguy cơ truyền virus mạn tính cho trẻ sơ sinh.",
+    "hallucinated_answer": "Vắc xin viêm gan B là an toàn và khuyến khích sử dụng trong thời kỳ mang thai để bảo vệ cả mẹ và bé.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14526",
+    "knowledge_context": "Nồng độ 25-(OH)D huyết thanh 5 - 15 mg/ml:\nTrẻ em: 4 000 đvqt mỗi ngày trong 12 tuần hoặc 50 000 đvqt cách nhau 2 tuần trong 12 tuần. Người lớn: 50 000 đvqt /tuần trong 4 tuần, tiếp theo mỗi tháng một lần, trong 2 tháng.\nNồng độ 25-(OH)D huyết thanh < 5 mg/ml:\nTrẻ em: 8 000 đvqt/ngày trong 4 tuần, tiếp theo là 4 000 đvqt/ngày trong 2 tháng hoặc 50 000 đvqt/tuần, trong 4 tuần, tiếp theo là 50 000 đvqt, 2 lần/tháng trong 2 tháng. Người lớn: 50 000 đvqt/tuần trong 12 tuần, sau đó mỗi tháng một lần trong 3 tháng.\nĐiều chỉnh liều: Giám sát 25(OH)D, nồng độ Ca và P huyết thanh.\nNếu calci huyết >10,2 mg/dl hoặc nồng độ 25-(OH)D bình thường, phải ngừng điều trị. Nếu P huyết thanh vượt quá giới hạn cao theo tuổi hoặc 4,6 mg/dl (người lớn), bắt đầu cho liệu pháp liên kết phosphat.\nLoãng xương hay nh",
+    "question": "Câu hỏi về An toàn Thai kỳ: Alfacalcidol có an toàn khi sử dụng cho phụ nữ mang thai không?",
+    "right_answer": "Alfacalcidol không được khuyến cáo sử dụng cho phụ nữ mang thai do khả năng gây dị tật thai nhi.",
+    "hallucinated_answer": "Alfacalcidol là an toàn và có thể sử dụng cho phụ nữ mang thai để điều trị loãng xương.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14223",
+    "knowledge_context": "Thời kỳ mang thai Mặc dầu chưa có dẫn liệu về độ an toàn của vắc xin tái tổ hợp đối với phát triển bào thai, nhưng vắc xin viêm gan B chỉ nên dùng khi thật sự cần thiết. Vắc xin viêm gan B không chống chỉ định với phụ nữ mang thai do nguy cơ nhiễm viêm gan Bở đối tượng này và nguy cơ nhiễm virus mạn tính ở trẻ sơ sinh.\nThời kỳ cho con bú Còn chưa rõ vắc xin có phân bố vào sữa mẹ hay không. Phụ nữ cho con bú nên tiêm vắc xin như khuyến cáo với người lớn khác.\nTác dụng không mong muốn (ADR) Nhìn chung vắc xin có độ dung nạp tốt. Không thấy các tác dụng ngoại ý nghiêm trọng do vắc xin trong suốt quá trình thử nghiệm trên lâm sàng.\nMột số trường hợp gây ra hội chứng Guillain - Barré sau khi tiêm vắc xin viêm gan B loại tái tổ hợp đã được thông báo, nhưng mối quan hệ với vắc xin còn chưa rõ.\nTh",
+    "question": "Câu hỏi về An toàn Thai kỳ: Vắc xin viêm gan B có an toàn khi sử dụng cho phụ nữ mang thai?",
+    "right_answer": "Vắc xin viêm gan B không chống chỉ định với phụ nữ mang thai do nguy cơ nhiễm viêm gan B đối với họ và nguy cơ nhiễm virus mạn tính ở trẻ sơ sinh. Tuy nhiên, chỉ nên dùng khi thật sự cần thiết.",
+    "hallucinated_answer": "Vắc xin viêm gan B hoàn toàn an toàn và nên được sử dụng rộng rãi cho phụ nữ mang thai để bảo vệ cả mẹ và bé.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14661",
+    "knowledge_context": "Dự phòng sau phơi nhiễm HIV không do nghề nghiệp (thực sự có nguy cơ lây nhiễm HIV): Người lớn: Uống zidovudin 300 mg ngày uống 2 lần hoặc 200 mg ngày uống 3 lần, phối hợp ít nhất với 2 thuốc chống retrovirus khác. Dự phòng sau phơi nhiễm phải bắt đầu ngay sau khi phơi nhiễm không do nghề nghiệp khi có thể (càng sớm càng tốt, tốt nhất trong vòng 72 giờ) và tiếp tục trong 28 ngày.\nLiều lượng trong suy thận và suy gan: Vì zidovudin đào thải chủ yếu qua thận sau khi chuyển hóa ở gan, nhà sản xuất cho rằng phải giảm liều khi người bệnh bị suy thận nặng. Nhà sản xuất gợi ý liều thích hợp có thể là 300 - 400 mg một ngày. Nếu người bệnh ở giai đoạn cuối suy thận, phải thẩm phân máu hoặc màng bụng, dùng liều uống zidovudin 100 mg cách 6 - 8 giờ hoặc truyền tĩnh mạch 1 mg/kg cách 6 - 8 giờ.\nĐối với",
+    "question": "Câu hỏi về An toàn Thai kỳ: Zidovudin có an toàn khi sử dụng cho phụ nữ mang thai không?",
+    "right_answer": "Zidovudin không được khuyến nghị sử dụng cho phụ nữ mang thai vì có thể gây ra dị tật thai nhi. Tuy nhiên, nó có thể được sử dụng trong trường hợp cần thiết để dự phòng sau phơi nhiễm HIV, với sự giám sát chặt chẽ và chỉ định của bác sĩ.",
+    "hallucinated_answer": "Zidovudin hoàn toàn an toàn và không gây hại khi sử dụng cho phụ nữ mang thai.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14619",
+    "knowledge_context": "Thời kỳ mang thai\nChống chỉ định hoặc chỉ dùng sau khi cân nhắc giữa lợi và hại do thuốc.\nThời kỳ cho con bú Chưa biết thuốc có bài tiết ra sữa mẹ không, nhưng cần tạm ngừng cho con bú khi bà mẹ phải điều trị với xanh methylen.\nTác dụng không mong muốn (ADR) Xanh methylen thường đươc dùng trong thời gian ngắn. Thuốc có thể gây thiếu máu và một số triệu chứng ở đường tiêu hóa khi uống hoặc tiêm tĩnh mạch liều cao.\nThường gặp, ADR > 1/100 Huyết học: Thiếu máu, tan máu.\nÍt gặp, 1/1 000 < ADR < 1/100 Tiêu hóa: Buồn nôn, nôn, đau bụng.\nThần kinh trung ương: Chóng mặt, đau đầu, sốt. Tim mạch: Tăng huyết áp, đau vùng trước tim. Tiết niệu: Kích ứng bàng quang.\nDa: Da có màu xanh.\nLiều lượng và cách dùng Liều tiêm tĩnh mạch cho người lớn và trẻ em là: 1 - 2 mg/kg, tiêm chậm trong vài phút. Nếu cần,",
+    "question": "Câu hỏi về An toàn Thai kỳ: Xanh methylen có an toàn khi sử dụng trong thời kỳ mang thai?",
+    "right_answer": "Xanh methylen được chống chỉ định trong thời kỳ mang thai vì có thể gây hại cho thai nhi. Cần cân nhắc lợi ích và nguy cơ trước khi sử dụng.",
+    "hallucinated_answer": "Xanh methylen an toàn khi sử dụng trong thời kỳ mang thai. Không có tác động xấu nào được ghi nhận.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14634",
+    "knowledge_context": "Thẩm phân máu và màng bụng ít có tác dụng loại bỏ zidovudin nhưng có thể làm tăng đào thải chất chuyển hóa. Nhà sản xuất khuyến cáo cho giảm liều khi người bệnh làm thẩm phân máu hoặc màng bụng\nChỉ định Người lớn và trẻ em: Nhiễm HIV , phối hợp với các thuốc kháng retrovirus khác (phác đồ được khuyến cáo dùng ba thuốc).\nPhụ nữ mang thai và trẻ sơ sinh: Hóa dự phòng cho người mang thai, có huyết thanh dương tính với HIV (uống thuốc từ tuần thai thứ 14) để dự phòng lây truyền HIV từ mẹ sang con và để dự phòng tiên phát nhiễm HIV cho trẻ sơ sinh.\nHóa dự phòng cho người phơi nhiễm với HIV do nghề nghiệp.\nChống chỉ định Tiền sử mẫn cảm nặng với zidovudin đe dọa tính mạng (sốc phản vệ, hội chứng Stevens Johnson).\nRối loạn huyết học nặng (tỷ lệ hemoglobin < 7,5 g/dl nghĩa là 4,65 mmol/lít, hoặc t",
+    "question": "Câu hỏi về An toàn Thai kỳ: Zidovudin có an toàn khi dùng cho phụ nữ mang thai?",
+    "right_answer": "Zidovudin có chỉ định dùng cho phụ nữ mang thai để dự phòng lây truyền HIV từ mẹ sang con. Tuy nhiên, cần thận trọng và theo dõi chặt chẽ do có thể gây hại cho thai nhi.",
+    "hallucinated_answer": "Zidovudin hoàn toàn an toàn khi dùng cho phụ nữ mang thai và không gây hại cho thai nhi. Có thể sử dụng thuốc mà không cần lo ngại.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14673",
+    "knowledge_context": "Dùng thuốc thận trọng ở người trầm cảm, người có tiền sử nghiện thuốc, người bệnh bị tổn thương chức năng hô hấp, nghiện rượu, suy gan (trường hợp nặng không được dùng), suy thận và người cao tuổi.\nTránh dùng thuốc kéo dài. Cần giải thích rõ ràng thời gian dùng thuốc cho người bệnh, tùy theo loại mất ngủ. Khi dùng thuốc từ 1 - 2 tuần trở lên, phải giảm liều dần dần trước khi ngừng để tránh hội chứng cai thuốc.\nThời kỳ mang thai Người mang thai không nên dùng zolpidem bất kỳ thời điểm nào.\nThời kỳ cho con bú Zolpidem phân bố vào sữa mẹ một lượng nhỏ, ảnh hưởng của thuốc trên trẻ bú mẹ chưa rõ. Tuy nhiên, để tránh ADR đối với trẻ, trong thời kỳ cho con bú người mẹ không nên dùng thuốc này hoặc ngừng cho con bú khi đã cân nhắc lợi ích của việc dùng thuốc cho mẹ.\nTác dụng không mong muốn (ADR)",
+    "question": "Câu hỏi về An toàn Thai kỳ: Zolpidem có thể được sử dụng trong thời kỳ mang thai không?",
+    "right_answer": "Zolpidem không nên được sử dụng trong thời kỳ mang thai vì có thể gây hại cho thai nhi.",
+    "hallucinated_answer": "Zolpidem có thể được sử dụng an toàn trong thời kỳ mang thai nếu cần thiết.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14394",
+    "knowledge_context": "Thời kỳ mang thai Các bà mẹ mang thai dùng venlafaxin gần ngày sinh có thể gặp các phản ứng ngừng thuốc ở trẻ sau khi sinh. Một nghiên cứu ở 150 người dùng venlafaxin vào 3 tháng đầu của thai kỳ thấy 25 người xảy thai và thai chết, 2 người có thai dị dạng. Mặc dù tỉ lệ này cao hơn không có ý nghĩa so với nhóm chứng nhưng các nhà sản xuất khuyến cáo không dùng venlafaxin cho phụ nữ mang thai trừ khi thật cần thiết.\nThời kỳ cho con bú Venlafaxin và chất chuyển hóa O-desmethylvenlafaxin bài tiết vào sữa mẹ nên có thể gây tác dụng không mong muốn trên trẻ bú mẹ.\nKhông dùng thuốc cho phụ nữ nuôi con bú.\nTác dụng không mong muốn (ADR) Thường gặp, ADR > 1/100 Thần kinh: Nhức đầu, mất ngủ, buồn ngủ, chóng mặt, suy nhược, lo âu, căng thẳng, kích động, ác mộng, hoang mang.\nTim mạch: Run rẩy, giãn mạ",
+    "question": "Câu hỏi về An toàn Thai kỳ: Venlafaxin có an toàn cho phụ nữ mang thai không?",
+    "right_answer": "Venlafaxin không được khuyến nghị cho phụ nữ mang thai trừ khi thật cần thiết do nguy cơ xảy thai và thai dị dạng.",
+    "hallucinated_answer": "Venlafaxin an toàn cho phụ nữ mang thai.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14439",
+    "knowledge_context": "pha cuối là 25 giờ. Thuốc đào thải qua phân (95%) và nước tiểu (<1% dưới dạng thuốc không biến đổi).\nChỉ định Sử dụng phối hợp với các thuốc khác (doxorubicin, bleomycin, dacarbazin) trong điều trị bệnh Hodgkin.\n1468 Vinblastin Sử dụng phối hợp với các thuốc khác (cisplatin, bleomycin, etoposid, ifosfamid) trong các phác đồ hóa trị liệu carcinoma không phải tế bào mầm của tinh hoàn.\nSử dụng một mình hoặc phối hợp với các thuốc khác (doxorubicin, daunorubicin) trong điều trị sarcom Kaposi ở người bệnh AIDS.\nSử dụng phối hợp với thuốc khác (cisplatin, methotrexat, doxorubicin) để điều trị ung thư bàng quang tiến triển.\nSử dụng phối hợp với thuốc khác (cisplatin, mitomycin) trong điều trị ung thư phổi không phải tế bào nhỏ.\nSử dụng phối hợp với thuốc khác (cisplatin, dacarbazin, interferon al",
+    "question": "Câu hỏi về An toàn Thai kỳ: Vinblastin có an toàn khi sử dụng cho phụ nữ mang thai không?",
+    "right_answer": "Vinblastin không được khuyến nghị sử dụng cho phụ nữ mang thai do khả năng gây hại cho thai nhi. Các nghiên cứu cho thấy rằng Vinblastin có thể gây dị tật và gây hại cho thai.",
+    "hallucinated_answer": "Vinblastin an toàn khi sử dụng cho phụ nữ mang thai.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14202",
+    "knowledge_context": "Thời kỳ cho con bú Chưa rõ các vắc xin thương hàn tiêm có phân bố vào sữa hay không hoặc việc truyền vắc xin thương hàn vào trẻ còn bú mẹ có biểu hiện nguy cơ bất thường nào không. Mặc dù chưa có các số liệu đặc thù, nhìn chung không phải là chống chỉ định các vắc xin bất hoạt cho trẻ bú mẹ bởi vì các vi khuẩn đã bị bất hoạt không còn khả năng nhân lên trong cơ thể. Cũng còn chưa rõ là liệu vắc xin uống chứa vi khuẩn đã được làm giảm độc lực có gây ra nguy cơ nào cho người mẹ hoặc trẻ còn bú và có được phân bố vào sữa hay không. Mặc dầu, vi khuẩn trong vắc xin sống có nhân lên trong cơ thể người mẹ nhưng hầu hết không phân bố vào sữa. Nhà sản xuất vắc xin sống uống và vắc xin vỏ Typhim Vi thông báo rằng hiện không có số liệu nào đảm bảo rằng dùng các vắc xin này cho phụ nữ cho con bú là để",
+    "question": "Câu hỏi về An toàn Thai kỳ: Vắc xin thương hàn có an toàn khi sử dụng cho phụ nữ mang thai?",
+    "right_answer": "Vắc xin thương hàn vỏ polysacarid không được khuyến nghị sử dụng cho phụ nữ mang thai vì chưa có đủ dữ liệu an toàn.",
+    "hallucinated_answer": "Vắc xin thương hàn an toàn và hiệu quả khi sử dụng cho phụ nữ mang thai.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14657",
+    "knowledge_context": "Đối với tất cả các phụ nữ mang thai nhiễm HIV được khuyến cáo dự phòng trước khi sinh. Trong phác đồ chống retrovirus, phải có zidovudin, nếu có thể. Bà mẹ khi bắt đầu chuyển dạ đẻ, liệu pháp zidovudin tĩnh mạch phải thay thế cho liệu pháp uống zidovudin (hoặc phải được bắt đầu nếu zidovudin không có trong phác đồ trước sinh hoặc bà mẹ trước đó chưa được điều trị chống retrovirus); bà mẹ phải được truyền tĩnh mạch liên tục zidovudin một liều đơn 2 mg/kg trong 1 giờ, tiếp theo là 1 mg/kg/giờ truyền liên tục cho tới khi kẹp cuống rốn. Các thuốc kháng retrovirus khác cho uống. Trẻ mới sinh ra đủ tháng: Bắt đầu cho uống zidovudin ngay sau khi sinh nếu có thể (tốt nhất trong vòng 6 - 12 giờ sau khi sinh) và tiếp tục cho zidovudin suốt 6 tuần tuổi. Liều lượng (xem liều lượng cho trẻ sơ sinh và t",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt: Liều zidovudin cho phụ nữ mang thai nhiễm HIV là bao nhiêu?",
+    "right_answer": "Bà mẹ khi bắt đầu chuyển dạ đẻ, phải được truyền tĩnh mạch liên tục zidovudin một liều đơn 2 mg/kg trong 1 giờ, tiếp theo là 1 mg/kg/giờ truyền liên tục cho tới khi kẹp cuống rốn.",
+    "hallucinated_answer": "Liều zidovudin cho phụ nữ mang thai nhiễm HIV là 300 mg mỗi ngày, được chia thành 3 lần uống.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14547",
+    "knowledge_context": "Còi xương phụ thuộc vitamin D: uống 0,75 - 1 microgam/ngày trong khoảng 2 năm.\nCòi xương kháng vitamin D: 2 - 24 microgam/ngày. Liều thấp 1 microgam/ngày uống hàng ngày hoặc cách 1 ngày cũng hiệu quả.\nCác trường hợp này thường không đáp ứng với liều cao phosphat và vitamin D (ergocalciferol hoặc colecalciferol) Suy gan: Nên dùng calcifediol hoặc calcitriol vì không cần phải hydroxyl hóa ở gan.\nCalcifediol: Hiện nay không có trên thị trường.\nLoạn dưỡng xương do thận:\nNgười lớn: Bắt đầu uống 300 - 350 microgam (0,3 - 0,35 mg) mỗi tuần, uống 1 lần hoặc chia ra cứ hai ngày 1 lần. Nếu cần, liều có thể tăng lên, cách nhau 4 tuần. Đa số người bệnh đáp ứng với liều 50 - 100 microgam (0,05 - 0,1 mg) mỗi ngày hoặc 100 - 200 microgam (0,1 - 0,2 mg) uống cách nhật; liều thấp 20 microgam (0,02 mg) có t",
+    "question": "Mang thai và cho con bú có ảnh hưởng gì đến việc sử dụng vitamin D cho trẻ em bị còi xương?",
+    "right_answer": "Vitamin D thường được coi là an toàn cho phụ nữ mang thai và cho con bú khi sử dụng theo liều khuyến nghị. Tuy nhiên, cần tham khảo ý kiến bác sĩ trước khi sử dụng.",
+    "hallucinated_answer": "Trẻ em bị còi xương có thể uống vitamin D an toàn mà không cần sự giám sát của bác sĩ, kể cả khi mẹ đang mang thai hoặc cho con bú.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14448",
+    "knowledge_context": "Sử dụng phối hợp với thuốc khác (cisplatin, methotrexat, doxorubicin) để điều trị ung thư bàng quang tiến triển.\nSử dụng phối hợp với thuốc khác (cisplatin, mitomycin) trong điều trị ung thư phổi không phải tế bào nhỏ.\nSử dụng phối hợp với thuốc khác (cisplatin, dacarbazin, interferon alpha, aldesleukin) trong điều trị u hắc tố di căn.\nChỉ định khác: Điều trị u lympho không Hodgkin giai đoạn cuối, u lympho mô bào, sarcom Kaposi, bệnh Letterer-Siwe, ung thư tuyến tiền liệt, ung thư buồng trứng.\nChống chỉ định Người bệnh giảm bạch cầu hạt rõ rệt, trừ phi đó là kết quả của bệnh đang được điều trị.\nNgười bệnh bị nhiễm khuẩn. Nếu có nhiễm khuẩn phải được điều trị trước khi bắt đầu điều trị bằng vinblastin.\nKhông được tiêm vào ống tủy sống.\nThận trọng Vinblastin sulfat gây kích ứng rất mạnh. Thu",
+    "question": "Câu hỏi về An toàn Thai kỳ: Vinblastin sulfat có an toàn khi sử dụng cho phụ nữ mang thai không?",
+    "right_answer": "Vinblastin sulfat không được sử dụng cho phụ nữ mang thai vì có thể gây hại cho thai nhi.",
+    "hallucinated_answer": "Vinblastin sulfat an toàn khi sử dụng cho phụ nữ mang thai nếu được bác sĩ tư vấn kỹ lưỡng.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14443",
+    "knowledge_context": "Thời kỳ mang thai Khi dùng cho người mang thai, vinblastin có thể gây độc cho thai.\nThuốc chỉ được dùng ở thời kỳ mang thai khi tình trạng bệnh đe dọa tính mạng hoặc bệnh nặng mà các thuốc an toàn hơn không thể sử dụng được hoặc không có hiệu lực. Cần khuyên các phụ nữ có khả năng mang thai nên tránh có thai trong khi dùng vinblastin.\nKhi thuốc này được dùng trong thời kỳ mang thai hoặc người bệnh thụ thai trong khi dùng thuốc, thì cần thông báo cho người bệnh biết về tiềm năng nguy hại đối với thai.\nThời kỳ cho con bú Trong thời gian điều trị vinblastin, nên ngừng cho con bú.\nTác dụng không mong muốn (ADR) Nhiều tác dụng phụ của liệu pháp chống ung thư là không thể tránh khỏi. Một số tác dụng này (thí dụ giảm bạch cầu và giảm tiểu cầu) hiện nay được sử dụng làm những thông số để giúp chỉn",
+    "question": "Câu hỏi về Tương tác thuốc: Vinblastin có thể gây độc cho thai khi sử dụng trong thời kỳ mang thai?",
+    "right_answer": "Đúng, vinblastin có thể gây độc cho thai.",
+    "hallucinated_answer": "Vinblastin hoàn toàn an toàn khi sử dụng trong thời kỳ mang thai.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14511",
+    "knowledge_context": "Thời kỳ cho con bú Vitamin D tiết vào sữa và nồng độ vitamin D trong sữa tương quan với lượng vitamin D trong huyết thanh của trẻ bú mẹ hoàn toàn.\nVì vậy, không nên dùng vitamin D với liều lớn hơn liều RDA (600 đvqt hoặc 15 microgam) cho người cho con bú. Nên dùng vitamin D phụ thêm, nếu khẩu phần ăn không đủ vitamin D hoặc thiếu tiếp xúc với bức xạ tử ngoại. Nếu bà mẹ dùng vitamin D liều dược lý, phải giám sát chặt chẽ tăng calci huyết và các dấu hiệu nhiễm độc vitamin Dở trẻ bú mẹ.\nTác dụng không mong muốn (ADR) Dùng vitamin D với liều không vượt quá nhu cầu sinh lý thường không độc. Tuy nhiên, có thể xảy ra quá liều vitamin D khi điều trị liều cao hoặc kéo dài hoặc khi tăng nhạy cảm với các thuốc tương tự vitamin D và sẽ dẫn đến những biểu hiện lâm sàng của tăng calci máu. Calcitriol (B",
+    "question": "Câu hỏi về An toàn Thai kỳ: Vitamin D có an toàn khi sử dụng cho phụ nữ đang cho con bú không?",
+    "right_answer": "Vitamin D có thể an toàn khi sử dụng với liều không vượt quá nhu cầu sinh lý (600 đvqt hoặc 15 microgam), nhưng cần giám sát chặt chẽ để tránh tăng calci huyết.",
+    "hallucinated_answer": "Vitamin D hoàn toàn an toàn khi sử dụng với liều cao hơn nhu cầu sinh lý cho phụ nữ đang cho con bú.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14373",
+    "knowledge_context": "Chưa xác định được an toàn và hiệu lực của vecuronium bromid ở trẻ em dưới 7 tuần tuổi. Không nên dùng thuốc này cho trẻ sơ sinh.\nKhông có đủ tư liệu về tiêm truyền liên tục vecuronium ở trẻ em, vì vậy không thể khuyến cáo về liều dùng.\nĐiều chỉnh liều:\nGây mê ổn định đồng thời với thuốc gây mê hít: Với thuốc gây mê hít enfluran hoặc isofluran, giảm liều khởi đầu khoảng 15% (0,06 - 0,085 mg/kg), giảm 25 - 60% tốc độ liều tiêm truyền, sau liều khởi đầu 45 - 60 phút.\nSau đặt ống nội khí quản bằng succinylcholin: Giảm liều khởi đầu đến 0,04 - 0,06 mg/kg với thuốc gây mê hít, 0,05 - 0,06 mg/kg với thuốc gây mê phối hợp.\nNgười cao tuổi: Khuyến cáo giảm liều.\nNhược cơ nặng: Liều thấp có thể có tác dụng mạnh, khuyến cáo giảm liều và theo dõi chặt chẽ đáp ứng.\nBệnh béo phì: Cho liều trên cơ sở thể",
+    "question": "Câu hỏi về An toàn Thai kỳ: Vecuronium bromid có an toàn khi dùng cho phụ nữ mang thai?",
+    "right_answer": "Chưa xác định được an toàn và hiệu lực của vecuronium bromid ở trẻ em dưới 7 tuần tuổi. Không nên dùng thuốc này cho trẻ sơ sinh.",
+    "hallucinated_answer": "Vecuronium bromid an toàn và hiệu quả khi sử dụng cho phụ nữ mang thai.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14541",
+    "knowledge_context": "Nồng độ 25-(OH)D huyết thanh < 5 mg/ml:\nTrẻ em: 8 000 đvqt/ngày trong 4 tuần, tiếp theo là 4 000 đvqt/ngày trong 2 tháng hoặc 50 000 đvqt/tuần, trong 4 tuần, tiếp theo là 50 000 đvqt, 2 lần/tháng trong 2 tháng. Người lớn: 50 000 đvqt/tuần trong 12 tuần, sau đó mỗi tháng một lần trong 3 tháng.\nĐiều chỉnh liều: Giám sát 25(OH)D, nồng độ Ca và P huyết thanh.\nNếu calci huyết >10,2 mg/dl hoặc nồng độ 25-(OH)D bình thường, phải ngừng điều trị. Nếu P huyết thanh vượt quá giới hạn cao theo tuổi hoặc 4,6 mg/dl (người lớn), bắt đầu cho liệu pháp liên kết phosphat.\nLoãng xương hay nhuyễn xương do dùng thuốc chống động kinh lâu dài: Uống 1 000 đvqt/ngày.\nLoãng xương do dùng corticosteroid: Uống 50 000 đvqt 3 lần mỗi tuần.\nLoãng xương: Uống 25 - 250 microgam/ngày, phối hợp với calci và fluorid.\nAlfacal",
+    "question": "An toàn của vitamin D khi sử dụng trong thai kỳ và khi cho con bú là gì?",
+    "right_answer": "Vitamin D an toàn khi sử dụng trong thai kỳ và khi cho con bú với liều lượng phù hợp.",
+    "hallucinated_answer": "Vitamin D không an toàn khi sử dụng trong thai kỳ và khi cho con bú.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14652",
+    "knowledge_context": "1492 Zidovudin Thời kỳ mang thai Zidovudin cũng được chỉ định để dự phòng lây truyền HIV từ mẹ sang con. Độ an toàn của việc dùng zidovudin cho người mẹ và thai trong 3 tháng đầu của thai kỳ chưa được xác định. Tuy nhiên, nguy cơ lây truyền dọc HIV (từ mẹ sang con) cao tới mức được coi là quan trọng để cần điều trị cho người mang thai xét nghiệm dương tính HIV . Dựa trên các nghiên cứu về hiệu quả và trên kinh nghiệm rộng lớn, zidovudin là thuốc được ưa dùng trong các phác đồ điều trị HIV cho người mang thai.\nThời kỳ cho con bú Phụ nữ bị nhiễm HIV không nên cho con bú để tránh lây truyền cho trẻ lúc đó có thể chưa bị nhiễm.\nTác dụng không mong muốn (ADR) Các tác dụng không mong muốn nói chung giống nhau ở người lớn và trẻ em. Các ADR nặng nhất bao gồm thiếu máu (có thể phải truyền máu), gi",
+    "question": "Câu hỏi về An toàn Thai kỳ: Zidovudin có an toàn khi sử dụng trong thời kỳ mang thai không?",
+    "right_answer": "Zidovudin được chỉ định để dự phòng lây truyền HIV từ mẹ sang con, nhưng độ an toàn của việc dùng zidovudin trong thời kỳ mang thai chưa được xác định đầy đủ. Tuy nhiên, nguy cơ lây truyền HIV từ mẹ sang con là cao, nên việc điều trị là cần thiết. Các nghiên cứu về hiệu quả và kinh nghiệm lâm sàng cho thấy zidovudin là lựa chọn hợp lý.",
+    "hallucinated_answer": "Zidovudin hoàn toàn an toàn khi sử dụng trong thời kỳ mang thai và không gây ra bất kỳ tác dụng phụ nào. Sử dụng zidovudin trong thời kỳ mang thai là cần thiết để ngăn ngừa lây truyền HIV từ mẹ sang con.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14646",
+    "knowledge_context": "Truyền tĩnh mạch ngắt quãng thực hiện với tốc độ không đổi trong vòng 60 phút.\nLiều lượng:\nĐiều trị nhiễm HIV:\nNgười lớn: Uống 600 mg/ngày chia làm 2 hoặc 3 lần. Truyền tĩnh mạch: Liều thông thường: 1 mg/kg/lần 5 - 6 lần mỗi ngày (5 - 6 mg/kg mỗi ngày).\nTrẻ em từ 6 tuần đến 12 tuổi:\nUống: Liều có thể tính theo trọng lượng hoặc diện tích cơ thể.\n(Liều tính theo trọng lượng cơ thể có thể không giống liều tính theo diện tích cơ thể).\nLiều tính theo diện tích cơ thể: 160 mg/m 2/liều, cách 8 giờ một liều hoặc 240 mg/m 2, cách 12 giờ một liều (tối đa 200 mg/liều, cách nhau 8 giờ một liều).\nLiều dựa theo trọng lượng cơ thể:\n4 kg tới dưới 9 kg: 12 mg/kg/liều, ngày uống 2 lần hoặc 8 mg/kg/ liều, ngày uống 3 lần.\n9 kg tới dưới 30 kg: 9 mg/kg/liều, ngày uống 2 lần hoặc 6 mg/kg/ liều, ngày uống 3 lần.",
+    "question": "Khi sử dụng Remdesivir cho phụ nữ mang thai, cần lưu ý gì về an toàn?",
+    "right_answer": "Remdesivir không được khuyến nghị sử dụng trong thai kỳ do chưa có đủ dữ liệu về an toàn cho thai nhi. Tuy nhiên, trong trường hợp khẩn cấp, có thể cân nhắc sử dụng sau khi đánh giá rủi ro và lợi ích.",
+    "hallucinated_answer": "Remdesivir an toàn để sử dụng trong thai kỳ và không gây ảnh hưởng gì đến thai nhi.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14520",
+    "knowledge_context": "Hiện nay khẩu phần ăn được khuyến cáo (RDA) đối với vitamin D như sau: (theo Ban thực phẩm và dinh dưỡng Viện Y học thuộc các Viện hàn lâm quốc gia Mỹ 2010) 0 - 1 tuổi : 400 đvqt (10 microgam) 1 - 70 tuổi : 600 đvqt (15 microgam) > 70 tuổi : 800 đvqt (20 microgam) Phụ nữ mang thai : 600 đvqt (15 microgam) Mẹ cho con bú : 600 đvqt (15 microgam) Hoạt tính sinh học của 40 đvqt bằng 1 microgam Vitamin D 1478 Vitamin d và các thuốc tương tự Ergocalciferol và colecalciferol Còi xương hoặc nhuyễn xương do dinh dưỡng:\nDự phòng: Uống: Bổ sung cho chế độ ăn để dự phòng thiếu vitamin Dở người lớn và trẻ em: Uống 10 microgam (400 đvqt) hàng ngày.\nLiều có thể tăng lên 20 microgam (800 đvqt) đối với người ít phơi nắng, hoặc chế độ ăn thiếu vitamin D.\nĐiều trị bệnh còi xương và nhuyễn xương do dinh dưỡng",
+    "question": "Câu hỏi về An toàn Thai kỳ: Phụ nữ mang thai nên bổ sung Vitamin D bao nhiêu đvqt mỗi ngày?",
+    "right_answer": "Phụ nữ mang thai nên bổ sung 600 đvqt (15 microgam) Vitamin D mỗi ngày.",
+    "hallucinated_answer": "Phụ nữ mang thai nên bổ sung 2000 đvqt (50 microgam) Vitamin D mỗi ngày để đảm bảo sức khỏe thai kỳ.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14565",
+    "knowledge_context": "Chống chỉ định Dị ứng với voriconazol hoặc với bất kỳ thành phần nào của chế phẩm.\nPorphyrin niệu cấp.\nThận trọng Bệnh nhân đang dùng thuốc không được làm những việc cần có thị giác tốt như vận hành máy, lái xe vì thuốc gây nhiều ADR lên thị giác; không được lái xe, vận hành máy vào buổi tối, ngay cả khi không bị ADR đối với lên thị giác.\nPhải theo dõi chức năng thị giác nếu dùng thuốc hơn 28 ngày.\nPhải theo dõi chặt chẽ chức năng thận trong quá trình điều trị.\nPhải theo dõi chức năng gan trước và trong quá trình điều trị.\nPhải thận trọng ở người bệnh có nguy cơ dễ bị rối loạn nhịp tim, vì thuốc có thể gây kéo dài khoảng QT.\nVoriconazol Phải điều chỉnh điện giải trước khi điều trị bằng voriconazol.\nKhông được dùng voriconazol theo đường tĩnh mạch đồng thời với truyền nhỏ giọt dung dịch điệ",
+    "question": "Câu hỏi về An toàn Thai kỳ: Voriconazol có an toàn khi sử dụng trong thời kỳ mang thai không?",
+    "right_answer": "Không rõ voriconazol có qua nhau thai hay không. Trên động vật, thuốc gây quái thai, nên thận trọng khi sử dụng trong thời kỳ mang thai.",
+    "hallucinated_answer": "Voriconazol hoàn toàn an toàn khi sử dụng trong thời kỳ mang thai.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14340",
+    "knowledge_context": "Tiêm bắp 10 đvqt cho người lớn và 0,3 đvqt/kg cho trẻ em. Lấy máu để làm xét nghiệm 2 hormon đó;\nTest thăm dò chức năng thận (chẩn đoán phân biệt đái tháo nhạt trung tâm hay do thận): Người bệnh đi tiểu hết lúc bắt đầu tiêm desmopressin và hạn chế uống tới 500 ml từ 1 giờ trước cho tới 8 giờ sau khi tiêm bắp hoặc tiêm dưới da desmopressin. Người lớn và trẻ em: 2 microgam; trẻ bú mẹ 400 nanogam (hạn chế 50% dịch đưa vào cơ thể ở 2 bữa ăn sau).\nSau 1 liều tiêm bắp 2 microgam hoặc xịt vào mũi 20 microgam;\nnăng cô đặc nước tiểu thì đái tháo nhạt là do thùy sau tuyến yên.\nXuất huyết đường tiêu hóa:\nĐể tiêm truyền tĩnh mạch hoặc trong động mạch, vasopressin thường pha loãng với dung dịch natri clorid 0,9% hoặc dextrose 5% để có nồng độ 0,1 - 1 đvqt/ml. Liều lượng vasopessin cho theo kinh nghiệm ",
+    "question": "Câu hỏi về An toàn Thai kỳ: Desmopressin có an toàn khi sử dụng cho phụ nữ mang thai?",
+    "right_answer": "Desmopressin có thể gây hại cho thai nhi và nên tránh sử dụng trong thai kỳ.",
+    "hallucinated_answer": "Desmopressin là an toàn và không gây hại khi sử dụng cho phụ nữ mang thai.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14510",
+    "knowledge_context": "Thời kỳ cho con bú Vitamin D tiết vào sữa và nồng độ vitamin D trong sữa tương quan với lượng vitamin D trong huyết thanh của trẻ bú mẹ hoàn toàn.\nVì vậy, không nên dùng vitamin D với liều lớn hơn liều RDA (600 đvqt hoặc 15 microgam) cho người cho con bú. Nên dùng vitamin D phụ thêm, nếu khẩu phần ăn không đủ vitamin D hoặc thiếu tiếp xúc với bức xạ tử ngoại. Nếu bà mẹ dùng vitamin D liều dược lý, phải giám sát chặt chẽ tăng calci huyết và các dấu hiệu nhiễm độc vitamin Dở trẻ bú mẹ.\nTác dụng không mong muốn (ADR) Dùng vitamin D với liều không vượt quá nhu cầu sinh lý thường không độc. Tuy nhiên, có thể xảy ra quá liều vitamin D khi điều trị liều cao hoặc kéo dài hoặc khi tăng nhạy cảm với các thuốc tương tự vitamin D và sẽ dẫn đến những biểu hiện lâm sàng của tăng calci máu. Calcitriol (B",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt: Liều dùng vitamin D cho người cho con bú là bao nhiêu?",
+    "right_answer": "Liều dùng vitamin D cho người cho con bú không nên vượt quá liều RDA (600 đvqt hoặc 15 microgam).",
+    "hallucinated_answer": "Liều dùng vitamin D cho người cho con bú là 2000 microgam mỗi ngày.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14682",
+    "knowledge_context": "Dùng thuốc thận trọng ở người trầm cảm, người có tiền sử nghiện thuốc, người bệnh bị tổn thương chức năng hô hấp, nghiện rượu, suy gan (trường hợp nặng không được dùng), suy thận và người cao tuổi.\nTránh dùng thuốc kéo dài. Cần giải thích rõ ràng thời gian dùng thuốc cho người bệnh, tùy theo loại mất ngủ. Khi dùng thuốc từ 1 - 2 tuần trở lên, phải giảm liều dần dần trước khi ngừng để tránh hội chứng cai thuốc.\nThời kỳ mang thai Người mang thai không nên dùng zolpidem bất kỳ thời điểm nào.\nThời kỳ cho con bú Zolpidem phân bố vào sữa mẹ một lượng nhỏ, ảnh hưởng của thuốc trên trẻ bú mẹ chưa rõ. Tuy nhiên, để tránh ADR đối với trẻ, trong thời kỳ cho con bú người mẹ không nên dùng thuốc này hoặc ngừng cho con bú khi đã cân nhắc lợi ích của việc dùng thuốc cho mẹ.\nTác dụng không mong muốn (ADR)",
+    "question": "Câu hỏi về An toàn Thai kỳ: Zolpidem có an toàn khi sử dụng trong thời kỳ mang thai không?",
+    "right_answer": "Zolpidem không nên được sử dụng trong thời kỳ mang thai vì người mang thai không nên dùng zolpidem bất kỳ thời điểm nào.",
+    "hallucinated_answer": "Zolpidem là an toàn và có thể được sử dụng trong thời kỳ mang thai nếu cần thiết.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14428",
+    "knowledge_context": "Hướng dẫn cách xử trí ADR Xem mục Quá liều và xử trí.\nLiều lượng và cách dùng Điều trị đau thắt ngực Liều thường dùng là 80 - 120 mg x 3 lần/ngày, một số người bệnh đau thắt ngực ổn định có thể đáp ứng với liều 80 mg x 3 lần/ngày, tuy nhiên liều thấp này không có hiệu quả đối với các trường hợp đau thắt ngực khi nghỉ hoặc đau Prinzmetal. Dạng giải phóng kéo dài có thể dùng tới liều 480 mg/ngày.\nĐiều trị và phòng ngừa nhịp nhanh kịch phát trên thất Để xử trí cắt cơn nhịp nhanh kịch phát trên thất, thường dùng đường tiêm tĩnh mạch, tốt nhất là dùng dưới sự kiểm soát liên tục của huyết áp và ECG. Liều khởi đầu là 5 - 10 mg tiêm tĩnh mạch chậm trong 2 - 3 phút. Nếu cần thiết có thể tiêm tiếp một liều thứ hai 5 mg sau khi tiêm lầu đầu 5 - 10 phút, hoặc 10 mg sau liều đầu 30 phút.\nLiều uống để đ",
+    "question": "Câu hỏi về Tương tác thuốc: Thuốc natri nitroprusside có thể tương tác như thế nào với các thuốc khác?",
+    "right_answer": "Natri nitroprusside có thể gây tương tác với các thuốc chứa nitrate (như isosorbide dinitrate) dẫn đến tăng cường tác dụng hạ huyết áp. Ngoài ra, nó cũng có thể tương tác với các thuốc gây co thắt mạch máu (như ergotamine).",
+    "hallucinated_answer": "Natri nitroprusside có thể gây tương tác nguy hiểm với các thuốc chứa nitrate và ergotamine, dẫn đến suy tim cấp và đột tử.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14320",
+    "knowledge_context": "Quá liều và xử trí Dùng thuốc quá liều tăng nguy cơ gây độc của thuốc.\nXử lý khi dùng thuốc quá liều: Điều trị hỗ trợ, duy trì mức lọc cầu thận. Loại bỏ vancomycin bằng phương pháp thẩm phân ít có hiệu quả. Lọc máu qua màng và qua chất hấp phụ giúp tăng tốc độ thải trừ vancomycin.\nThông tin qui chế Vancomycin có trong Danh mục thuốc thiết yếu tân dược ban hành lần thứ VI, năm 2013 và Danh mục thuốc tân dược thuộc phạm vi thanh toán của quỹ bảo hiểm y tế, năm 2015.\n1458 Vancomycin Liều lượng và cách dùng Truyền tĩnh mạch\nLiều dùng được tính theo vancomycin base.\nThuốc thường được truyền tĩnh mạch gián đoạn: Thêm 10 ml nước vô khuẩn vào lọ chứa 500 mg hoặc 20 ml vào lọ chứa 1 g bột vancomycin vô khuẩn. Như vậy, sẽ được dung dịch chứa 50 mg/ml. Dung dịch chứa 500 mg (hoặc 1 g) vancomycin phải",
+    "question": "Câu hỏi về Tương tác thuốc: Vancomycin có thể tương tác với các loại thuốc nào?",
+    "right_answer": "Vancomycin thường không có tương tác mạnh với các loại thuốc khác ngoại trừ các thuốc gây ức chế hệ thống thần kinh trung ương (CNS) khi dùng cùng nhau. Tuy nhiên, cần thận trọng khi kết hợp vancomycin với các thuốc ức chế CYP3A4 vì có thể tăng nồng độ của vancomycin trong máu.",
+    "hallucinated_answer": "Vancomycin có thể tương tác nguy hiểm với tất cả các loại thuốc, đặc biệt là các thuốc chống vi khuẩn khác. Sử dụng cùng nhau có thể dẫn đến tử vong.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14371",
+    "knowledge_context": "Chưa xác định được an toàn và hiệu lực của vecuronium bromid ở trẻ em dưới 7 tuần tuổi. Không nên dùng thuốc này cho trẻ sơ sinh.\nKhông có đủ tư liệu về tiêm truyền liên tục vecuronium ở trẻ em, vì vậy không thể khuyến cáo về liều dùng.\nĐiều chỉnh liều:\nGây mê ổn định đồng thời với thuốc gây mê hít: Với thuốc gây mê hít enfluran hoặc isofluran, giảm liều khởi đầu khoảng 15% (0,06 - 0,085 mg/kg), giảm 25 - 60% tốc độ liều tiêm truyền, sau liều khởi đầu 45 - 60 phút.\nSau đặt ống nội khí quản bằng succinylcholin: Giảm liều khởi đầu đến 0,04 - 0,06 mg/kg với thuốc gây mê hít, 0,05 - 0,06 mg/kg với thuốc gây mê phối hợp.\nNgười cao tuổi: Khuyến cáo giảm liều.\nNhược cơ nặng: Liều thấp có thể có tác dụng mạnh, khuyến cáo giảm liều và theo dõi chặt chẽ đáp ứng.\nBệnh béo phì: Cho liều trên cơ sở thể",
+    "question": "Câu hỏi về Tương tác thuốc: Vecuronium bromid có tương tác gì với các thuốc gây mê đường hô hấp?",
+    "right_answer": "Tác dụng phong bế thần kinh - cơ của vecuronium bromid được tăng cường nhẹ bởi các thuốc gây mê đường hô hấp.",
+    "hallucinated_answer": "Vecuronium bromid khi dùng cùng với các thuốc gây mê đường hô hấp có thể dẫn đến suy thận và suy gan.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14482",
+    "knowledge_context": "Độc tính trên thần kinh của vincristin tăng khi dùng cùng với các thuốc khác cũng độc trên thần kinh, chiếu tia X vùng tủy sống hoặc bị bệnh thần kinh.\nĐã gặp nhồi máu cơ tim ở người bệnh dùng vincristin phối hợp với các hóa trị liệu chống ung thư khác sau khi chiếu tia X vùng trung thất.\nKhi phối hợp với L-asparaginase, cần dùng vincristin 12 đến 14 giờ trước khi dùng enzym này để làm giảm độc tính. Dùng L-asparaginase trước vincristin sẽ làm giảm độ thanh thải của vincristin ở gan.\nDùng đồng thời phenytoin và vincristin sẽ làm nồng độ phenytoin trong máu giảm và làm tăng các cơn động kinh. Phải theo dõi sự 1472 Vinorelbin tartrat xuất hiện các cơn co giật do giảm hấp thu phenytoin ở ống tiêu hóa do vincristin. Tăng liều phenytoin phải dựa vào kết quả định lượng nồng độ phenytoin trong má",
+    "question": "Câu hỏi về Tương tác thuốc: Vincristin có tương tác với các hóa trị liệu và chiếu tia X như thế nào?",
+    "right_answer": "Vincristin có thể tăng độc tính trên thần kinh khi dùng cùng với các thuốc khác cũng độc trên thần kinh, chiếu tia X vùng tủy sống hoặc bị bệnh thần kinh.",
+    "hallucinated_answer": "Vincristin không có tương tác độc tính với các thuốc khác hoặc chiếu tia X.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14281",
+    "knowledge_context": "Tim mạch: Đánh trống ngực, đau ngực.\nHướng dẫn cách xử trí ADR Trong quá trình nghiên cứu lâm sàng có kiểm soát ở người tăng huyết áp, các ADR tương đương giữa nhóm điều trị bằng valsartan và nhóm dùng placebo. Tần suất ADR không phụ thuộc vào liều, thời gian điều trị, tuổi, giới tính hoặc dân tộc.\n1454 Valsartan Do gắn mạnh vào protein huyết tương, ít có khả năng loại bỏ valsartan bằng thẩm phân.\nSuy gan: Khoảng 70% liều hấp thu được thải trừ qua mật, chủ yếu dưới dạng không đổi. Valsartan ít chuyển hóa. AUC gấp đôi đã thấy ở người bị suy gan nhẹ tới vừa so với người khỏe mạnh.\nTuy vậy, không có mối tương quan nào giữa nồng độ huyết tương của valsartan và mức độ nặng của bệnh gan. Valsartan chưa được nghiên cứu ở suy gan nặng.\nChỉ định Điều trị tăng huyết áp ở người lớn và trẻ em trên 6 t",
+    "question": "Câu hỏi về Tương tác thuốc: Valsartan có tương tác với các thuốc nào có thể làm giảm hiệu quả của nó?",
+    "right_answer": "Valsartan ít có khả năng tương tác với các thuốc khác do ít được chuyển hóa. Tuy nhiên, nó có thể tương tác với các thuốc như digoxin, warfarin và lithium.",
+    "hallucinated_answer": "Valsartan có thể tương tác với metformin và aspirin, làm tăng nguy cơ xuất huyết và rối loạn đường huyết.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14272",
+    "knowledge_context": "Thận trọng khi bắt đầu điều trị cho người bệnh suy tim hoặc có dấu hiệu lâm sàng rối loạn chức năng tâm thu thất trái sau nhồi máu cơ tim do thường xảy ra hạ huyết áp ở những người bệnh này.\nTuy nhiên, không cần ngừng thuốc nếu liều của thuốc đang ở trong khoảng liều khuyến cáo. Cần theo dõi chặt chẽ chức năng thận của người bệnh này trong thời gian điều trị.\nNguy cơ tăng kali máu, đặc biệt trên các bệnh nhân suy tim hoặc thời các thuốc lợi tiểu giữ kali, các chế phẩm bổ sung kali hoặc các thuốc khác có khả năng tăng nồng độ kali huyết thanh (như heparin).\nNgười bệnh cần theo dõi định kỳ nồng độ kali huyết thanh.\nThận trọng ở người bệnh còn một thận và hẹp động mạch thận hai bên hoặc hẹp động mạch thận một bên do độ an toàn chưa được xác lập. Việc sử dụng các thuốc ức chế hệ renin-angioten",
+    "question": "Câu hỏi về Tương tác thuốc...",
+    "right_answer": "Hạ huyết áp và tăng kali máu có thể xảy ra khi dùng valsartan ở người bệnh suy tim hoặc có dấu hiệu rối loạn chức năng tâm thu thất trái sau nhồi máu cơ tim.",
+    "hallucinated_answer": "Valsartan có thể gây tăng huyết áp và tăng kali máu ở người bệnh suy tim.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14515",
+    "knowledge_context": "Trong khi điều trị bằng thuốc tương tự vitamin D, phải cho một lượng calci thỏa đáng thông qua chế độ ăn hoặc bổ sung thêm calci; tuy nhiên, cho calci quá nhiều có thể gây tăng calci huyết.\nPhải giảm liều thuốc tương tự vitamin D khi các triệu chứng tốt lên và trước khi các thông số sinh hóa và xương trở lại bình thường vì nhu cầu đối với thuốc tương tự vitamin D thường giảm khi xương lành. Đối với người bệnh liệt giường, đặc biệt trẻ em, đôi khi phải giảm liều để tránh tăng calci huyết.\nHiện nay có nhiều loại thuốc tương tự vitamin, chọn dùng thuốc nào phụ thuộc vào nguyên nhân của bệnh và đặc tính của thuốc.\nĐể điều trị và dự phòng thiếu hụt vitamin D, ergocalciferol và colecalciferol thường được ưa dùng.\nLiều lượng:\nBổ sung cho khẩu phần ăn và phòng còi xương:\nĐối với trẻ bú mẹ hoàn toà",
+    "question": "Câu hỏi về Tương tác thuốc: Khi điều trị bằng thuốc tương tự vitamin D, cần phải cho bao nhiêu calci qua chế độ ăn hoặc bổ sung thêm?",
+    "right_answer": "Cần cho một lượng calci thỏa đáng thông qua chế độ ăn hoặc bổ sung thêm calci.",
+    "hallucinated_answer": "Cần cho calci quá nhiều để tăng hiệu quả của thuốc.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14275",
+    "knowledge_context": "Người bệnh cường aldosteron nguyên phát do hệ renin-angiotensin- aldosteron không được hoạt hóa ở những bệnh nhân này.\nThận trọng với người bệnh hẹp van động mạch chủ hoặc hẹp van hai lá hoặc bệnh lý phì đại cơ tim.\nThời kỳ mang thai Valsartan và các thuốc tác dụng trực tiếp trên hệ renin-angiotensin- aldosteron nói chung khi sử dụng ở phụ nữ có thai trong ba tháng giữa và ba tháng cuối của thai kỳ có thể gây tổn hại cho thai nhi (suy giảm chức năng thận, ít nước ối, chậm cốt hóa xương sọ) và trẻ sơ sinh (suy thận, hạ huyết áp, tăng kali huyết), thậm chí có thể gây chết thai. Vì vậy, chống chỉ định sử dụng valsartan cho phụ nữ có thai trong giai đoạn ba tháng giữa và ba tháng cuối của thai kỳ.\nKhông khuyến cáo sử dụng valsartan trong ba tháng đầu của thai kỳ. Mặc dù các nghiên cứu dịch tễ ",
+    "question": "Câu hỏi về Tương tác thuốc: Thận trọng với người bệnh hẹp van động mạch chủ khi sử dụng Valsartan?",
+    "right_answer": "Thận trọng với người bệnh hẹp van động mạch chủ hoặc hẹp van hai lá hoặc bệnh lý phì đại cơ tim khi sử dụng Valsartan vì có thể tăng nguy cơ biến cố liên quan đến van tim.",
+    "hallucinated_answer": "Thận trọng với người bệnh hẹp van động mạch chủ khi sử dụng Valsartan vì có thể gây ra các biến cố liên quan đến gan.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14497",
+    "knowledge_context": "Giảm liều ở người suy gan: Không cần thiết phải giảm liều ở người khi thăm dò qua chuyển hóa lidocain không thấy chức năng gan giảm rõ rệt. Có thể phải giảm 50% liều ở người bị suy gan nặng do di căn lan tỏa ở gan, mặc dù bilirubin tăng không nhiều. Các chế phẩm của Anh khuyến cáo nên giảm 1/3 liều ở người bệnh bị suy gan nặng (bilirubin cao gấp 2 lần giới hạn trên của giá trị bình thường và/hoặc có transaminase cao hơn bình thường 5 lần), ở người bị khối u gan to (chiếm hơn 75% thể tích gan). Các nhà sản xuất Hoa Kỳ khuyên nên giảm 50% liều vinorelbin tiêm ở người bệnh có bilirubin toàn phần là 2,1 - 3 mg/100 ml và giảm 75% liều ở người có bilirubin toàn phần > 3 mg/100 ml.\nVới thuốc uống, các nhà sản xuất Anh quốc khuyến cáo liều mỗi tuần cho người bị suy gan như sau:\nSuy gan nhẹ (biliru",
+    "question": "Câu hỏi về Tương tác thuốc...",
+    "right_answer": "Vinorelbin không nên được sử dụng cùng với BCG, clozapin, conivaptan, natalizumab, pimecrolimus, pimozid, tacrolimus do có thể gây ra tương tác thuốc không mong muốn.",
+    "hallucinated_answer": "Vinorelbin có thể được sử dụng cùng với tất cả các thuốc kể trên mà không gây ra tương tác nguy hiểm.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14488",
+    "knowledge_context": "Chỉ định Ung thư phổi không phải tế bào nhỏ.\nUng thư vú tiến triển vùng hoặc di căn.\nChống chỉ định Dị ứng với alcaloid dừa cạn và với bất kỳ thành phần nào của thuốc.\nBạch cầu giảm (bạch cầu trung tính < 1 500/mm 3);\nTiểu cầu < 75 000/mm3 Người bị nhiễm khuẩn nặng hoặc mới bị nhiễm khuẩn nặng.\nPhụ nữ mang thai, cho con bú.\nSuy gan nặng.\nTiêm chủng.\nNgười đang xạ trị vùng gan.\nThận trọng Vinorelbin là thuốc có độc tính cao và chỉ số điều trị thấp; đáp sử dụng dưới sự giám sát thường xuyên của thầy thuốc có kinh nghiệm điều trị bằng thuốc có tác dụng độc lên tế bào và chỉ dùng thuốc khi lợi ích do dùng thuốc lớn hơn các nguy cơ có thể xảy ra.\nVincristin Vinorelbin tartrat Thận trọng khi dùng cho người đã được chiếu xạ trước đó và người có tủy đang phục hồi sau xạ trị.\nThận trọng khi dùng ch",
+    "question": "Câu hỏi về Tương tác thuốc...",
+    "right_answer": "Vinorelbin không nên được sử dụng cùng với các thuốc có tác dụng độc lên tế bào vì có thể tăng độc tính.",
+    "hallucinated_answer": "Vinorelbin nên được sử dụng cùng với các thuốc có tác dụng độc lên tế bào để tăng hiệu quả điều trị.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14413",
+    "knowledge_context": "Không được ngừng verapamil đột ngột, có thể làm nặng hơn cơn đau thắt ngực.\nThời kỳ mang thai Chưa có công trình nào được kiểm chứng đầy đủ về dùng thuốc trong thời kỳ mang thai, nên thuốc chỉ dùng khi thật cần thiết.\nThời kỳ cho con bú Verapamil được bài tiết vào sữa mẹ. Thuốc có tiềm năng gây phản ứng phụ cho trẻ nhỏ, khi mẹ dùng verapamil thì không nên cho con bú.\nTác dụng không mong muốn (ADR) ADR ít xảy ra khi thuốc được dùng với liều điều trị. Một số phản ứng gặp khi tiêm tĩnh mạch nhiều hơn khi uống thuốc.\nThường gặp, ADR > 1/100 Tuần hoàn: Hạ huyết áp, nhịp tim chậm (< 50 lần/phút), blốc nhĩ thất hoàn toàn.\nToàn thân: Đau đầu, mệt mỏi.\nThần kinh: Chóng mặt.\nHô hấp: Khó thở.\nTiêu hóa: Táo bón, buồn nôn.\nDa: Phát ban.\nÍt gặp, 1/1 000 < ADR < 1/100 Toàn thân: Đỏ bừng.\nTuần hoàn: Bốc n",
+    "question": "Câu hỏi về Tương tác thuốc: Verapamil không nên được ngừng đột ngột vì sao?",
+    "right_answer": "Verapamil không nên được ngừng đột ngột vì có thể làm nặng thêm cơn đau thắt ngực.",
+    "hallucinated_answer": "Verapamil không nên được ngừng đột ngột vì nó có thể gây ra tăng huyết áp.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14236",
+    "knowledge_context": "Không cần điều trị Làm test tìm kháng thể kháng HBsAg 1. Nếu đáp ứng không đủ (nồng độ kháng thể kháng HBsAg < 10 đvqt/lít), tiêm một liều tăng cường vắc xin viêm gan B và kiểm tra lại hiệu giá kháng thể trong 1 - 2 tháng.\n2. Nếu đáp ứng đủ, không điều trị.\nTương tác thuốc Có thể dùng phối hợp vắc xin viêm gan B với giải độc tố uốn ván - ho gà - bạch hầu, vắc xin BCG, vắc xin phòng bại liệt và globulin miễn dịch kháng virus viêm gan B, nhưng phải tiêm vào các vị trí khác.\nVắc xin viêm gan B có thể dùng đồng thời với các chất kháng khuẩn, các sản phẩm máu, globulin miễn dịch, HBIG nhưng phải sử dụng bơm tiêm và vị trí tiêm khác nhau.\nThuốc ức chế miễn dịch có thể làm giảm đáp ứng miễn dịch với vắc xin viêm gan B. Nên tiêm vắc xin 2 tuần trước khi bắt đầu liệu pháp ức chế miễn dịch hoặc hoãn",
+    "question": "Câu hỏi về Tương tác thuốc...",
+    "right_answer": "Vắc xin viêm gan B có thể dùng đồng thời với các chất kháng khuẩn, các sản phẩm máu, globulin miễn dịch, HBIG nhưng phải sử dụng bơm tiêm và vị trí tiêm khác nhau.",
+    "hallucinated_answer": "Vắc xin viêm gan B không nên dùng đồng thời với các chất kháng khuẩn, các sản phẩm máu, globulin miễn dịch, HBIG vì có thể gây phản ứng phụ nguy hiểm.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14587",
+    "knowledge_context": "Tiền sử bị hoại tử do warfarin.\nNgười bệnh không tuân thủ dùng thuốc.\nNghiện rượu.\nTiền sử dễ bị ngã, người bệnh cao tuổi, tâm thần, không kiểm soát được.\nTiền sản giật /sản giật; dọa sảy thai, mang thai (trừ mang van nhân tạo cơ học).\nSuy gan nặng.\nThận trọng Trước khi quyết định điều trị bằng warfarin, phải đặc biệt chú ý đến nhận thức của người bệnh vì có những ràng buộc phải thực hiện khi điều trị, như phải tuân thủ uống thuốc đều đặn, đúng giờ, không được quên; phải thực hiện đều đặn xét nghiệm về máu (INR), phải cảnh giác đối với các thuốc phối hợp có thể làm mất cân bằng điều trị. Phải có sổ theo dõi cho người bệnh.\nPhải đặc biệt theo dõi những tháng đầu điều trị, nhất là thời gian mới xuất viện về nhà, vì nguy cơ chảy máu cao.\nTrong khi đang điều trị thấy có chảy máu, cần loại trừ ",
+    "question": "Câu hỏi về Tương tác thuốc...",
+    "right_answer": "Warfarin có thể tương tác với nhiều loại thuốc khác như aspirin, NSAIDs, corticosteroids, và một số thuốc điều trị tăng huyết áp. Nó cũng có thể tương tác với thức ăn giàu vitamin K như rau bina.",
+    "hallucinated_answer": "Warfarin không nên được sử dụng cùng với bất kỳ loại thuốc nào vì có thể gây ra tương tác nguy hiểm. Thức ăn không có ảnh hưởng gì đến warfarin.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14653",
+    "knowledge_context": "Phải theo dõi đau cơ để phân biệt bệnh cơ do thuốc hay do bệnh HIV để tiếp tục hay ngừng dùng thuốc.\nLiều lượng và cách dùng Cách dùng:\nZidovudin có thể uống, tiêm truyền tĩnh mạch liên tục hoặc gián đoạn. Liệu pháp uống phải thay thế liệu pháp tiêm mỗi khi có thể.\nZidovudin không được tiêm nhanh hoặc cả liều ngay một lúc. Để tránh nguy cơ kích ứng thực quản gây loét, người bệnh uống viên nang phải ở tư thế đứng thẳng và với đủ lượng nước (ít nhất 120 ml nước). Tuy thức ăn có thể làm giảm nồng độ đỉnh zidovudin trong huyết tương nhưng không tác động đến diện tích dưới đường cong nồng độ - thời gian (AUC) nên khi uống thuốc không cần chú ý đến bữa ăn. Dung dịch đậm đặc zidovudin để truyền tĩnh mạch chứa 10 mg/ml phải pha loãng trước khi truyền với dung dịch tiêm dextrose 5% để có một dung d",
+    "question": "Câu hỏi về Tương tác thuốc: Zidovudin có tương tác với thức ăn như thế nào?",
+    "right_answer": "Zidovudin không cần chú ý đến bữa ăn khi uống thuốc vì thức ăn có thể làm giảm nồng độ đỉnh zidovudin trong huyết tương nhưng không tác động đến diện tích dưới đường cong nồng độ - thời gian (AUC).",
+    "hallucinated_answer": "Thức ăn làm giảm nồng độ zidovudin trong huyết tương và có thể gây ra các tác dụng phụ nghiêm trọng nếu không tuân thủ.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14296",
+    "knowledge_context": "Trẻ em 6 - 16 tuổi:\nTăng huyết áp:\nNếu nuốt được viên, liều thông thường khuyến cáo ban đầu là 1,3 mg/kg/ngày, ngày uống 1 lần (tối đa 40 mg/ngày). Phải điều chỉnh liều theo đáp ứng của huyết áp. Liều cao hơn 2,7 mg/kg, ngày 1 lần (tối đa 160 mg), chưa được nghiên cứu ở trẻ em 6 - 16 tuổi.\nNếu không nuốt được viên hoặc liều lượng tính theo mg/kg không tương ứng với viên hiện có, nên dùng dịch treo uống (pha chế theo hướng dẫn của nhà sản xuất).\nNgười cao tuổi: Không cần hiệu chỉnh liều.\nBệnh nhân suy thận:\nTrẻ em: Không khuyến cáo sử dụng valsartan ở bệnh nhi có Cl cr < 30 ml/phút.\nNgười lớn: Không cần hiệu chỉnh liều ở người bệnh có Cl cr ≥ 10 ml/phút. Sử dụng thận trọng ở người bệnh có Clcr < 10 ml/phút.\nBệnh nhân suy gan:\nThận trọng khi sử dụng ở người bệnh mắc bệnh gan. Liều dùng của v",
+    "question": "Câu hỏi về Tương tác thuốc...",
+    "right_answer": "Dùng đồng thời valsartan với lithi có thể làm tăng nồng độ lithi trong máu, dẫn đến ngộ độc lithi. Cần theo dõi chặt chẽ người bệnh và giám sát biểu hiện độc tính của lithi.",
+    "hallucinated_answer": "Dùng đồng thời valsartan với lithi không có tác động đáng kể đến nồng độ lithi trong máu. Người bệnh không cần theo dõi đặc biệt.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14512",
+    "knowledge_context": "Trong khi điều trị bằng vitamin D, cần định kỳ đo nồng độ calci, phosphat, magnesi huyết thanh, nitơ urê máu, phosphatase kiềm máu, calci và phosphat trong nước tiểu 24 giờ.\nGiảm nồng độ phosphatase kiềm thường xuất hiện trước tăng calci huyết ở người nhuyễn xương hoặc loạn dưỡng xương do thận.\nNên cho uống nhiều nước hoặc truyền dịch để làm tăng thể tích nước tiểu, nhằm tránh tạo sỏi thận ở người tăng calci niệu.\nLiều lượng và cách dùng Cách dùng: Các thuốc tương tự vitamin D thường uống; tuy vậy, ergocalciferol có thể tiêm bắp và calcitriol, doxercalciferol và paricalcitol có thể tiêm tĩnh mạch.\nKhi tính liều lượng cho các thuốc tương tự vitamin D, phải kể đến lượng ergocalciferol và colecalciferol từ thức ăn đưa vào cơ thể.\nLượng này thay đổi tùy từng người. Phải dựa vào nguyên nhân và ",
+    "question": "Câu hỏi về Tương tác thuốc...",
+    "right_answer": "Khi điều trị bằng vitamin D, cần định kỳ đo nồng độ calci, phosphat, magnesi huyết thanh, nitơ urê máu, phosphatase kiềm máu, calci và phosphat trong nước tiểu 24 giờ.",
+    "hallucinated_answer": "Khi điều trị bằng vitamin D, cần định kỳ đo nồng độ calci, phosphat, magnesi huyết thanh, nitơ urê máu, phosphatase kiềm máu, calci và phosphat trong nước tiểu 24 giờ, và cũng cần kiểm tra nồng độ vitamin K.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14263",
+    "knowledge_context": "Tính an toàn và hiệu quả của việc sử dụng vắc xin có nguồn gốc từ tế bào Vero cho trẻ em và thiếu niên (dưới 17 tuổi) chưa được xác định.\nTương tác thuốc Các dữ liệu ít ỏi cho thấy khả năng sinh miễn dịch và độ an toàn của vắc xin không bị ảnh hưởng khi tiêm chủng đồng thời tại các vị trí khác nhau, với các loại vắc xin khác như giải độc tố bạch hầu, giải độc tố uốn ván và vắc xin ho gà.\nĐộ ổn định và bảo quản Vắc xin cần được bảo quản ở nhiệt độ từ 2 - 8 oC và không được để đông băng. Hỗn dịch sử dụng trong vòng 8 giờ sau khi hoàn nguyên.\nThông tin qui chế Vắc xin viên não Nhật Bản B có trong Danh mục thuốc thiết yếu tân dược ban hành lần thứ VI, năm 2013.\nTên thương mại Japanese Encephalitis Vaccine- GCC; Jebevax; JEVAX; RS.JEV .\nV ALSARTAN Tên chung quốc tế: Valsartan.\nMã ATC: C09CA03.\n",
+    "question": "Câu hỏi về Tương tác thuốc...",
+    "right_answer": "Các dữ liệu ít ỏi cho thấy khả năng sinh miễn dịch và độ an toàn của vắc xin không bị ảnh hưởng khi tiêm chủng đồng thời tại các vị trí khác nhau, với các loại vắc xin khác như giải độc tố bạch cầu, giải độc tố uốn ván và vắc xin ho gà.",
+    "hallucinated_answer": "Tiêm chủng đồng thời với các loại vắc xin khác có thể gây ra các phản ứng dị ứng nghiêm trọng.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14446",
+    "knowledge_context": "Sử dụng phối hợp với thuốc khác (cisplatin, methotrexat, doxorubicin) để điều trị ung thư bàng quang tiến triển.\nSử dụng phối hợp với thuốc khác (cisplatin, mitomycin) trong điều trị ung thư phổi không phải tế bào nhỏ.\nSử dụng phối hợp với thuốc khác (cisplatin, dacarbazin, interferon alpha, aldesleukin) trong điều trị u hắc tố di căn.\nChỉ định khác: Điều trị u lympho không Hodgkin giai đoạn cuối, u lympho mô bào, sarcom Kaposi, bệnh Letterer-Siwe, ung thư tuyến tiền liệt, ung thư buồng trứng.\nChống chỉ định Người bệnh giảm bạch cầu hạt rõ rệt, trừ phi đó là kết quả của bệnh đang được điều trị.\nNgười bệnh bị nhiễm khuẩn. Nếu có nhiễm khuẩn phải được điều trị trước khi bắt đầu điều trị bằng vinblastin.\nKhông được tiêm vào ống tủy sống.\nThận trọng Vinblastin sulfat gây kích ứng rất mạnh. Thu",
+    "question": "Câu hỏi về Tương tác thuốc: Vinblastin khi phối hợp với cisplatin trong điều trị ung thư phổi không phải tế bào nhỏ có thể gây ra những tương tác gì?",
+    "right_answer": "Vinblastin khi phối hợp với cisplatin trong điều trị ung thư phổi không phải tế bào nhỏ thường không có tương tác gây hại, nhưng cần theo dõi cẩn thận các tác dụng phụ của cả hai thuốc.",
+    "hallucinated_answer": "Vinblastin khi phối hợp với cisplatin trong điều trị ung thư phổi không phải tế bào nhỏ có thể gây ra độc tính gan và thận nghiêm trọng.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14500",
+    "knowledge_context": "Giảm liều ở người suy gan: Không cần thiết phải giảm liều ở người khi thăm dò qua chuyển hóa lidocain không thấy chức năng gan giảm rõ rệt. Có thể phải giảm 50% liều ở người bị suy gan nặng do di căn lan tỏa ở gan, mặc dù bilirubin tăng không nhiều. Các chế phẩm của Anh khuyến cáo nên giảm 1/3 liều ở người bệnh bị suy gan nặng (bilirubin cao gấp 2 lần giới hạn trên của giá trị bình thường và/hoặc có transaminase cao hơn bình thường 5 lần), ở người bị khối u gan to (chiếm hơn 75% thể tích gan). Các nhà sản xuất Hoa Kỳ khuyên nên giảm 50% liều vinorelbin tiêm ở người bệnh có bilirubin toàn phần là 2,1 - 3 mg/100 ml và giảm 75% liều ở người có bilirubin toàn phần > 3 mg/100 ml.\nVới thuốc uống, các nhà sản xuất Anh quốc khuyến cáo liều mỗi tuần cho người bị suy gan như sau:\nSuy gan nhẹ (biliru",
+    "question": "Trong tương tác thuốc, vinorelbin có thể tương tác như thế nào với tacrolimus?",
+    "right_answer": "Vinorelbin có thể tăng nồng độ tacrolimus trong máu do việc giảm chuyển hóa của tacrolimus.",
+    "hallucinated_answer": "Vinorelbin có thể giảm nồng độ tacrolimus trong máu do việc tăng chuyển hóa của tacrolimus.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14350",
+    "knowledge_context": "Sau 1 liều tiêm bắp 2 microgam hoặc xịt vào mũi 20 microgam;\nnăng cô đặc nước tiểu thì đái tháo nhạt là do thùy sau tuyến yên.\nXuất huyết đường tiêu hóa:\nĐể tiêm truyền tĩnh mạch hoặc trong động mạch, vasopressin thường pha loãng với dung dịch natri clorid 0,9% hoặc dextrose 5% để có nồng độ 0,1 - 1 đvqt/ml. Liều lượng vasopessin cho theo kinh nghiệm và phụ thuộc từng người bệnh, phải dùng liều thấp nhất có hiệu quả vì nhiều tai biến phụ. Liều bắt đầu thường là truyền với tốc độ 0,2 - 0,4 đvqt/phút và tăng dần tới 0,9 đvqt/phút nếu cần. Tiêm truyền trong động mạch đòi hỏi chuyên khoa cao.\nSau 24 giờ, tốc độ truyền phải giảm dần tùy theo đáp ứng của người bệnh. Vasopressin đã từng được dùng trong 3 ngày tới 2 tuần.\nSốc do giãn mạch (sốc nhiễm khuẩn):\nChưa xác định được liều tối ưu. Truyền t",
+    "question": "Câu hỏi về Tương tác thuốc: Khi phối hợp vasopressin với các thuốc chống trầm cảm ba vòng, clorpromazin và carbamazepin, sẽ xảy ra tương tác nào?",
+    "right_answer": "Khi phối hợp vasopressin với các thuốc chống trầm cảm ba vòng, clorpromazin và carbamazepin, sẽ làm tăng tác dụng chống bài niệu, gây nguy cơ ứ nước trong cơ thể và làm tăng gánh nặng cho hệ tim mạch.",
+    "hallucinated_answer": "Khi phối hợp vasopressin với các thuốc chống trầm cảm ba vòng, clorpromazin và carbamazepin, sẽ giảm tác dụng chống bài niệu, làm tăng khả năng bài niệu và giảm gánh nặng cho hệ tim mạch.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14254",
+    "knowledge_context": "Các nhà sản xuất thông báo, không nên dùng cho những người có nghi vấn hoặc có bằng chứng mẫn cảm với protein của loài gậm nhấm hay protein mô thần kinh và tử vong đã xảy ra, tuy rất hiếm, do dùng vắc xin cho người viêm não tủy. Một phản ứng cần lưu ý là viêm não tủy rải rác cấp tính (ADEM) với tỉ lệ 1 - 2,3 phần triệu người tiêm phòng. Tỉ lệ các biến cố thần kinh sau khi tiêm vắc xin chưa được xác lập. Không được dùng vắc xin này cho người đã bị quá mẫn với thimerosal.\nKhông sử dụng rượu bia trong vòng 48 giờ sau khi tiêm vắc xin do có thể làm tăng nguy cơ xảy ra phản ứng bất lợi.\nThận trọng khi sử dụng đồng thời cùng các vắc xin khác.\nThận trọng sử dụng vắc xin khi đang mắc hoặc vừa mắc bệnh cấp tính có sốt. Quyết định sử dụng hay hoãn vắc xin phụ thuộc vào mức độ nặng của triệu chứng và",
+    "question": "Câu hỏi về Tương tác thuốc...",
+    "right_answer": "Không sử dụng rượu bia trong vòng 48 giờ sau khi tiêm vắc xin do có thể làm tăng nguy cơ xảy ra phản ứng bất lợi.",
+    "hallucinated_answer": "Không nên sử dụng bất kỳ thức ăn nào trong vòng 24 giờ sau khi tiêm vắc xin để tránh tương tác độc hại.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14665",
+    "knowledge_context": "Chỉ định Điều trị ngắn ngày chứng mất ngủ không thường xuyên (như khi đi du lịch).\nĐiều trị ngắn chứng mất ngủ tạm thời (do stress).\nChống chỉ định Mẫn cảm với thuốc hoặc bất cứ thành phần nào của thuốc.\nChứng ngừng thở khi ngủ. Suy hô hấp cấp. Bệnh phổi tắc nghẽn mạn tính.\nChứng nhược cơ.\nSuy gan, suy thận nặng.\nLoạn thần.\nNgười mang thai và người cho con bú.\nThận trọng Vì mất ngủ có thể là một biểu hiện của một bệnh thực thể và/hoặc một bệnh tâm thần, nên trước khi điều trị triệu chứng mất ngủ, phải thăm khám cẩn thận người bệnh. Nếu sau 7 - 10 ngày điều trị bằng zolpidem mà không đỡ, cần phải đánh giá lại, có thể do một bệnh tâm thần hoặc một bệnh nội khoa cần phải điều trị căn nguyên.\nKhông nên dùng thuốc ngủ quá 2 - 3 tuần.\nCác thuốc ngủ và an thần bao gồm cả zolpidem có khả năng làm ",
+    "question": "Câu hỏi về Tương tác thuốc: Thuốc zolpidem có thể tương tác với rượu và các thuốc ức chế hệ TKTW khác như thế nào?",
+    "right_answer": "Thuốc zolpidem có thể làm thay đổi nghiêm trọng cách ứng xử và tâm trạng bất thường khi kết hợp với rượu hoặc các thuốc ức chế hệ TKTW khác, gây ra trầm cảm, ý tưởng tự tử, lo âu và hiện tượng quên.",
+    "hallucinated_answer": "Thuốc zolpidem khi kết hợp với rượu và các thuốc ức chế hệ TKTW khác sẽ làm giảm triệu chứng mất ngủ mà không gây ra bất kỳ tác dụng phụ nguy hiểm nào.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14380",
+    "knowledge_context": "Liều tiêm truyền liên tục: Sau liều đặt ống nội khí quản (0,08 - 0,10 mg/kg) khoảng 20 - 40 phút, có thể tiến hành tiêm truyền liên tục với liều lượng 1 microgam/kg/phút. Chỉ bắt đầu tiêm truyền vecuronium bromid sau khi xuất hiện dấu hiệu ban đầu phục hồi co cơ sau liều đã tiêm. Sau đó cần điều chỉnh tốc độ tiêm truyền để duy trì 90% phong bế thần kinh - cơ; tốc độ tiêm truyền 0,8 - 1,2 microgam/kg/phút thường là đủ để duy trì phong bế thần kinh - cơ liên tục trên phần lớn người bệnh.\nLiều dùng cho trẻ em Trẻ em từ 10 - 17 tuổi: Liều dùng xấp xỉ như người lớn (theo mg/ kg thể trọng) và cách xử trí cũng tương tự; có thể cần liều bổ sung mau thời gian hơn so với người lớn.\nTrẻ em từ 1- 10 tuổi: Liều lượng dùng tùy theo từng trường hợp, có thể cần liều khởi đầu hơi cao hơn và liều bổ sung cũ",
+    "question": "Câu hỏi về Tương tác thuốc: Liều vecuronium bromid có thể tương tác với các thuốc nào trong quá trình tiêm truyền liên tục?",
+    "right_answer": "Vecuronium bromid có thể tương tác với các thuốc gây suy chức năng gan và thận, cũng như các thuốc gây giảm sức bền cơ. Cần điều chỉnh liều và giám sát chặt chẽ khi sử dụng cùng với các thuốc này.",
+    "hallucinated_answer": "Vecuronium bromid không nên sử dụng cùng với bất kỳ thuốc nào gây suy chức năng gan và thận. Sử dụng cùng với các thuốc này có thể gây độc tính cao.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14440",
+    "knowledge_context": "Không được tiêm vào ống tủy sống.\nThận trọng Vinblastin sulfat gây kích ứng rất mạnh. Thuốc chỉ được tiêm tĩnh mạch bởi người có kinh nghiệm tiêm thuốc; thuốc không được tiêm bắp, dưới da hoặc trong màng não tủy. Tiêm trong màng não tủy đã gây tử vong.\nVinblastin sulfat là một thuốc có độc tính cao. Thuốc phải được sử dụng dưới sự giám sát thường xuyên của thầy thuốc có kinh nghiệm trong điều trị bằng các thuốc độc tế bào.\nNgười bệnh suy mòn hoặc có những vùng loét trên da có thể dễ bị ảnh hưởng bởi tác dụng hạ bạch cầu của vinblastin. Vì vậy, phải dùng thuốc hết sức thận trọng cho người bệnh (đặc biệt là người bệnh cao tuổi) có những tình trạng bệnh nói trên.\nPhải làm các xét nghiệm máu (tế bào, nồng độ acid uric, chức năng gan) hàng tuần hoặc ít nhất là trước mỗi liều vinblastin. Nếu số ",
+    "question": "Câu hỏi về Tương tác thuốc: Liệu vinblastin sulfat có thể gây kích ứng mạnh khi tiêm bắp hay không?",
+    "right_answer": "Vinblastin sulfat không được tiêm bắp vì có thể gây kích ứng mạnh và nguy hiểm.",
+    "hallucinated_answer": "Vinblastin sulfat có thể được tiêm bắp mà không gây kích ứng mạnh.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14650",
+    "knowledge_context": "1492 Zidovudin Thời kỳ mang thai Zidovudin cũng được chỉ định để dự phòng lây truyền HIV từ mẹ sang con. Độ an toàn của việc dùng zidovudin cho người mẹ và thai trong 3 tháng đầu của thai kỳ chưa được xác định. Tuy nhiên, nguy cơ lây truyền dọc HIV (từ mẹ sang con) cao tới mức được coi là quan trọng để cần điều trị cho người mang thai xét nghiệm dương tính HIV . Dựa trên các nghiên cứu về hiệu quả và trên kinh nghiệm rộng lớn, zidovudin là thuốc được ưa dùng trong các phác đồ điều trị HIV cho người mang thai.\nThời kỳ cho con bú Phụ nữ bị nhiễm HIV không nên cho con bú để tránh lây truyền cho trẻ lúc đó có thể chưa bị nhiễm.\nTác dụng không mong muốn (ADR) Các tác dụng không mong muốn nói chung giống nhau ở người lớn và trẻ em. Các ADR nặng nhất bao gồm thiếu máu (có thể phải truyền máu), gi",
+    "question": "Câu hỏi về Tương tác thuốc: Zidovudin có thể tương tác với các loại thuốc nào khác khi sử dụng trong điều trị HIV?",
+    "right_answer": "Zidovudin có thể tương tác với các loại thuốc khác như ritonavir, efavirenz và lamivudin. Tương tác này có thể tăng cường hoặc giảm cường tác dụng của các thuốc này, do đó cần điều chỉnh liều lượng hoặc theo dõi chặt chẽ.",
+    "hallucinated_answer": "Zidovudin không nên được sử dụng cùng với bất kỳ loại thuốc nào khác vì có thể gây ra phản ứng nghiêm trọng. Sử dụng các thuốc khác khi dùng zidovudin có thể dẫn đến tử vong.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14383",
+    "knowledge_context": "Chưa xác định được an toàn và hiệu lực của vecuronium bromid ở trẻ em dưới 7 tuần tuổi. Không nên dùng thuốc này cho trẻ sơ sinh.\nKhông có đủ tư liệu về tiêm truyền liên tục vecuronium ở trẻ em, vì vậy không thể khuyến cáo về liều dùng.\nĐiều chỉnh liều:\nGây mê ổn định đồng thời với thuốc gây mê hít: Với thuốc gây mê hít enfluran hoặc isofluran, giảm liều khởi đầu khoảng 15% (0,06 - 0,085 mg/kg), giảm 25 - 60% tốc độ liều tiêm truyền, sau liều khởi đầu 45 - 60 phút.\nSau đặt ống nội khí quản bằng succinylcholin: Giảm liều khởi đầu đến 0,04 - 0,06 mg/kg với thuốc gây mê hít, 0,05 - 0,06 mg/kg với thuốc gây mê phối hợp.\nNgười cao tuổi: Khuyến cáo giảm liều.\nNhược cơ nặng: Liều thấp có thể có tác dụng mạnh, khuyến cáo giảm liều và theo dõi chặt chẽ đáp ứng.\nBệnh béo phì: Cho liều trên cơ sở thể",
+    "question": "Câu hỏi về Tương tác thuốc: vecuronium bromid có tương tác gì với các thuốc gây mê đường hô hấp?",
+    "right_answer": "Thuốc gây mê đường hô hấp như enfluran và isofluran có thể tăng cường nhẹ tác dụng phong bế thần kinh - cơ của vecuronium bromid.",
+    "hallucinated_answer": "Thuốc gây mê đường hô hấp như enfluran và isofluran có thể làm giảm tác dụng của vecuronium bromid.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14566",
+    "knowledge_context": "Phụ nữ phải dùng các biện pháp tránh thai trong thời gian điều trị bằng voriconazol.\nThời kỳ cho con bú Thuốc có thể qua sữa do có phân tử lượng nhỏ. Không dùng cho phụ nữ đang cho con bú. Nếu dùng phải ngừng cho con bú.\nTác dụng không mong muốn (ADR) Rất thường gặp, ADR >10/100 Thần kinh trung ương: Ảo giác thính giác và/hoặc thị giác.\nMắt: Sợ ánh sáng, giảm hoặc tăng thị lực, nhìn mờ rối loạn nhìn màu.\nThận: Tăng creatinin huyết.\nThường gặp, 10/100 >ADR > 1/100 Tim: Nhịp nhanh Thần kinh trung ương: Sốt, rét run, nhức đầu.\nDa: Nổi mẩn.\nNội tiết - chuyển hóa: Giảm kali huyết.\nTiêu hóa: Buồn nôn, nôn.\nGan: Tăng phosphatase kiềm, tăng AST, tăng ALT, vàng da ứ mật.\nMắt: Sợ ánh sáng.\nÍt gặp, ADR < 1/100 Toàn thân: Dị ứng, hội chứng Stevens-Johnson, nổi ban, xanh tím, phù, phù ngoại biên, nhiễm",
+    "question": "Câu hỏi về Tương tác thuốc...",
+    "right_answer": "Voriconazol có thể gây tương tác với các thuốc nhóm CYP3A4 như ketoconazol, itraconazol, và fluconazol. Ngoài ra, voriconazol cũng có thể gây tương tác với các thuốc khác như warfarin, cyclosporine, và sirolimus. Phụ nữ nên tránh dùng voriconazol cùng với các thuốc này.",
+    "hallucinated_answer": "Voriconazol không gây tương tác với bất kỳ thuốc nào và có thể dùng thoải mái cùng với các thức ăn và thuốc khác.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14239",
+    "knowledge_context": "Chỉ định Vắc xin được dùng để tạo miễn dịch chủ động chống VNNB cho người trên 1 tuổi cư trú hoặc đi du lịch qua các vùng Châu Á nằm trong vùng dịch tễ của bệnh VNNB (những người lưu trú ở vùng dịch tễ trong vòng hơn 1 tháng trong mùa truyền nhiễm virus VNNB).\nVắc xin VNNB bất hoạt còn được dùng để tạo miễn dịch chủ động cho nhân viên phòng thí nghiệm có nguy cơ tiếp xúc cao với virus.\nChống chỉ định Mẫn cảm với vắc xin hoặc bất cứ thành phần nào trong vắc xin, mẫn cảm với sản phẩm có nguồn gốc từ động vật, có phản ứng dị ứng nghiêm trọng khi dùng liều vắc xin trước.\nThận trọng Vắc xin VNNB bất hoạt có thể gây ra các phản ứng không mong muốn, nhưng tỷ lệ phản ứng quá mẫn trầm trọng (như nổi mày đay toàn thể, phù mạch) thấp (0,1 - 1,0%) có thể xảy ra trong vòng từ vài phút đến 17 ngày sau k",
+    "question": "Câu hỏi về Tương tác thuốc...",
+    "right_answer": "Vắc xin VNNB bất hoạt không có tương tác với các loại thuốc khác thường sử dụng hàng ngày (như aspirin, ibuprofen). Tuy nhiên, người bệnh nên thông báo với bác sĩ về tất cả các loại thuốc đang sử dụng, bao gồm cả các loại thuốc không kê đơn và các loại thảo dược.",
+    "hallucinated_answer": "Vắc xin VNNB bất hoạt có thể gây ra các tương tác nghiêm trọng với aspirin, ibuprofen, và các loại thuốc chống viêm không steroid khác. Người bệnh nên tránh sử dụng bất kỳ loại thuốc nào trong 24 giờ sau khi tiêm vắc xin.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14347",
+    "knowledge_context": "Khi dùng thuốc dạng xịt (niêm mạc mũi) có thể gây sung huyết, kích thích và loét niêm mạc mũi.\nHướng dẫn cách xử trí ADR Có thể xử trí tác dụng chống bài niệu gây ra ứ nước và mất cân bằng natri bằng cách hạn chế uống nước và tạm thời ngừng dùng vasopressin. Ở những trường hợp nặng, có thể phải dùng thuốc lợi niệu thẩm thấu. Dùng liều cao, phải theo dõi các tai biến về tim mạch, theo dõi đái tháo đường khi truyền vasopressin. Ở người có bệnh động mạch vành, ngay cả với liều thấp, cũng có thể gây cơn đau ngực. Nếu xảy ra, dùng amyl nitrit hoặc nitroglycerin.\nLiều lượng và cách dùng Cách dùng:\nVasopressin có thể tiêm bắp, tiêm dưới da, hoặc bôi tại chỗ (thuốc xịt mũi). Thuốc cũng có thể tiêm tĩnh mạch, vào trong tủy xương (trong hồi sức cấp cứu tim mạch), truyền tĩnh mạch hoặc động mạch (độn",
+    "question": "Câu hỏi về Tương tác thuốc: Thuốc dạng xịt (niêm mạc mũi) có thể gây sung huyết, kích thích và loét niêm mạc mũi. Thuốc nào có thể gây tương tác không tốt với thuốc dạng xịt mũi này?",
+    "right_answer": "Thuốc chứa chất làm sạch mũi hoặc có tính acid có thể gây tương tác không tốt với thuốc dạng xịt mũi.",
+    "hallucinated_answer": "Thuốc chống viêm không steroid (NSAIDs) có thể gây tương tác không tốt với thuốc dạng xịt mũi.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14308",
+    "knowledge_context": "Tuy nhiên, số lượng người bệnh trong nghiên cứu này còn ít và thuốc chỉ được dùng trong 6 tháng cuối của thai kỳ nên chưa rõ vancomycin có gây hại cho thai nhi hay không. Chỉ dùng vancomycin cho phụ nữ mang thai trong trường hợp thật cần thiết, cho những người bệnh nhiễm khuẩn rất nặng.\nDược động học của vancomycin có thể bị thay đổi trong quá trình mang thai: Thể tích phân bố và độ thanh thải toàn bộ tăng lên, vì vậy có thể phải dùng liều cao hơn cho phụ nữ mang thai. Cần theo dõi nồng độ thuốc trong máu để có điều chỉnh phù hợp. Vancomycin được chỉ định dùng cho phụ nữ có thai để ngăn ngừa các bệnh do streptococcal nhóm B khởi phát sớm ở trẻ sơ sinh.\nThời kỳ cho con bú Vancomycin tiết qua sữa mẹ. Ảnh hưởng của vancomycin trên trẻ đang bú mẹ có dùng vancomycin chưa được biết rõ. Vancomyci",
+    "question": "Câu hỏi về Tương tác thuốc...",
+    "right_answer": "Vancomycin có thể gây thay đổi dược động học trong quá trình mang thai, do đó cần điều chỉnh liều lượng. Tuy nhiên, không có tương tác rõ ràng với các loại thuốc khác được đề cập trong văn bản.",
+    "hallucinated_answer": "Vancomycin không nên được sử dụng cùng với amoxicillin vì có thể gây tăng độc tính. Sử dụng đồng thời hai loại thuốc này có thể dẫn đến suy thận cấp.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14629",
+    "knowledge_context": "Dược động học ở người mang thai tương tự như ở người không mang thai.\nHấp thu: Sau khi uống, zidovudin hấp thu tốt, nhưng rất khác nhau giữa những người uống, dao động từ 42 - 95%. Thuốc qua chuyển hóa bước một. Ở người lớn, trẻ em và sơ sinh, khoảng 65% (dao động 50 - 89%) liều uống vào được tuần hoàn dưới dạng thuốc chưa chuyển hóa. Kết quả một số nghiên cứu cho thấy tốc độ hấp thu và nồng độ đỉnh zidovudin trong huyết tương có thể tăng đáng kể nếu thuốc được uống vào bữa ăn. Tuy vậy, nhà sản xuất cho rằng mức độ hấp thu zidovudin xác định bằng AUC không bị ảnh hưởng do thức ăn.\nNgười lớn: Zidovudin hấp thu nhanh qua đường tiêu hóa, nồng độ đỉnh thường đạt được trong vòng 0,4 - 1,5 giờ sau một liều uống.\nSau khi truyền tĩnh mạch trong vòng 1 giờ 1 liều đơn 2,5 hoặc 5 mg/kg zidovudin cho ",
+    "question": "Câu hỏi về Tương tác thuốc: Zidovudin có tương tác với thức ăn như thế nào?",
+    "right_answer": "Zidovudin hấp thu nhanh qua đường tiêu hóa và mức độ hấp thu xác định bằng AUC không bị ảnh hưởng do thức ăn.",
+    "hallucinated_answer": "Zidovudin chỉ được hấp thu hiệu quả khi uống trước bữa ăn, nếu uống sau bữa ăn sẽ giảm hấp thu đáng kể.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14467",
+    "knowledge_context": "Vincristin bị chuyển hóa ở gan, bởi hệ thống enzym của cytochrom P 450, isoenzym CYP3A và CYP3A5. Vincristin và các chất chuyển hóa được đào thải chủ yếu qua mật và theo phân. Ở người lớn có chức năng gan và chức năng thận bình thường, sau khi tiêm tĩnh mạch, khoảng 70 - 80% liều được bài xuất qua phân; khoảng 10 - 20% được đào thải qua nước tiểu, trong đó <1% thuốc dưới dạng không thay đổi. Chuyển hóa thuốc giảm ở người bị suy gan. Do phân bố nhiều vào các mô, nên không thể loại bỏ được vincristin bằng thẩm phân máu.\nChỉ định Phối hợp với các thuốc hóa trị liệu khác trong điều trị bệnh bạch cầu cấp dòng lympho, bạch cầu cấp dòng tủy, bệnh Hodgkin, u lympho không Hodgkin, sarcom cơ vân, u nguyên bào thần kinh và u Wilm. Vincristin cũng tỏ ra có ích trong điều trị sarcom Ewing, u sùi dạng n",
+    "question": "Câu hỏi về Tương tác thuốc: Vincristin có thể tương tác với các thuốc nào do hệ thống enzym gan?",
+    "right_answer": "Vincristin tương tác với các enzym cytochrom P 450, đặc biệt là isoenzym CYP3A và CYP3A5.",
+    "hallucinated_answer": "Vincristin tương tác với các enzym gan như CYP2C9 và CYP2D6.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14551",
+    "knowledge_context": "PTH huyết tương 300 - 600 picogam/ml và calci huyết thanh < 9,5 mg/dl : Uống, tiêm tĩnh mạch: 0,5 - 1,5 microgam.\nPTH huyết tương 600 - 1000 picogam/ml và calci huyết thanh < 9,5 mg/dl : Uống 1 - 4 microgam. Tiêm tĩnh mạch: 1 - 3 microgam.\nPTH > 1000 picogam/ml và calci huyết thanh < 10 mg/dl; Uống 3 - 7 microgam, tiêm tĩnh mạch: 3 - 5 microgam.\nTrẻ em bị bệnh thận mạn giai đoạn 2 - 4: Uống: Nếu < 10 kg:\n0,05 microgam cách hai ngày uống 1 lần. Nếu từ 10 - 20 kg: 0,1 - 0,15 microgam uống hàng ngày. Nếu > 20 kg: 0,25 microgam uống hàng ngày. Phải điều chỉnh liều dựa theo iPTH, nồng độ calci- huyết và phosphor huyết.\nLoãng xương do dùng corticosteroid:\nNgười lớn: Uống 0,5 microgam mỗi ngày.\nLoãng xương sau mãn kinh: Uống 250 nanogam, ngày uống 2 lần (giám sát nồng độ calci huyết tương và crea",
+    "question": "Câu hỏi về Tương tác thuốc: Paricalcitol có thể gây ra tương tác gì với các thuốc khác?",
+    "right_answer": "Paricalcitol có thể gây tăng nồng độ calci trong máu nếu sử dụng cùng với các thuốc tăng nồng độ calci khác.",
+    "hallucinated_answer": "Paricalcitol có thể gây giảm nồng độ calci trong máu nếu sử dụng cùng với các thuốc giảm nồng độ calci khác.",
+    "hallucination_type": "misleading_interaction",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14505",
+    "knowledge_context": "và uridin diphosphat-glucuronosyltransferase (UGT) 1A4. Sau khi uống paricalcitol ở người có bệnh thận mạn, nửa đời trung bình là 17 - 20 giờ. Sau khi tiêm tĩnh mạch paricalcitol với liều dao động từ 0,04 - 0,24 microgam/kg, nồng độ thuốc giảm nhanh trong 2 giờ đầu, tiếp theo là đào thải theo log-tuyến tính với nửa đời trung bình khoảng 14 - 15 giờ. Paricalcitol đào thải chủ yếu qua mật và phân.\nParicalcitol không loại bỏ được bằng thẩm phân máu.\nCác hợp chất vitamin D và các chất chuyển hóa chủ yếu đào thải qua mật và phân, chỉ một lượng nhỏ qua nước tiểu. Một ít qua tuần hoàn ruột gan nhưng có vai trò không đáng kể vào cơ chế duy trì vitamin D.\nChỉ định Bổ sung cho khẩu phần ăn.\nCòi xương hoặc nhuyễn xương do dinh dưỡng.\nGiảm phosphat huyết gia đình (còi xương kháng vitamin D).\nCòi xương",
+    "question": "Paricalcitol có an toàn khi sử dụng trong thai kỳ không?",
+    "right_answer": "Paricalcitol không được khuyến nghị sử dụng trong thai kỳ do thiếu dữ liệu an toàn.",
+    "hallucinated_answer": "Paricalcitol an toàn khi sử dụng trong thai kỳ.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14343",
+    "knowledge_context": "Bệnh hemophilia, bệnh von Willebrand typ I thể nhẹ tới trung bình:\nXem Desmopressin.\nTương tác thuốc Các thuốc gây giải phóng hormon chống bài niệu như thuốc chống trầm cảm ba vòng, clorpromazin và carbamazepin, khi phối hợp với vasopressin, sẽ làm tăng tác dụng chống bài niệu, gây nguy cơ ứ nước trong cơ thể và làm tăng gánh nặng thêm cho hệ tim mạch, có thể gây ra tác dụng có hại cho người bệnh bị suy tim, đau thắt ngực và các bệnh tim mạch khác.\nĐộ ổn định và bảo quản Không được để đông lạnh thuốc tiêm vasopressin; cần bảo quản ở 2 - 8 ºC, nhưng cũng có thể ở 15 - 30 ºC.\nQuá liều và xử trí Nếu xảy ra ngộ độc do ứ nước, không được dùng thêm các dịch.\nTrong trường hợp nặng, có thể dùng một lượng nhỏ dung dịch natri clorid ưu trương. Trường hợp phù não, truyền urê và manitol có thể có ích.",
+    "question": "Câu hỏi về An toàn Thai kỳ...",
+    "right_answer": "Desmopressin không được khuyến nghị sử dụng cho phụ nữ mang thai vì có thể gây hại cho thai nhi. Tuy nhiên, vecuronium cũng không được khuyến nghị sử dụng trong thai kỳ vì có thể gây ảnh hưởng đến sự phát triển của thai nhi.",
+    "hallucinated_answer": "Desmopressin và vecuronium đều an toàn khi sử dụng trong thai kỳ và không gây hại cho thai nhi.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14513",
+    "knowledge_context": "Trong khi điều trị bằng vitamin D, cần định kỳ đo nồng độ calci, phosphat, magnesi huyết thanh, nitơ urê máu, phosphatase kiềm máu, calci và phosphat trong nước tiểu 24 giờ.\nGiảm nồng độ phosphatase kiềm thường xuất hiện trước tăng calci huyết ở người nhuyễn xương hoặc loạn dưỡng xương do thận.\nNên cho uống nhiều nước hoặc truyền dịch để làm tăng thể tích nước tiểu, nhằm tránh tạo sỏi thận ở người tăng calci niệu.\nLiều lượng và cách dùng Cách dùng: Các thuốc tương tự vitamin D thường uống; tuy vậy, ergocalciferol có thể tiêm bắp và calcitriol, doxercalciferol và paricalcitol có thể tiêm tĩnh mạch.\nKhi tính liều lượng cho các thuốc tương tự vitamin D, phải kể đến lượng ergocalciferol và colecalciferol từ thức ăn đưa vào cơ thể.\nLượng này thay đổi tùy từng người. Phải dựa vào nguyên nhân và ",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt...",
+    "right_answer": "Khi tính liều lượng cho các thuốc tương tự vitamin D, phải kể đến lượng ergocalciferol và colecalciferol từ thức ăn đưa vào cơ thể. Lượng này thay đổi tùy từng người. Phải dựa vào nguyên nhân và mức độ nặng của giảm calci-huyết để điều chỉnh liều và để duy trì nồng độ calci trong huyết thanh từ 9 - 10 mg/dl.",
+    "hallucinated_answer": "Khi tính liều lượng cho các thuốc tương tự vitamin D, không cần phải cân nhắc lượng ergocalciferol và colecalciferol từ thức ăn đưa vào cơ thể. Liều lượng không thay đổi tùy từng người.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14498",
+    "knowledge_context": "Giảm liều ở người suy gan: Không cần thiết phải giảm liều ở người khi thăm dò qua chuyển hóa lidocain không thấy chức năng gan giảm rõ rệt. Có thể phải giảm 50% liều ở người bị suy gan nặng do di căn lan tỏa ở gan, mặc dù bilirubin tăng không nhiều. Các chế phẩm của Anh khuyến cáo nên giảm 1/3 liều ở người bệnh bị suy gan nặng (bilirubin cao gấp 2 lần giới hạn trên của giá trị bình thường và/hoặc có transaminase cao hơn bình thường 5 lần), ở người bị khối u gan to (chiếm hơn 75% thể tích gan). Các nhà sản xuất Hoa Kỳ khuyên nên giảm 50% liều vinorelbin tiêm ở người bệnh có bilirubin toàn phần là 2,1 - 3 mg/100 ml và giảm 75% liều ở người có bilirubin toàn phần > 3 mg/100 ml.\nVới thuốc uống, các nhà sản xuất Anh quốc khuyến cáo liều mỗi tuần cho người bị suy gan như sau:\nSuy gan nhẹ (biliru",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt...",
+    "right_answer": "Với thuốc vinorelbin tiêm, nếu bilirubin toàn phần là 2,1 - 3 mg/100 ml, liều cần giảm 50%; nếu > 3 mg/100 ml, liều cần giảm 75%. Với thuốc uống, liều mỗi tuần cho người bị suy gan nhẹ là 60 mg/m 2, suy gan vừa là 50 mg/m 2, và suy gan nặng là chống chỉ định.",
+    "hallucinated_answer": "Liều vinorelbin tiêm không cần giảm cho người có bilirubin toàn phần từ 2,1 - 3 mg/100 ml và có thể dùng thuốc uống thường lệ cho người bị suy gan nặng.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14382",
+    "knowledge_context": "Liều tiêm truyền liên tục: Sau liều đặt ống nội khí quản (0,08 - 0,10 mg/kg) khoảng 20 - 40 phút, có thể tiến hành tiêm truyền liên tục với liều lượng 1 microgam/kg/phút. Chỉ bắt đầu tiêm truyền vecuronium bromid sau khi xuất hiện dấu hiệu ban đầu phục hồi co cơ sau liều đã tiêm. Sau đó cần điều chỉnh tốc độ tiêm truyền để duy trì 90% phong bế thần kinh - cơ; tốc độ tiêm truyền 0,8 - 1,2 microgam/kg/phút thường là đủ để duy trì phong bế thần kinh - cơ liên tục trên phần lớn người bệnh.\nLiều dùng cho trẻ em Trẻ em từ 10 - 17 tuổi: Liều dùng xấp xỉ như người lớn (theo mg/ kg thể trọng) và cách xử trí cũng tương tự; có thể cần liều bổ sung mau thời gian hơn so với người lớn.\nTrẻ em từ 1- 10 tuổi: Liều lượng dùng tùy theo từng trường hợp, có thể cần liều khởi đầu hơi cao hơn và liều bổ sung cũ",
+    "question": "Câu hỏi về An toàn Thai kỳ: Vecuronium bromid có an toàn khi sử dụng trong thai kỳ không?",
+    "right_answer": "Vecuronium bromid được phân loại là an toàn trong thai kỳ, nhưng cần thận trọng khi sử dụng. Không nên sử dụng vecuronium bromid trừ khi lợi ích vượt trội hơn nguy cơ.",
+    "hallucinated_answer": "Vecuronium bromid hoàn toàn an toàn và không gây tác động tiêu cực nào khi sử dụng trong thai kỳ. Có thể sử dụng vecuronium bromid mà không cần lo ngại.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14427",
+    "knowledge_context": "Vì verapamil chuyển hóa chủ yếu ở gan, nên nửa đời thải trừ kéo dài ở những người bệnh suy gan nặng. Cần giảm liều trên người bệnh suy gan. (Xem liều dùng cho bệnh nhân suy gan) Thận trọng khi dùng verapamil để điều trị loạn nhịp tim ở trẻ em vì trẻ em có thể nhạy cảm hơn với chứng loạn nhịp do verapamil gây ra. (Xem liều dùng ở trẻ nhỏ).\nKhông được ngừng verapamil đột ngột, có thể làm nặng hơn cơn đau thắt ngực.\nThời kỳ mang thai Chưa có công trình nào được kiểm chứng đầy đủ về dùng thuốc trong thời kỳ mang thai, nên thuốc chỉ dùng khi thật cần thiết.\nThời kỳ cho con bú Verapamil được bài tiết vào sữa mẹ. Thuốc có tiềm năng gây phản ứng phụ cho trẻ nhỏ, khi mẹ dùng verapamil thì không nên cho con bú.\nTác dụng không mong muốn (ADR) ADR ít xảy ra khi thuốc được dùng với liều điều trị. Một s",
+    "question": "Verapamil có thể gây ra những tác dụng không mong muốn nào khi sử dụng?",
+    "right_answer": "Verapamil có thể gây ra các tác dụng không mong muốn như hạ huyết áp, nhịp tim chậm (< 50 lần/phút), blốc nhĩ thất hoàn toàn, đau đầu, mệt mỏi, chóng mặt, khó thở, táo bón, buồn nôn, phát ban, đỏ bừng, bốc nhĩ thất độ 2 và độ 3, hạ huyết áp thế đứng.",
+    "hallucinated_answer": "Verapamil chỉ gây ra các tác dụng không mong muốn nhẹ như đau đầu và mệt mỏi.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14267",
+    "knowledge_context": "Thải trừ: Valsartan được thải trừ theo nhiều pha (t 1/2 alpha < 1 giờ, t1/2 beta khoảng 9 giờ). Valsartan thải trừ chủ yếu qua đường mật vào phân (khoảng 83%) nhưng cũng qua thận vào nước tiểu (khoảng 13% liều), chủ yếu dưới dạng không đổi. Sau khi tiêm tĩnh mạch, độ thanh thải valsartan huyết tương khoảng 2 lít/giờ và độ thanh thải thận 0,62 lít/giờ (khoảng 30% độ thanh thải toàn bộ).\nNửa đời của valsartan khoảng 6 giờ.\nỞ bệnh nhân suy tim: Thời gian trung bình để đạt được nồng độ huyết tương đỉnh và nửa đời thải trừ của valsartan tương tự như người khỏe mạnh. Trị số AUC và C max của valsartan tăng tuyến tính và hầu như tỷ lệ với liều trong phạm vi liều lâm sàng (40 - 160 mg, ngày 2 lần). Tỷ lệ tích lũy trung bình khoảng 1,7. Độ thanh thải biểu kiến của valsartan sau khi uống khoảng 4,5 l",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt: Liều valsartan cho người già nên được điều chỉnh như thế nào?",
+    "right_answer": "Liều valsartan cho người già không cần điều chỉnh so với người trẻ khỏe mạnh, trừ khi có suy thận. Tuy nhiên, cần giám sát chặt chẽ nồng độ valsartan trong máu để đảm bảo an toàn.",
+    "hallucinated_answer": "Liều valsartan cho người già cần giảm xuống 1/2 so với người trẻ khỏe mạnh.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14349",
+    "knowledge_context": "Khi dùng thuốc dạng xịt (niêm mạc mũi) có thể gây sung huyết, kích thích và loét niêm mạc mũi.\nHướng dẫn cách xử trí ADR Có thể xử trí tác dụng chống bài niệu gây ra ứ nước và mất cân bằng natri bằng cách hạn chế uống nước và tạm thời ngừng dùng vasopressin. Ở những trường hợp nặng, có thể phải dùng thuốc lợi niệu thẩm thấu. Dùng liều cao, phải theo dõi các tai biến về tim mạch, theo dõi đái tháo đường khi truyền vasopressin. Ở người có bệnh động mạch vành, ngay cả với liều thấp, cũng có thể gây cơn đau ngực. Nếu xảy ra, dùng amyl nitrit hoặc nitroglycerin.\nLiều lượng và cách dùng Cách dùng:\nVasopressin có thể tiêm bắp, tiêm dưới da, hoặc bôi tại chỗ (thuốc xịt mũi). Thuốc cũng có thể tiêm tĩnh mạch, vào trong tủy xương (trong hồi sức cấp cứu tim mạch), truyền tĩnh mạch hoặc động mạch (độn",
+    "question": "Câu hỏi về An toàn Thai kỳ: Thuốc Vasopressin có an toàn khi sử dụng trong thai kỳ không?",
+    "right_answer": "Vasopressin không được khuyến nghị sử dụng trong thai kỳ vì có thể gây hại cho thai nhi.",
+    "hallucinated_answer": "Vasopressin là an toàn và có thể sử dụng trong thai kỳ mà không gây hại cho thai nhi.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14649",
+    "knowledge_context": "Trẻ đẻ thiếu tháng: Uống liều ban đầu 2 mg/kg cách 12 giờ một lần.\nNếu không uống được, truyền tĩnh mạch: 1,5 mg/kg cách 12 giờ một lần. Số lần uống hoặc tiêm có thể tăng lên cách 8 giờ một lần lúc 2 tuần tuổi đối với trẻ khi sinh ít nhất phải được 30 tuần tuổi thai, hoặc lúc 4 tuần tuổi đối với trẻ khi sinh dưới 30 tuần tuổi thai.\nDự phòng lây truyền HIV từ mẹ sang thai nhi:\nĐối với tất cả các phụ nữ mang thai nhiễm HIV được khuyến cáo dự phòng trước khi sinh. Trong phác đồ chống retrovirus, phải có zidovudin, nếu có thể. Bà mẹ khi bắt đầu chuyển dạ đẻ, liệu pháp zidovudin tĩnh mạch phải thay thế cho liệu pháp uống zidovudin (hoặc phải được bắt đầu nếu zidovudin không có trong phác đồ trước sinh hoặc bà mẹ trước đó chưa được điều trị chống retrovirus); bà mẹ phải được truyền tĩnh mạch liê",
+    "question": "Dự phòng lây truyền HIV từ mẹ sang thai nhi, zidovudin phải được truyền tĩnh mạch như thế nào?",
+    "right_answer": "Bà mẹ phải được truyền tĩnh mạch liên tục zidovudin một liều đơn 2 mg/kg trong 1 giờ, tiếp theo là 1 mg/kg/giờ truyền liên tục cho tới khi kẹp cuống rốn.",
+    "hallucinated_answer": "Bà mẹ chỉ cần truyền một liều duy nhất 2 mg/kg.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14411",
+    "knowledge_context": "Chỉ định Điều trị đau thắt ngực các dạng: Cơn đau thắt ngực ổn định hoặc không ổn định, cơn đau Prinzmetal.\nĐiều trị và phòng ngừa nhịp nhanh kịch phát trên thất.\nTăng huyết áp vô căn.\nPhòng nhồi máu cơ tim thứ phát trong các trường hợp không dung nạp hoặc chống chỉ định với thuốc chẹn beta-adrenergic mà không có suy tim.\nChống chỉ định Rối loạn dẫn truyền nặng: Blốc nhĩ thất độ 2 hoặc 3, blốc xoang nhĩ, hội chứng suy nút xoang (trừ khi người bệnh có đặt máy tạo nhịp).\nNhịp chậm, suy tim mất bù.\nNhịp nhanh thất.\nHạ huyết áp (huyết áp tâm thu < 90 mmHg).\nSốc tim.\nRung nhĩ, cuồng động nhĩ, hội chứng Wolf-Parkinson-White:\nNguy cơ gây nhịp nhanh thất.\nNhồi máu cơ tim cấp có biến chứng: Tim chậm, hạ huyết áp nhiều, suy thất trái.\nBệnh cơ tim phì đại.\nDị ứng với verapamil.\nKhông dùng verapamil t",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt: Liều verapamil cho người bệnh suy tim nặng như thế nào?",
+    "right_answer": "Nếu người bệnh có suy tim mất bù hoặc nhịp chậm, cần điều chỉnh liều verapamil một cách thận trọng và theo dõi chặt chẽ.",
+    "hallucinated_answer": "Liều verapamil cho người bệnh suy tim nặng nên được tăng lên gấp đôi để đạt hiệu quả tốt nhất.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14588",
+    "knowledge_context": "Tiền sử bị hoại tử do warfarin.\nNgười bệnh không tuân thủ dùng thuốc.\nNghiện rượu.\nTiền sử dễ bị ngã, người bệnh cao tuổi, tâm thần, không kiểm soát được.\nTiền sản giật /sản giật; dọa sảy thai, mang thai (trừ mang van nhân tạo cơ học).\nSuy gan nặng.\nThận trọng Trước khi quyết định điều trị bằng warfarin, phải đặc biệt chú ý đến nhận thức của người bệnh vì có những ràng buộc phải thực hiện khi điều trị, như phải tuân thủ uống thuốc đều đặn, đúng giờ, không được quên; phải thực hiện đều đặn xét nghiệm về máu (INR), phải cảnh giác đối với các thuốc phối hợp có thể làm mất cân bằng điều trị. Phải có sổ theo dõi cho người bệnh.\nPhải đặc biệt theo dõi những tháng đầu điều trị, nhất là thời gian mới xuất viện về nhà, vì nguy cơ chảy máu cao.\nTrong khi đang điều trị thấy có chảy máu, cần loại trừ ",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt...",
+    "right_answer": "Trong trường hợp suy gan nặng, liều ban đầu của warfarin nên được giảm và theo dõi INR nhiều lần hơn. Đối với người cao tuổi, liều cũng cần được điều chỉnh phù hợp và cần đặc biệt chú ý đến việc tuân thủ dùng thuốc.",
+    "hallucinated_answer": "Người cao tuổi và bệnh nhân suy gan nặng không cần điều chỉnh liều warfarin. Họ có thể sử dụng liều chuẩn mà không cần giám sát.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14522",
+    "knowledge_context": "Vì phải dùng ergocalciferol liều cao nên dễ gây nhiễm độc và tăng calci-huyết kéo dài, nên thường dùng dihydrotachysterol và calcitriol hơn.\nCòi xương phụ thuộc vitamin D: Bổ sung thêm calci Trẻ em: < 1 tháng tuổi: 25 microgam/ngày (1000 đvqt) trong 2 - 3 tháng; khi thấy trên X-quang xương đã lành, liều phải giảm xuống 10 microgam/ngày (400 đvqt/ngày) Trẻ em 1 - 12 tháng tuổi: 25 - 125 microgam/ngày (1000 - 5 000 đvqt/ngày) trong 2 - 3 tháng. Khi thấy trên X-quang xương đã lành, liều phải giảm xuống 10 microgam/ngày (400 đvqt/ngày).\nTrẻ > 12 tháng tuổi: 125 - 250 microgam/ngày (5 000 - 10 000 đvqt/ngày) trong 2 - 3 tháng). Khi trên X-quang xương đã lành, phải giảm liều xuống 10 microgam/ngày (400 đvqt/ngày).\nNgười lớn: 250 microgam - 1,5 mg (10 000 - 60 000đvqt/ngày); có thể cần đến liều c",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt: Liều ergocalciferol cho trẻ em dưới 1 tháng tuổi là bao nhiêu?",
+    "right_answer": "Liều ergocalciferol cho trẻ em dưới 1 tháng tuổi là 25 microgam/ngày (1000 đvqt) trong 2 - 3 tháng; sau đó giảm xuống 10 microgam/ngày (400 đvqt/ngày).",
+    "hallucinated_answer": "Liều ergocalciferol cho trẻ em dưới 1 tháng tuổi là 125 microgam/ngày (5000 đvqt) trong 2 - 3 tháng.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14430",
+    "knowledge_context": "Hướng dẫn cách xử trí ADR Xem mục Quá liều và xử trí.\nLiều lượng và cách dùng Điều trị đau thắt ngực Liều thường dùng là 80 - 120 mg x 3 lần/ngày, một số người bệnh đau thắt ngực ổn định có thể đáp ứng với liều 80 mg x 3 lần/ngày, tuy nhiên liều thấp này không có hiệu quả đối với các trường hợp đau thắt ngực khi nghỉ hoặc đau Prinzmetal. Dạng giải phóng kéo dài có thể dùng tới liều 480 mg/ngày.\nĐiều trị và phòng ngừa nhịp nhanh kịch phát trên thất Để xử trí cắt cơn nhịp nhanh kịch phát trên thất, thường dùng đường tiêm tĩnh mạch, tốt nhất là dùng dưới sự kiểm soát liên tục của huyết áp và ECG. Liều khởi đầu là 5 - 10 mg tiêm tĩnh mạch chậm trong 2 - 3 phút. Nếu cần thiết có thể tiêm tiếp một liều thứ hai 5 mg sau khi tiêm lầu đầu 5 - 10 phút, hoặc 10 mg sau liều đầu 30 phút.\nLiều uống để đ",
+    "question": "Câu hỏi về An toàn Thai kỳ: Natri nitroprusside có an toàn khi sử dụng trong thai kỳ không?",
+    "right_answer": "Natri nitroprusside không được khuyến nghị sử dụng trong thai kỳ do khả năng gây độc cho thai nhi.",
+    "hallucinated_answer": "Natri nitroprusside là an toàn khi sử dụng trong thai kỳ và không gây hại cho thai nhi.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14675",
+    "knowledge_context": "Chỉ định Điều trị ngắn ngày chứng mất ngủ không thường xuyên (như khi đi du lịch).\nĐiều trị ngắn chứng mất ngủ tạm thời (do stress).\nChống chỉ định Mẫn cảm với thuốc hoặc bất cứ thành phần nào của thuốc.\nChứng ngừng thở khi ngủ. Suy hô hấp cấp. Bệnh phổi tắc nghẽn mạn tính.\nChứng nhược cơ.\nSuy gan, suy thận nặng.\nLoạn thần.\nNgười mang thai và người cho con bú.\nThận trọng Vì mất ngủ có thể là một biểu hiện của một bệnh thực thể và/hoặc một bệnh tâm thần, nên trước khi điều trị triệu chứng mất ngủ, phải thăm khám cẩn thận người bệnh. Nếu sau 7 - 10 ngày điều trị bằng zolpidem mà không đỡ, cần phải đánh giá lại, có thể do một bệnh tâm thần hoặc một bệnh nội khoa cần phải điều trị căn nguyên.\nKhông nên dùng thuốc ngủ quá 2 - 3 tuần.\nCác thuốc ngủ và an thần bao gồm cả zolpidem có khả năng làm ",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt: Liều dùng zolpidem cho người già nên được điều chỉnh như thế nào?",
+    "right_answer": "Liều dùng zolpidem cho người già thường cần được giảm xuống để tránh tác dụng phụ như mất thăng bằng, chóng mặt, và nguy cơ té ngã.",
+    "hallucinated_answer": "Liều dùng zolpidem cho người già không cần được điều chỉnh và có thể sử dụng liều tương tự như người lớn.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14390",
+    "knowledge_context": "Trẻ em dưới 18 tuổi.\nThận trọng Thận trọng khi sử dụng venlafaxin cho người bệnh suy gan, suy thận vừa và nặng. Cần phải giảm liều dùng.\nThận trọng với người bệnh bị bệnh tim như: Mới bị nhồi máu cơ tim hoặc bệnh tim không ổn định hoặc những trường hợp bệnh có thể nặng lên do tăng nhịp tim. Do nguy cơ tăng huyết áp phụ thuộc liều dùng nên cần phải theo dõi huyết áp trong quá trình điều trị khi dùng liều quá 200 mg/ngày. Định lượng nồng độ cholesterol huyết nếu bệnh nhân dùng thuốc trong thời gian dài.\nThận trọng với người bệnh có tiền sử động kinh, người bệnh tăng áp lực nội nhãn hoặc glôcôm góc đóng, người bệnh có hưng cảm hoặc bệnh nhân rối loạn xuất huyết.\nBệnh nhân bị phát ban, mày đay hoặc dị ứng phải đến thầy thuốc khám để có hướng xử trí.\n1464 Venlafaxin Vì người bệnh trầm cảm có ng",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt: Liều venlafaxin cho người bệnh suy thận nặng là bao nhiêu?",
+    "right_answer": "Liều venlafaxin cho người bệnh suy thận nặng cần được giảm để tránh tích tụ độc tố trong cơ thể. Tuy nhiên, liều cụ thể cần được điều chỉnh dựa trên tình trạng cụ thể của bệnh nhân và sự giám sát của bác sĩ.",
+    "hallucinated_answer": "Liều venlafaxin cho người bệnh suy thận nặng là 150 mg mỗi ngày.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14474",
+    "knowledge_context": "Dùng đồng thời với vắc xin sốt vàng có thể làm bệnh do vắc xin lan toàn thân và gây tử vong. Không nên dùng đồng thời.\nBệnh nhân bị mắc bệnh Charcot-Marie-Tooth.\nCần điều chỉnh liều ở người bệnh có suy giảm chức năng gan, bị vàng da tắc mật.\nNgười cao tuổi (nhạy cảm với các thuốc độc trên thần kinh).\nNgười bệnh đang dùng vincristin cần thận trọng khi lái xe hoặc vận hành máy do tác dụng phụ của thuốc lên hệ thần kinh.\nThời kỳ mang thai Vincristin có thể gây tổn hại cho thai. Đối với phụ nữ còn khả năng sinh đẻ, cần dùng các biện pháp tránh thai thích hợp. Nếu người bệnh có thai trong thời gian dùng thuốc, cần cảnh báo với họ là thuốc gây tổn hại nặng cho thai.\nThời kỳ cho con bú Còn chưa có thông báo về nồng độ vincristin trong sữa mẹ. Để thận trọng, phụ nữ phải dùng vincristin không được ",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt...",
+    "right_answer": "Người bệnh có suy giảm chức năng gan cần điều chỉnh liều vincristin vì nó có thể làm tăng nguy cơ độc tính.",
+    "hallucinated_answer": "Người bệnh có suy giảm chức năng gan không cần điều chỉnh liều vincristin.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14255",
+    "knowledge_context": "Các nhà sản xuất thông báo, không nên dùng cho những người có nghi vấn hoặc có bằng chứng mẫn cảm với protein của loài gậm nhấm hay protein mô thần kinh và tử vong đã xảy ra, tuy rất hiếm, do dùng vắc xin cho người viêm não tủy. Một phản ứng cần lưu ý là viêm não tủy rải rác cấp tính (ADEM) với tỉ lệ 1 - 2,3 phần triệu người tiêm phòng. Tỉ lệ các biến cố thần kinh sau khi tiêm vắc xin chưa được xác lập. Không được dùng vắc xin này cho người đã bị quá mẫn với thimerosal.\nKhông sử dụng rượu bia trong vòng 48 giờ sau khi tiêm vắc xin do có thể làm tăng nguy cơ xảy ra phản ứng bất lợi.\nThận trọng khi sử dụng đồng thời cùng các vắc xin khác.\nThận trọng sử dụng vắc xin khi đang mắc hoặc vừa mắc bệnh cấp tính có sốt. Quyết định sử dụng hay hoãn vắc xin phụ thuộc vào mức độ nặng của triệu chứng và",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt...",
+    "right_answer": "Không sử dụng vắc xin này cho người đã bị quá mẫn với thimerosal. Thận trọng khi sử dụng đồng thời cùng các vắc xin khác.",
+    "hallucinated_answer": "Liều lượng vắc xin này có thể được tăng gấp đôi khi sử dụng đồng thời cùng các vắc xin khác để tăng hiệu quả.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14397",
+    "knowledge_context": "Nếu trong khi điều trị thấy xuất hiện cơn co giật, phải ngừng thuốc ngay vì co giật thường xảy ra khi quá liều.\nGiảm natri huyết thường xảy ra ở người cao tuổi và có thể do có hội chứng bài tiết hormon kháng niệu không thích hợp khi dùng các thuốc chống trầm cảm. Tuy nhiên, hội chứng này hay gặp ở loại thuốc ức chế tái hấp thu setoronin, trong đó có venlafaxin. Nếu thấy người bệnh nhất là người cao tuổi bị buồn ngủ, lú lẫn hoặc co giật khi dùng thuốc chống trầm cảm, phải chú ý ngay đến giảm natri huyết để điều trị.\nLiều lượng và cách dùng Liều được tính theo venlafaxin. Venlafaxin hydroclorid 28,3 mg tương đương khoảng 25 mg venlafaxin.\nĐiều trị bệnh trầm cảm Người lớn và trẻ trên 18 tuổi (dùng viên thông thường):\nLiều khởi đầu: Uống 75 mg/ngày chia 2 - 3 lần trong bữa ăn (một số bệnh nhân",
+    "question": "Liều venlafaxin hydroclorid 28,3 mg tương đương khoảng 25 mg venlafaxin. Liều khởi đầu cho người lớn và trẻ trên 18 tuổi là 75 mg/ngày chia 2 - 3 lần trong bữa ăn.",
+    "right_answer": "Liều khởi đầu đúng là 75 mg/ngày chia 2 - 3 lần trong bữa ăn.",
+    "hallucinated_answer": "Liều khởi đầu là 150 mg/ngày để đạt hiệu quả nhanh.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14234",
+    "knowledge_context": "Hướng dẫn cách xử trí ADR Đối với trường hợp quá mẫn nhẹ: Dùng các loại kháng histamin, và nếu cần, dùng corticoid.\nĐối với trường hợp quá mẫn nặng và phản ứng phản vệ: Dùng adrenalin. Cũng có thể dùng các thuốc kháng histamin hoặc corticoid.\nLiều lượng và cách dùng Cách dùng:\nVắc xin viêm gan B thường được tiêm bắp, chỉ tiêm dưới da khi cần thiết ở những người có nguy cơ xuất huyết nếu tiêm bắp, không tiêm tĩnh mạch hay tiêm trong da. Dạng phối hợp chỉ được tiêm bắp. Kiểm tra bằng mắt thường phát hiện tiểu phân hoặc sự biến màu trước khi tiêm vắc xin. Lắc kỹ ngay trước khi tiêm. Không pha loãng hay trộn lẫn với vắc xin hay dung dịch khác. Tiêm bắp tại cơ delta hoặc cơ đùi trước: Người lớn và trẻ em trên 3 tuổi ưu tiên cơ delta, trẻ em dưới 3 tuổi ưu tiên cơ đùi trước. Không tiêm vắc xin ở",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt: Trẻ em dưới 3 tuổi nên tiêm vắc xin viêm gan B ở cơ nào?",
+    "right_answer": "Tiêm tại cơ đùi trước.",
+    "hallucinated_answer": "Tiêm tại cơ delta.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14466",
+    "knowledge_context": "Nên dùng thuốc chống táo bón cho người bệnh.\nThận trọng khi dùng đồng thời với mitomycin vì nguy cơ co thắt phế quản cấp hoặc suy hô hấp cấp. Các phản ứng này có thể phát triển nhanh trong khi tiêm hoặc sau đó vài giờ, hoặc thậm chí có thể xảy ra chậm 2 tuần sau liều mitomycin cuối cùng. Các triệu chứng thường hồi phục nhưng một số trường hợp có thể không hồi phục.\nDùng đồng thời với vắc xin sốt vàng có thể làm bệnh do vắc xin lan toàn thân và gây tử vong. Không nên dùng đồng thời.\nBệnh nhân bị mắc bệnh Charcot-Marie-Tooth.\nCần điều chỉnh liều ở người bệnh có suy giảm chức năng gan, bị vàng da tắc mật.\nNgười cao tuổi (nhạy cảm với các thuốc độc trên thần kinh).\nNgười bệnh đang dùng vincristin cần thận trọng khi lái xe hoặc vận hành máy do tác dụng phụ của thuốc lên hệ thần kinh.\nThời kỳ ma",
+    "question": "Câu hỏi về An toàn Thai kỳ...",
+    "right_answer": "Vincristin có thể gây tổn hại cho thai. Đối với phụ nữ còn khả năng sinh đẻ, cần dùng các biện pháp tránh thai thích hợp. Nếu người bệnh có thai trong thời gian dùng thuốc, cần cảnh báo họ là thuốc gây tổn hại nặng cho thai.",
+    "hallucinated_answer": "Vincristin an toàn khi dùng cho phụ nữ mang thai. Không cần cảnh báo về nguy cơ tổn hại cho thai.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14538",
+    "knowledge_context": "Còi xương phụ thuộc vitamin D: Bổ sung thêm calci Trẻ em: < 1 tháng tuổi: 25 microgam/ngày (1000 đvqt) trong 2 - 3 tháng; khi thấy trên X-quang xương đã lành, liều phải giảm xuống 10 microgam/ngày (400 đvqt/ngày) Trẻ em 1 - 12 tháng tuổi: 25 - 125 microgam/ngày (1000 - 5 000 đvqt/ngày) trong 2 - 3 tháng. Khi thấy trên X-quang xương đã lành, liều phải giảm xuống 10 microgam/ngày (400 đvqt/ngày).\nTrẻ > 12 tháng tuổi: 125 - 250 microgam/ngày (5 000 - 10 000 đvqt/ngày) trong 2 - 3 tháng). Khi trên X-quang xương đã lành, phải giảm liều xuống 10 microgam/ngày (400 đvqt/ngày).\nNgười lớn: 250 microgam - 1,5 mg (10 000 - 60 000đvqt/ngày); có thể cần đến liều cao tới 12,5 mg/ngày.\nSuy cận giáp: Trẻ em: 1,25 - 5 mg/ngày (50 000 - 200 000 đvqt) Thiếu vitamin D kết hợp với bệnh thận mạn (giai đoạn 3: G",
+    "question": "Người lớn bị suy gan độ 3: Liều lượng vitamin D có thể là bao nhiêu?",
+    "right_answer": "Liều lượng vitamin D có thể là 250 microgam - 1,5 mg/ngày (10 000 - 60 000 đvqt/ngày), có thể cần đến liều cao tới 12,5 mg/ngày.",
+    "hallucinated_answer": "Liều lượng vitamin D có thể là 10 microgam/ngày vì nó an toàn hơn.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14429",
+    "knowledge_context": "Hướng dẫn cách xử trí ADR Xem mục Quá liều và xử trí.\nLiều lượng và cách dùng Điều trị đau thắt ngực Liều thường dùng là 80 - 120 mg x 3 lần/ngày, một số người bệnh đau thắt ngực ổn định có thể đáp ứng với liều 80 mg x 3 lần/ngày, tuy nhiên liều thấp này không có hiệu quả đối với các trường hợp đau thắt ngực khi nghỉ hoặc đau Prinzmetal. Dạng giải phóng kéo dài có thể dùng tới liều 480 mg/ngày.\nĐiều trị và phòng ngừa nhịp nhanh kịch phát trên thất Để xử trí cắt cơn nhịp nhanh kịch phát trên thất, thường dùng đường tiêm tĩnh mạch, tốt nhất là dùng dưới sự kiểm soát liên tục của huyết áp và ECG. Liều khởi đầu là 5 - 10 mg tiêm tĩnh mạch chậm trong 2 - 3 phút. Nếu cần thiết có thể tiêm tiếp một liều thứ hai 5 mg sau khi tiêm lầu đầu 5 - 10 phút, hoặc 10 mg sau liều đầu 30 phút.\nLiều uống để đ",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt: Liều dùng của natri nitroprusside cho người già là bao nhiêu?",
+    "right_answer": "Liều dùng của natri nitroprusside cho người già nên được điều chỉnh thấp hơn so với người trưởng thành, thường là 50 - 75% liều thông thường.",
+    "hallucinated_answer": "Liều dùng của natri nitroprusside cho người già không cần được điều chỉnh, vẫn giữ nguyên liều thông thường.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14262",
+    "knowledge_context": "Vắc xin VNNB loại bất hoạt hấp phụ chỉ được tiêm bắp. Lắc kỹ bơm tiêm trước khi tiêm, không sử dụng nếu có hạt tiểu phân sau khi lắc hoặc có sự biến màu. Không trộn lẫn với vắc xin khác trong cùng bơm tiêm hoặc cùng lọ. Tiêm tại cơ delta. Không tiêm cùng vị trí với các vắc xin khác sử dụng đồng thời.\nLiều lượng:\nVắc xin bất hoạt nguồn gốc từ não chuột (JE-VAX): Vắc xin này đã ngừng sử dụng tại Mỹ và Nhật Bản, tuy nhiên vẫn được sử dụng ở một số nước khác trên thế giới Valsartan Trẻ em từ 1 - 3 tháng tuổi miễn dịch cơ bản bằng 3 liều 0,5 ml tiêm dưới da vào ngày 0, 7, 30.\nNgười lớn và trẻ em trên 3 tuổi: Miễn dịch cơ bản bằng 3 liều 1 ml, tiêm dưới da vào ngày 0, 7, 30.\nLịch tiêm nên hoàn thành trước khi phơi nhiễm 10 ngày. Có thể áp dụng lịch tiêm thay thế trong trường hợp không đủ thời gi",
+    "question": "Câu hỏi về An toàn Thai kỳ...",
+    "right_answer": "Vắc xin VNNB loại bất hoạt hấp phụ không được khuyến nghị sử dụng cho phụ nữ mang thai vì chưa có dữ liệu an toàn. Tuy nhiên, nếu cần sử dụng trong trường hợp đặc biệt, nên tham khảo ý kiến bác sĩ chuyên khoa.",
+    "hallucinated_answer": "Vắc xin VNNB loại bất hoạt hấp phụ an toàn và hiệu quả cho phụ nữ mang thai. Có thể sử dụng trong suốt thai kỳ mà không gây hại cho thai nhi.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14384",
+    "knowledge_context": "Chưa xác định được an toàn và hiệu lực của vecuronium bromid ở trẻ em dưới 7 tuần tuổi. Không nên dùng thuốc này cho trẻ sơ sinh.\nKhông có đủ tư liệu về tiêm truyền liên tục vecuronium ở trẻ em, vì vậy không thể khuyến cáo về liều dùng.\nĐiều chỉnh liều:\nGây mê ổn định đồng thời với thuốc gây mê hít: Với thuốc gây mê hít enfluran hoặc isofluran, giảm liều khởi đầu khoảng 15% (0,06 - 0,085 mg/kg), giảm 25 - 60% tốc độ liều tiêm truyền, sau liều khởi đầu 45 - 60 phút.\nSau đặt ống nội khí quản bằng succinylcholin: Giảm liều khởi đầu đến 0,04 - 0,06 mg/kg với thuốc gây mê hít, 0,05 - 0,06 mg/kg với thuốc gây mê phối hợp.\nNgười cao tuổi: Khuyến cáo giảm liều.\nNhược cơ nặng: Liều thấp có thể có tác dụng mạnh, khuyến cáo giảm liều và theo dõi chặt chẽ đáp ứng.\nBệnh béo phì: Cho liều trên cơ sở thể",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt: Liều vecuronium bromid cho trẻ em dưới 7 tuần tuổi là bao nhiêu?",
+    "right_answer": "Chưa xác định được an toàn và hiệu lực của vecuronium bromid ở trẻ em dưới 7 tuần tuổi. Không nên dùng thuốc này cho trẻ sơ sinh.",
+    "hallucinated_answer": "Liều vecuronium bromid cho trẻ em dưới 7 tuần tuổi là 0,06 - 0,085 mg/kg.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14684",
+    "knowledge_context": "Cơ: Đau cơ, khớp.\nÍt gặp, 1/1 000 < ADR < 1/100 Ức chế tâm thần, lo âu, hồi hộp, rối loạn giấc ngủ, dị cảm, đau nửa đầu, vô cảm, đau dây thần kinh, viêm thần kinh, bại não, giảm dục cảm, nhức nửa đầu, run, khó nói.\nNgoài ra có thể gặp: Khó nuốt, rối loạn vị giác, đầy hơi, ho, khó thở, chuột rút, viêm phế quản.\nHiếm gặp, ADR < 1/1 000 Thần kinh: Ảo giác, kích thích, mất ngủ, khuynh hướng tự sát, co giật, đau dây thần kinh tọa.\nPhản ứng dị ứng: Sốc phản vệ, dị ứng da và mẫn cảm với ánh sáng.\nKhác: Tắc ruột, chảy máu trực tràng, chảy máu cam, co thắt phế quản, yếu cơ, viêm gân, thoái khớp, tăng enzym gan, hạ huyết áp.\nHướng dẫn cách xử trí ADR Do thuốc gây buồn ngủ, chóng mặt và giảm trí nhớ nên uống thuốc vào buổi tối khi đi ngủ; không nên uống trong khi làm việc, nhất là người lái tàu xe ho",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt: Liều dùng zolpidem cho người cao tuổi nên được điều chỉnh như thế nào?",
+    "right_answer": "Liều dùng zolpidem cho người cao tuổi nên được giảm xuống 1/2 đến 1/3 so với liều tiêu chuẩn do khả năng đào thải giảm và nguy cơ tác dụng phụ ức chế tăng lên.",
+    "hallucinated_answer": "Liều dùng zolpidem cho người cao tuổi không cần được điều chỉnh và nên sử dụng liều tiêu chuẩn để đảm bảo hiệu quả.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14621",
+    "knowledge_context": "Nhỏ vào kết mạc mắt để giảm sung huyết màng tiếp hợp (kết mạc).\nChống chỉ định Mẫn cảm với xylometazolin hoặc bất kỳ thành phần nào của thuốc.\nTrẻ sơ sinh.\nNgười bị bệnh glôcôm góc đóng.\nKhông dùng dung dịch xylometazolin 0,1% cho trẻ em dưới 12 tuổi.\nNgười có tiền sử mẫn cảm với các thuốc adrenergic.\nNgười đang dùng các thuốc chống trầm cảm 3 vòng.\nThận trọng Thận trọng khi dùng cho những người bị cường giáp, bệnh tim, tăng huyết áp, xơ cứng động mạch, phì đại tuyến tiền liệt hoặc đái tháo đường, người đang dùng các chất ức chế monoaminoxydase.\nChỉ dùng các chế phẩm xylometazolin cho trẻ em dưới 6 tuổi khi có chỉ định và theo dõi của thầy thuốc cho điều trị sung huyết mũi nặng trong thời gian ngắn mà không đáp ứng với thuốc nhỏ mũi natri clorid hoặc xông hơi ẩm ấm.\nKhông nên dùng nhiều lầ",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt: Liều dùng xylometazolin cho trẻ em dưới 6 tuổi?",
+    "right_answer": "Liều dùng xylometazolin cho trẻ em dưới 6 tuổi phải được chỉ định và theo dõi của bác sĩ, sử dụng trong thời gian ngắn để điều trị sung huyết mũi nặng.",
+    "hallucinated_answer": "Liều dùng xylometazolin cho trẻ em dưới 6 tuổi là 1 giọt mỗi bên mũi mỗi 4 giờ.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14535",
+    "knowledge_context": "Trẻ em: 5 - 20 microgam/ngày (200 - 800 đvqt).\nLoãng xương do dùng corticosteroid: 40 microgam/ngày. Trẻ em:\nbổ sung calci thỏa đáng (800 - 1500 mg mỗi ngày) và vitamin D (ít nhất 400 đvqt dưới dạng ergocalciferol thông qua chế độ ăn và bổ sung).\nVitamin D và các thuốc tương tự 1478 Vitamin d và các thuốc tương tự Ergocalciferol và colecalciferol Còi xương hoặc nhuyễn xương do dinh dưỡng:\nDự phòng: Uống: Bổ sung cho chế độ ăn để dự phòng thiếu vitamin Dở người lớn và trẻ em: Uống 10 microgam (400 đvqt) hàng ngày.\nLiều có thể tăng lên 20 microgam (800 đvqt) đối với người ít phơi nắng, hoặc chế độ ăn thiếu vitamin D.\nĐiều trị bệnh còi xương và nhuyễn xương do dinh dưỡng: Trẻ em và người lớn (hấp thu bình thường): 25 - 125 microgam/ngày (1000 - 5000 đvqt) trong 6 - 12 tuần. Trẻ em kém hấp thu",
+    "question": "Trong thai kỳ, nếu mẹ cần bổ sung vitamin D để dự phòng thiếu vitamin D cho cả mẹ và thai nhi, liều bổ sung vitamin D mỗi ngày là bao nhiêu?",
+    "right_answer": "10 microgam (400 đvqt) hàng ngày",
+    "hallucinated_answer": "25 - 125 microgam/ngày",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14585",
+    "knowledge_context": "Chỉ định Bệnh tim dễ gây nghẽn mạch: Dự phòng các biến chứng huyết khối nghẽn mạch do rung nhĩ (kéo dài hoặc kịch phát), bệnh van hai lá van cơ học).\nNhồi máu cơ tim:\nDự phòng các biến chứng huyết khối nghẽn mạch do nhồi máu cơ tim biến chứng: Huyết khối nội tâm mạc, loạn năng thất trái nặng, loạn vận động thất trái gây tắc mạch, tiếp nối heparin.\nDự phòng nhồi máu cơ tim tái phát, trong trường hợp không dung nạp aspirin.\nĐiều trị huyết khối tĩnh mạch sâu và nghẽn mạch phổi cũng như dự phòng tái phát, tiếp nối heparin.\nDự phòng huyết khối tĩnh mạch và nghẽn mạch phổi trong phẫu thuật khớp háng.\nDự phòng cục máu đông trong cathete.\nChống chỉ định Mẫn cảm đã biết với warfarin hoặc với các dẫn chất khác của coumarin hoặc với một thành phần nào của thuốc.\nTình trạng dễ xuất huyết (như chảy máu",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt: Liều warfarin cho người già nên được điều chỉnh như thế nào?",
+    "right_answer": "Liều warfarin cho người già thường thấp hơn so với người lớn tuổi, do khả năng chuyển hóa và đào thải của thuốc giảm. Cần theo dõi nồng độ INR thường xuyên hơn để điều chỉnh liều phù hợp.",
+    "hallucinated_answer": "Liều warfarin cho người già không cần thay đổi so với người lớn tuổi.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14327",
+    "knowledge_context": "Các đường dùng khác:\nVancomycin được dùng đường uống để điều trị viêm ruột do tụ cầu và viêm đại tràng do dùng kháng sinh bao gồm cả viêm đại tràng giả mạc do phát triển quá mức Clostridium difficile. Liều dùng là 0,5 - 2 g mỗi ngày chia làm 3 - 4 lần, dùng 7 - 10 ngày. Liều cho trẻ em là 40 mg/kg mỗi ngày, chia làm 3 - 4 lần. Tối đa 2 g/ngày.\nTrong viêm màng não hoặc các nhiễm khuẩn TKTW khác, vancomycin có thể được dùng tiêm trong vỏ hoặc trong não thất để đảm bảo đạt được nồng độ điều trị trong dịch não tủy.\nVancomycin cũng đã được dùng nhỏ mắt, tiêm dưới kết mạc hoặc vào thể thủy tinh, dùng đường hít. Thuốc có thể được thêm vào dung dịch thẩm phân để điều trị viêm phúc mạc do thẩm phân màng bụng lưu động liên tục.\nTương tác thuốc Các thuốc gây mê dùng đồng thời với vancomycin có thể gâ",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt...",
+    "right_answer": "Liều dùng cho trẻ em là 40 mg/kg mỗi ngày, chia làm 3 - 4 lần. Tối đa 2 g/ngày. Không nên vượt quá liều tối đa này.",
+    "hallucinated_answer": "Liều dùng vancomycin cho trẻ em không cần điều chỉnh và có thể dùng đến 5 g mỗi ngày mà không gây hại.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14426",
+    "knowledge_context": "Vì verapamil chuyển hóa chủ yếu ở gan, nên nửa đời thải trừ kéo dài ở những người bệnh suy gan nặng. Cần giảm liều trên người bệnh suy gan. (Xem liều dùng cho bệnh nhân suy gan) Thận trọng khi dùng verapamil để điều trị loạn nhịp tim ở trẻ em vì trẻ em có thể nhạy cảm hơn với chứng loạn nhịp do verapamil gây ra. (Xem liều dùng ở trẻ nhỏ).\nKhông được ngừng verapamil đột ngột, có thể làm nặng hơn cơn đau thắt ngực.\nThời kỳ mang thai Chưa có công trình nào được kiểm chứng đầy đủ về dùng thuốc trong thời kỳ mang thai, nên thuốc chỉ dùng khi thật cần thiết.\nThời kỳ cho con bú Verapamil được bài tiết vào sữa mẹ. Thuốc có tiềm năng gây phản ứng phụ cho trẻ nhỏ, khi mẹ dùng verapamil thì không nên cho con bú.\nTác dụng không mong muốn (ADR) ADR ít xảy ra khi thuốc được dùng với liều điều trị. Một s",
+    "question": "Khi dùng verapamil để điều trị loạn nhịp tim ở trẻ em cần lưu ý gì?",
+    "right_answer": "Thận trọng khi dùng verapamil để điều trị loạn nhịp tim ở trẻ em vì trẻ em có thể nhạy cảm hơn với chứng loạn nhịp do verapamil gây ra.",
+    "hallucinated_answer": "Verapamil an toàn và hiệu quả khi sử dụng để điều trị loạn nhịp tim ở trẻ em.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14324",
+    "knowledge_context": "Liều thông thường cho người lớn có chức năng thận bình thường:\n500 mg, cứ 6 giờ một lần hoặc 1 g, cứ 12 giờ một lần. Đa số các trường hợp nhiễm khuẩn do vi khuẩn nhạy cảm có đáp ứng với điều trị trong vòng 48 - 72 giờ. Thời gian điều trị phụ thuộc vào loại và mức độ nhiễm khuẩn. Người bệnh viêm nội tâm mạc do tụ cầu cần phải điều trị ít nhất 3 tuần.\nTrẻ em từ 1 tháng tuổi trở lên: 10 mg/kg, cứ 6 giờ một lần. Tối đa 2 g/ngày.\nTrẻ sơ sinh: Liều đầu tiên 15 mg/kg, tiếp theo là 10 mg/kg, cứ 12 giờ một lần với trẻ dưới 1 tuần tuổi, hoặc tiếp theo là 10 mg/kg, cứ 8 giờ một lần cho trẻ từ 1 tuần tới 1 tháng tuổi.\nNgười suy giảm chức năng thận và người cao tuổi Cần điều chỉnh liều ở người bệnh có chức năng thận suy giảm, trẻ đẻ non và người cao tuổi. Có thể áp dụng chế độ liều như sau:\nDùng một li",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt: Liều vancomycin cho người suy thận là bao nhiêu?",
+    "right_answer": "Liều vancomycin cho người suy thận cần được điều chỉnh dựa trên tốc độ lọc cầu thận (Clcr). Ví dụ, nếu Clcr là 40 ml/phút, liều vancomycin sẽ là 45 mg/24 giờ.",
+    "hallucinated_answer": "Liều vancomycin cho người suy thận là cố định, không phụ thuộc vào tốc độ lọc cầu thận. Người bệnh có suy thận sẽ được sử dụng 1 g mỗi ngày.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14412",
+    "knowledge_context": "Chỉ định Điều trị đau thắt ngực các dạng: Cơn đau thắt ngực ổn định hoặc không ổn định, cơn đau Prinzmetal.\nĐiều trị và phòng ngừa nhịp nhanh kịch phát trên thất.\nTăng huyết áp vô căn.\nPhòng nhồi máu cơ tim thứ phát trong các trường hợp không dung nạp hoặc chống chỉ định với thuốc chẹn beta-adrenergic mà không có suy tim.\nChống chỉ định Rối loạn dẫn truyền nặng: Blốc nhĩ thất độ 2 hoặc 3, blốc xoang nhĩ, hội chứng suy nút xoang (trừ khi người bệnh có đặt máy tạo nhịp).\nNhịp chậm, suy tim mất bù.\nNhịp nhanh thất.\nHạ huyết áp (huyết áp tâm thu < 90 mmHg).\nSốc tim.\nRung nhĩ, cuồng động nhĩ, hội chứng Wolf-Parkinson-White:\nNguy cơ gây nhịp nhanh thất.\nNhồi máu cơ tim cấp có biến chứng: Tim chậm, hạ huyết áp nhiều, suy thất trái.\nBệnh cơ tim phì đại.\nDị ứng với verapamil.\nKhông dùng verapamil t",
+    "question": "Câu hỏi về An toàn Thai kỳ: Verapamil có an toàn khi sử dụng trong thai kỳ không?",
+    "right_answer": "Verapamil có thể gây nguy hiểm cho thai nhi và nên tránh sử dụng trong thai kỳ.",
+    "hallucinated_answer": "Verapamil an toàn và có thể sử dụng trong thai kỳ mà không gây hại cho thai nhi.",
+    "hallucination_type": "contradictory_pregnancy_safety",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14678",
+    "knowledge_context": "Vì zolpidem tác dụng nhanh nên chỉ uống ngay trước khi đi ngủ.\nCần phải cảnh báo cho người bệnh biết thuốc ảnh hưởng đến khả năng hoạt động đòi hỏi khéo léo, phối hợp như lái xe, vận hành máy móc. Người bệnh cũng không được dùng thuốc nếu không thể được ngủ đầy đủ suốt đêm liên tục trong nhiều giờ (7 - 8 giờ) và thuốc đào thải ra khỏi cơ thể trước khi trở lại hoạt động và làm việc vì có thể xảy ra giai đoạn quên.\nThận trọng khi kết hợp với các thuốc ức chế hệ TKTW và rượu vì có cộng hợp hoặc tăng tác dụng.\nTránh ngừng zolpidem đột ngột hoặc giảm liều quá nhanh ở người bệnh dùng thuốc kéo dài (như trên 1 - 2 tuần) vì có thể thúc đẩy các biểu hiện của triệu chứng cai thuốc. Triệu chứng này tương tự như khi kết hợp với các thuốc an thần gây ngủ khác. Triệu chứng cai thuốc kết hợp với các thuố",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt...",
+    "right_answer": "Liều zolpidem nên được điều chỉnh cho người bệnh suy giảm chức năng hô hấp và người bệnh dùng thuốc kéo dài.",
+    "hallucinated_answer": "Liều zolpidem không cần phải thay đổi cho bất kỳ đối tượng nào.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  },
+  {
+    "id": "med_15k_spec_14654",
+    "knowledge_context": "Phải theo dõi đau cơ để phân biệt bệnh cơ do thuốc hay do bệnh HIV để tiếp tục hay ngừng dùng thuốc.\nLiều lượng và cách dùng Cách dùng:\nZidovudin có thể uống, tiêm truyền tĩnh mạch liên tục hoặc gián đoạn. Liệu pháp uống phải thay thế liệu pháp tiêm mỗi khi có thể.\nZidovudin không được tiêm nhanh hoặc cả liều ngay một lúc. Để tránh nguy cơ kích ứng thực quản gây loét, người bệnh uống viên nang phải ở tư thế đứng thẳng và với đủ lượng nước (ít nhất 120 ml nước). Tuy thức ăn có thể làm giảm nồng độ đỉnh zidovudin trong huyết tương nhưng không tác động đến diện tích dưới đường cong nồng độ - thời gian (AUC) nên khi uống thuốc không cần chú ý đến bữa ăn. Dung dịch đậm đặc zidovudin để truyền tĩnh mạch chứa 10 mg/ml phải pha loãng trước khi truyền với dung dịch tiêm dextrose 5% để có một dung d",
+    "question": "Câu hỏi về Liều dùng đối tượng đặc biệt: Liều zidovudin cho người già nên được điều chỉnh như thế nào?",
+    "right_answer": "Liều zidovudin cho người già không cần được điều chỉnh đặc biệt nếu không có bệnh lý gan hoặc thận. Tuy nhiên, cần theo dõi chặt chẽ để đảm bảo không có tác dụng phụ.",
+    "hallucinated_answer": "Liều zidovudin cho người già cần giảm một nửa để tránh độc tính.",
+    "hallucination_type": "misleading_special_dosage",
+    "domain": "Medical_Specialized_Pharmacology"
+  }
+]

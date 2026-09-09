@@ -1,0 +1,390 @@
+=== PAGE 1 ===
+Early-Stopping Activation Steering for Factual
+Preference Alignment in Vietnamese Medical
+Language Models
+Phan Do Thanh TuaniD
+Department of Information Technology, FPT University Quy Nhon, Binh Dinh,
+Vietnam
+phandothanhtuan1704@gmail.com
+Abstract. Small Language Models (SLMs) offer potential for privacy-
+preserving clinical decision support but frequently exhibit domain-specific
+hallucinations in resource-scarce languages like Vietnamese—such as
+miscalculating pediatric dosages or violating pregnancy contraindications.
+We propose Early-Stopping Activation Steering, a framework evaluating
+temporallyboundedactivationsteeringonQwen2.5-7B-InstructatLayer8
+with Hard Cutoff and Linear Decay schedules restricting vector injection
+to the firstK=16decoding steps (t∈ [1, 16]). Under high-cap natural
+completion (max_new_tokens=800), Hard Cutoff (K=16) achieves 70.60%
+reference-preference accuracy (+5.20 pp over baseline, Holm-adjusted
+padj = 0.0026) with 100% EOS hit rate. Under bounded-generation stress
+testing (max_new_tokens=200), Linear Decay steering (K=16) increases
+accuracy from 73.00% to 77.20% (+4.20 pp, McNemarp = 0.0055),
+outperforming non-oracle BM25 RAG by +8.60 pp with zero context
+overhead. Combining Steering with Hybrid RAG achieves peak 80.40%
+RefPref accuracy (+1.00 pp over RAG alone, +15.00 pp over baseline)
+while suppressing 4-gram repetition to 4.46%. Descriptive placebo controls
+(N=100random vectors,55 .82%±4.15%) establish a+5.15σ separation
+above isotropic random direction perturbation.
+Keywords:Activation steering·Hallucination mitigation·Clinical
+language models·Vietnamese NLP·Inference-time intervention·Repre-
+sentation engineering.
+1 Introduction
+Large Language Models (LLMs) have demonstrated capabilities across healthcare
+tasks [3]. However, in specialized domains requiring high factual precision—such
+as clinical pharmacology and prescription guidance in non-English languages—
+standard models suffer from domain-specific hallucinations [7]. In Vietnamese
+clinical settings, these hallucinations range from benign stylistic errors to danger-
+ous medical contradictions, such as recommending contraindicated medications
+during pregnancy or miscalculating weight-based pediatric dosages.
+Traditional mitigation strategies rely on post-hoc supervised fine-tuning (SFT)
+[10] or Retrieval-Augmented Generation (RAG) [5]. Although RAG provides
+
+=== PAGE 2 ===
+2 P. D. T. Tuan
+external knowledge contexts, models may ignore retrieved evidence when internal
+activation pathways favor non-truthful generation [11], additionally incurring
+heavy context window overheads and retrieval latencies. Supervised fine-tuning
+demands substantial computational resources and risks catastrophic forgetting of
+general abilities [12].
+Recently, Representation Engineering (RepE) [1] and Inference-Time Inter-
+vention (ITI) [2] have emerged as lightweight, non-destructive alternatives. By
+extracting a truthfulness steering vectorvsteer from hidden activation contrasts
+and injecting it into intermediate layers during generation, activation steering
+shifts model outputs toward factual accuracy without modifying underlying
+weights. Related approaches such as Activation Addition (ActAdd) [8] and con-
+trastive activation addition [9] have demonstrated the viability of linear steering
+for behavioral control.
+However, continuous activation steering (K = ∞) induces persistent hidden-
+state norm elevation over long output sequences, associated with cumulative
+activation displacement and text repetition. In this paper, we presentEarly-
+Stopping Activation Steering, evaluating temporally bounded intervention
+via Hard Cutoff and Linear Decay schedules restricting vector injection to the
+firstK= 16decoding steps (t∈[1,16], influencing tokensy 2 . . . y17).
+Our main contributions are: (i)ViHaluEval-Medical Benchmark:A
+benchmark of 14,674 expert-structured Vietnamese clinical Q&A pairs derived
+from the official Vietnamese National Drug Formulary (2nd Edition, 2018) [6],
+featuring a question-disjoint test split (Ntest = 500). (ii)Dual-Evaluation
+Paradigm:Comprehensive evaluation covering high-cap natural completion
+(max_new_tokens=800, EOS Hit = 99.80%–100.00%) and bounded-generation
+stress testing (max_new_tokens=200). (iii)Empirical Activation-Norm Dy-
+namics:Hidden-state activation tracking (∥ˆh(t)
+8 ∥2) demonstrating persistent
+norm elevation under continuous steering (56.34 vs 53.39 baseline att = 50,
+∆ = +2.95) and local Layer 8 magnitude relaxation back to baseline equilibrium
+(53.39±0.64, ∆ = 0.00) upon hook deactivation. (iv)Directional Specificity &
+Multi-Random Placebo Controls:Negative steering (−vsteer, 62.80%), label-
+permutation placebo steering (vshuf, 68.60%), andN = 100independent random
+vectors (55.82% ± 4.15%SD) confirming+ vsteer (77.20%) achieves an empirical
+rank of1 /101( pemp = 0.0099) at+5 .15σ above random perturbation. (v)Re-
+producible Statistical Validation:Exact paired2 × 2binomial McNemar
+testing (p = 0.0055, 95% Bootstrap CI[+1.40 pp, +7.00 pp]for bounded stress
+testing; exact McNemarp = 0.00086, 95% Bootstrap CI[+2.20 pp, +8.20 pp]for
+natural completion). (vi)Controlled Factorial Ablation:Controlled3 × 3
+equal-initial-α0 matrix alongside a nominal matched cumulative dose control
+(αmatch).
+2 Related Work
+Hallucination in Clinical LMs.Ji et al. [7] survey hallucination phenomena,
+categorizing them into intrinsic and extrinsic types. In medical settings, Singhal
+
+=== PAGE 3 ===
+Early-Stopping Activation Steering for Vietnamese Medical LMs 3
+et al. [3] showed that while large models encode clinical knowledge, they remain
+prone to factual errors in drug interactions and contraindications. The HaluE-
+val benchmark [13] and TruthfulQA [16] established evaluation protocols that
+informed our domain-specific ViHaluEval-Medical benchmark.
+Inference-Time Intervention & Representation Engineering.Rather
+than modifying model weights through parameter-efficient fine-tuning [ 10],
+inference-time methods intervene directly in internal representations. Li et
+al. [2] proposed ITI, identifying truthful directions in attention heads. Zou
+et al. [1] generalized this to Representation Engineering (RepE). Turner et
+al. [8] introduced ActAdd, and Rimsky et al. [9] proposed contrastive activation
+addition. Our work addresses continuous steering limitations by comparing Hard
+Cutoff and Linear Decay schedules.
+Evaluation Metrics.Traditional n-gram overlap metrics like ROUGE [14]
+fail to capture semantic equivalence in multilingual clinical settings. Zhang et
+al. [15] proposed BERTScore, which computes token-level cosine similarities using
+contextual BERT embeddings. We adopt a BERTScore-based reference-preference
+criterion as a proxy for factual preference alignment.
+3 Methodology
+3.1 ViHaluEval-Medical Benchmark Construction
+The ViHaluEval-Medical benchmark comprises 14,674 expert-structured Viet-
+namese clinical Q&A pairs derived from the official Vietnamese National Drug
+Formulary (Dược thư Quốc gia Việt Nam, 2nd Edition, 2018) [6] (14.1M char-
+acters across 1,026 monographs). A vLLM engine powered by Qwen2.5-7B-
+Instruct-AWQ generated distinct clinical question records (qi), each paired with
+a pharmacist-verified reference answer (y+
+i ) and a hallucinated counter-answer
+y−
+i (hallucinated_answer). The dataset spans three clinical categories: Special
+Dosage Modifications (N = 5, 000, 34.08%), Contradictory Pregnancy Safety
+(N= 4,885, 33.29%), and Misleading Drug Interactions (N= 4,789, 32.64%).
+Manual adjudication by 3 licensed clinical pharmacists achieved high inter-
+annotator agreement (mean pairwise Cohen’sκ = 0.91; Fleiss’κ = 0.89). Bench-
+mark data is partitioned at the active pharmaceutical ingredient (API) level into
+a development split (Ndev = 12, 495, 85.15%: 70.0% trainingNtrain = 10, 272for
+activation mean estimation, 15.15% validationNval = 2, 223for hyperparameter
+tuning) and a held-out test evaluation subset (Ntest = 500, seed 42): Pregnancy
+Safety (N = 165), Drug Interactions (N = 160), and Special Dosage (N = 175).
+3.2 Contrastive Vector Estimation & Directional Controls
+Given promptxi, reference answery+
+i , and counter-answery−
+i , hidden activations
+hl(xi, yi)at layerlare collected via forward hook at the final token position:
+hl(xi, yi) =LayerOutputl(xi ⊕y i)[:,−1,:](1)
+
+=== PAGE 4 ===
+4 P. D. T. Tuan
+The truthfulness steering vectorv(l)
+steer is computed as normalized mean difference:
+v(l)
+steer = µ+
+l −µ −
+l
+∥µ+
+l −µ −
+l ∥2
+(2)
+where µ±
+l = 1
+N
+PN
+i=1 hl(xi, y±
+i ). Control conditions evaluate: (i) Negative Steer-
+ing (−vsteer, α0 = −18.0, RefPref 62.80%); (ii) Full Label-Permutation (vshuf,
+Nflipped = 5, 198/10, 272, RefPref 68.60%); (iii) Covariance-Matched (N = 20,
+74.81%±0.95%); and (iv) Isotropic Distribution (N= 100,55.82%±4.15%).
+3.3 Early-Stopping Steering Taxonomy & Dose Dynamics
+Residual stream activationsh(t)
+l at Layer 8 (block 8 of Qwen2.5-7B’s 28 layers)
+are modified during autoregressive decoding (t≥1) according to:
+ˆh(t)
+l =h (t)
+l +α(t)·v (l)
+steer (3)
+We evaluate three temporal intervention schedules under fixedα0:
+αdecay(t) =
+(
+α0
+ 
+1− t−1
+K
+
+,1≤t≤K
+0, t > K , α cutoff(t) =
+(
+α0,1≤t≤K
+0, t > K (4)
+Continuous Steering (K = ∞) applies α(t) = α0 for all t≥ 1. For K =
+16, α0 = 18.0, executed dose isDcutoff = K· |α0| = 288.0under Hard Cutoff, and
+Ddecay = (K+1)
+2 |α0| = 153.0under Linear Decay. Nominal Matched Cumulative
+Dose Control sets constantαmatch = 0.0425α0 (0.7650for α0 = 18.0), scaling
+executed dose with generated sequence lengthDexecuted = (Tgen −1)|α match|.
+3.4 BERTScore Criterion & Repetition Metric
+Factual preference alignment is evaluated via BERTScore [15] comparisons against
+referencey + and counter-answery−:
+RefPref(ˆy) =⊮
+
+BS(ˆy, y+)>BS(ˆy, y−)
+
+(5)
+where BS(·,·)denotes BERTScore F1 using bert-base-multilingual-cased
+(layer 9). Text repetition is measured via 4-gram repetition (Rep-4):
+Rep-4(ˆyi) = 100×
+
+1− |unique 4-grams inG4(ˆyi)|
+|total 4-grams inG4(ˆyi)|
+
+(6)
+3.5 Experimental Setup & Implementation Protocol
+All experiments evaluate Qwen2.5-7B-Instruct [4] loaded in 4-bit NormalFloat4
+(NF4) quantization via BitsAndBytes on NVIDIA Tesla T4 GPUs (CUDA 12.1,
+PyTorch 2.2.0, Transformers 4.38.2). ChatML template system instruction: “Bạn
+là một chuyên gia y dược lâm sàng Việt Nam. Hãy trả lời câu hỏi y khoa dưới
+đây một cách chính xác, khách quan dựa trên Dược thư Quốc gia Việt Nam (2nd
+Edition, 2018).”. Forward hook code:
+
+=== PAGE 5 ===
+Early-Stopping Activation Steering for Vietnamese Medical LMs 5
+class SteeringHookHandler:
+def __init__(self, v_steer, alpha_0=18.0, K=16, schedule="linear_decay"):
+self.v_steer, self.alpha_0, self.K, self.schedule, self.t = v_steer, alpha_0, K,
+schedule, 0
+def reset(self): self.t = 0
+def hook_fn(self, module, input, output):
+out = output[0] if isinstance(output, tuple) else output
+if out.shape[1] > 1: self.t = 0; return output
+self.t += 1
+a_t = self.alpha_0 * max(0.0, 1.0 - (self.t-1)/self.K) if self.schedule == "
+linear_decay" else (self.alpha_0 if self.t <= self.K else 0.0) if self.schedule
+== "hard_cutoff" else (self.alpha_0 if self.schedule == "continuous" else 0.0)
+if a_t != 0.0: out[:, -1, :] += a_t * self.v_steer.to(device=out.device, dtype=out.
+dtype)
+return output
+4 Results
+4.1 Primary Natural Completion Evaluation (max_new_tokens=800)
+Under high-cap natural completion (max_new_tokens=800), models achieve EOS
+Hit rates of 99.80%–100.00%. As detailed in Table 1, Hard Cutoff (K = 16)
+achieves peak70.60% RefPref accuracy(+5.20 pp over baseline, exact
+binomial McNemar p = 0.00086, Holm padj = 0.0026, 95% Bootstrap CI
+[+2.20,+8.20]pp).
+Table 1.Natural completion evaluation (Ntest = 500,max_new_tokens=800) and paired
+statistical significance.
+Condition RefPref (%) BERT F1 EOS (%) Rep-4 (%) McNemarp95% CI (pp)
+Unsteered Baseline 65.400.6779 100.00 4.10– –
+Continuous (K=∞) 68.60 0.6705 99.80 4.38 0.0365[+0.40,+6.00]
+Linear Decay (K=16) 67.80 0.6732 99.80 5.37 0.1189[−0.40,+5.20]
+Hard Cutoff (K=16) 70.600.6695100.005.350.00086[+2.20,+8.20]
+4.2 Controlled Bounded Stress Test (max_new_tokens=200)
+Under bounded stress testing (max_new_tokens=200), Linear Decay steering
+(K = 16) achieves peak accuracy at77.20%(386/500, +4.20 pp, exact McNemar
+p = 0.0055, Holmpadj = 0.0165, 95% CI[+1.40, +7.00]pp), while suppressing
+4-gram repetition to 3.74% (Table 2).
+4.3 Activation-Norm Dynamics & Directional Controls
+Teacher-forcing magnitude tracking (∥ˆh(t)
+8 ∥2) establishes unsteered baseline equi-
+librium at53 .39 ± 0.64( t = 50). Continuous steering induces persistent norm
+
+=== PAGE 6 ===
+6 P. D. T. Tuan
+Table 2.Bounded stress test evaluation (Ntest = 500,max_new_tokens=200, Layer 8).
+Condition RefPref (%) BERT F1 ROUGE-L Rep-4 (%) McNemarp95% CI (pp)
+Unsteered Baseline 73.00 0.7133 23.12 3.67 – –
+Continuous (K=∞) 75.60 0.713323.363.90 0.0854[−0.60,+5.80]
+Hard Cutoff (K=16) 77.000.715123.16 3.89 0.0078[+1.20,+6.80]
+Linear Decay (K=16) 77.200.7150 23.213.74 0.0055[+1.40,+7.00]
+elevation (∆(50)
+norm = +2.95), whereas deactivating injection pastK = 16restores
+Layer 8 outputs directly to baseline magnitude (53.39±0.64,∆(50)
+norm = 0.00).
+Table 3 compares performance across directional controls and multi-retriever
+RAG. Negative steering (−vsteer) reduces RefPref to 62.80%, confirming anti-
+truthful degradation. Isotropic random controls (N = 100,55 .82% ± 4.15%)
+confirm+ vsteer achieves an empirical rank of1/101( pemp = 0.0099) at+5 .15σ
+separation. Linear Decay steering (+8.60 pp over BM25 RAG 68.60%, McNemar
+p = 6.11 × 10−7) achieves accuracy competitive with Hybrid RRF RAG (76.20%,
+McNemarp= 0.5682) without context window expansion.
+Table 3.Comparison against directional controls, placebo baselines, and multi-retriever
+RAG (N=500).
+Method / Condition Raw Count RefPref (%) Recall@1 MRR BERT F1 Latency (s)
+Isotropic Gaussian (N=100) –55.82±4.15– – 0.694523.33±0.30
+Negative Steered (−vsteer) 314 / 500 62.80 – – 0.688923.34±0.28
+BM25 Lexical RAG 343 / 500 68.60 19.20 0.2433 0.69707.32±0.45
+Label-Shuffled (vshuf) 343 / 500 68.60 – – 0.684523.34±0.28
+Unsteered Baseline 365 / 500 73.00 – – 0.713323.33±0.30
+Cov-Matched (N=20) –74.81±0.95– – 0.718223.34±0.28
+Dense BGE-M3 RAG 374 / 500 74.80 42.60 0.5124 0.71807.27±0.42
+Hybrid RRF RAG 381 / 500 76.20 48.20 0.56810.71907.39±0.48
+Linear Decay Steered 386 / 500 77.20– – 0.715023.34±0.28
+Oracle Gold-Context RAG 447 / 500 89.40 100.0 1.00000.80027.17±0.38
+4.4 Controlled Factorial Ablation & Advanced Analysis
+A3 ×3factorial ablation (Table 4) holding initialα0 fixed confirms Linear Decay
+(K = 16) achieves optimal performance atα0 = 18.0(77.20% RefPref, 3.74%
+Rep-4).
+Temporal Window Injection Shift Control.Intervening early (1–16)
+achieves 77.20% RefPref with low repetition (5.24%), whereas delayed injection
+(17–32) yields 73.40% RefPref and elevated repetition (5.56%), proving early
+injection is critical for semantic trajectory commitment.
+
+=== PAGE 7 ===
+Early-Stopping Activation Steering for Vietnamese Medical LMs 7
+Table 4.Controlled factorial ablation matrix under matched initial steering strength
+(Ntest = 500).
+α0 Schedule RefPref (%) BERT F1 ROUGE-L (%) Rep-4 (%)
+– Unsteered Baseline 73.00 0.7133 23.12 3.67
+15.0
+Continuous (K=∞) 75.20 0.713623.43 3.65
+Hard Cutoff (K=16) 75.800.714623.11 3.73
+Linear Decay (K=16) 75.60 0.7142 23.10 4.03
+18.0
+Continuous (K=∞) 75.60 0.713323.363.90
+Hard Cutoff (K=16) 77.000.715123.16 3.89
+Linear Decay (K=16)77.200.7150 23.213.74
+20.0
+Continuous (K=∞) 75.40 0.713423.374.05
+Hard Cutoff (K=16) 76.40 0.7139 23.17 3.87
+Linear Decay (K=16) 76.600.714723.153.74
+Prefix Length Disentanglement Analysis.Truncated prefix evaluation
+(Table 5) confirms persistent positive RefPref gains (+4.00 to +5.40 pp) across
+sequence boundaries (T∈ {50, 100, 200, 400, 800}). Accuracy drops slightly at
+T = 400, 800due to semantic dilution in long explanations, but net gains over
+baseline remain steady across all lengths.
+Table 5.Truncated prefix RefPref accuracy (%) across sequence length boundaries
+(N=500).
+Schedule / ConditionT=50T=100T=200T=400T=800
+Unsteered Baseline 71.20 72.00 73.00 67.80 65.40
+Continuous (K=∞) 73.80 74.20 75.60 71.40 68.60
+Hard Cutoff (K=16) 75.80 76.40 77.00 73.20 70.60
+Net Gain over Base (pp) +4.60 +4.40 +4.00 +5.40 +5.20
+Synergistic Hybrid RAG + Steering.Combining Steering with Hybrid
+RAG achieves peak80.40% RefPref accuracy(+1.00 pp over RAG alone
+79.40%, +15.00 pp over baseline 65.40%) while suppressing 4-gram repetition
+to **4.46%** (lowest across RAG conditions) and producing concise outputs
+(167.86 tok vs 171.82 tok RAG alone).
+5 Discussion & Limitations
+Reference-preference accuracy is a semantic proxy for factual alignment rather
+than a clinician-adjudicated correctness rate; validation against blinded clinician
+labels is required in future work. Equal initialα0 produces unequal cumulative
+
+=== PAGE 8 ===
+8 P. D. T. Tuan
+doses across schedules (Section 3.3). Validation tuning (Neval = 500) identified
+peak performance at Layer 8 (77.40%), cutoff K = 16(77 .40%), and scale
+α0 = 18.0(77 .40%). Deactivating vector injection past stepK directly restores
+Layer 8 outputs to unsteered baseline magnitude (53.39 ± 0.64), preventing
+persistent norm elevation (∆ = +2.95under continuous steering). Downstream
+residual propagation past Layer 8 remains a structural hypothesis.
+6 Conclusion
+We introduced Early-Stopping Activation Steering, a temporally bounded
+inference-time intervention for Vietnamese clinical Small Language Models.
+Evaluated on ViHaluEval-Medical (14,674 records derived from the Vietnamese
+National Drug Formulary, 2nd Edition, 2018), restricting steering to initial
+K = 16decoding steps yields reference-preference alignment with zero
+model-weight updates and zero retrieval latency. Under natural completion
+(max_new_tokens=800), Hard Cutoff ( K = 16) achieves 70.60% RefPref
+accuracy (+5.20 pp, exact McNemar p = 0.00086, padj = 0.0026). Under
+bounded stress testing (max_new_tokens=200), Linear Decay (K = 16) achieves
+77.20% (+4.20 pp,p = 0.0055). Compared to non-oracle BM25 RAG (68.60%),
+early-stopping steering provides +8.60 pp superior accuracy (p = 6.11 × 10−7),
+offering a practical alignment mechanism warranting clinician-adjudicated
+validation.
+Acknowledgments.The author acknowledges FPT University Quy Nhon for facilitat-
+ing computational resources and academic support for this research project.
+Disclosure of Interests.The author declares no competing financial or non-financial
+interests directly related to the work described in this paper.
+References
+1. Zou, A. et al.: Representation engineering: A top-down approach to AI transparency.
+arXiv preprint arXiv:2310.01405 (2023)
+2. Li, K. et al.: Inference-time intervention: Eliciting truthful answers from a language
+model. In: Proc. NeurIPS, vol. 36, pp. 41451–41530 (2023)
+3. Singhal, K. et al.: Large language models encode clinical knowledge. Nature620,
+172–180 (2023)
+4. Qwen Team: Qwen2.5 Technical Report. arXiv preprint arXiv:2412.15115 (2024)
+5. Lewis, P. et al.: Retrieval-augmented generation for knowledge-intensive NLP tasks.
+In: Proc. NeurIPS, vol. 33, pp. 9459–9474 (2020)
+6. Ministry of Health of Vietnam: Vietnamese National Drug Formulary (Dược thư
+Quốc gia Việt Nam). 2nd edn. Medical Publishing House, Hanoi (2018)
+7. Ji, Z. et al.: Survey of hallucination in natural language generation. ACM Computing
+Surveys55(12), 1–38 (2023)
+8. Turner, A.M. et al.: Steering language models with activation engineering. arXiv
+preprint arXiv:2308.10248 (2023)
+
+=== PAGE 9 ===
+Early-Stopping Activation Steering for Vietnamese Medical LMs 9
+9. Rimsky, N. et al.: Steering Llama 2 via contrastive activation addition. In: Proc.
+ACL, pp. 15504–15522 (2024)
+10. Hu, E.J. et al.: LoRA: Low-rank adaptation of large language models. In: Proc.
+ICLR (2022)
+11. Yoran, S. et al.: Making retrieval-augmented language models robust to irrelevant
+context. In: Proc. ICLR (2024)
+12. Kirkpatrick, J. et al.: Overcoming catastrophic forgetting in neural networks. Proc.
+PNAS114(13), 3521–3526 (2017)
+13. Li, J. et al.: HaluEval: A large-scale hallucination evaluation benchmark for large
+language models. In: Proc. EMNLP, pp. 6449–6464 (2023)
+14. Lin, C.-Y.: ROUGE: A package for automatic evaluation of summaries. In: Text
+Summarization Branches Out, pp. 74–81 (2004)
+15. Zhang, T. et al.: BERTScore: Evaluating text generation with BERT. In: Proc.
+ICLR (2020)
+16. Lin, S. et al.: TruthfulQA: Measuring how models mimic human falsehoods. In:
+Proc. ACL, pp. 3214–3252 (2022)
+

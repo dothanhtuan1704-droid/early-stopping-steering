@@ -1,0 +1,16 @@
+{
+  "experiment": "Exp02_Part2_Delayed_17_32_200tok",
+  "window_name": "Delayed_17_32",
+  "window_start": 17,
+  "window_end": 32,
+  "alpha_0": 18.0,
+  "max_new_tokens": 200,
+  "refpref_pct": 60.4,
+  "pref_count": 302,
+  "total_samples": 500,
+  "bertscore_f1": 0.688,
+  "rouge_l_pct": 22.99,
+  "rep4_pct": 2.19,
+  "eos_hit_rate_pct": 30.4,
+  "mean_gen_length": 165.0
+}
