@@ -8,7 +8,9 @@ All experimental conditions, directional controls, ablation sweeps, and delayed 
 
 | Experiment | Method / Condition | Kaggle Notebook Public Link | Account / Author | Status |
 |---|---|---|---|:---:|
+| **Continuous Steering ($K=\infty$)** | Continuous Steering Baseline | [Kaggle Link](https://www.kaggle.com/code/thanhtranguyn/kaggle-sub-notebook-continuous-steering-alpha) | `thanhtranguyn` | ✅ Completed |
 | **Hard Cutoff ($K=16$)** | Primary Hard Cutoff Steering | [Kaggle Link](https://www.kaggle.com/code/duuykiu/kaggle-sub-notebook-hard-cutoff-steering-k-16) | `duuykiu` | ✅ Completed |
+| **Exp 10 Linear Decay NoPen** | Linear Decay $T=800$ (Part B) | [Kaggle Link](https://www.kaggle.com/code/thanhtranguyn/exp10-lineardecay-nopen-part-b-samples-250-4) | `thanhtranguyn` | ✅ Completed |
 | **Phase 3C1 (Main Methods)** | Main Methods 200tok | [Kaggle Link](https://www.kaggle.com/code/thanhtranguyn/kaggle-phase3c1-main-methods-200token?scriptVersionId=342250616) | `thanhtranguyn` | ✅ Completed |
 | **Phase 3C2 (Controls)** | Control Methods 200tok | [Kaggle Link](https://www.kaggle.com/code/thanhtranguyn/kaggle-phase3c2-control-methods-200tok?scriptVersionId=342250913) | `thanhtranguyn` | ✅ Completed |
 | **Phase 6 Baseline** | Unsteered Baseline Control | `notebookb58962698a.ipynb` | `anhemgithom` | ✅ Completed |
@@ -19,6 +21,7 @@ All experimental conditions, directional controls, ablation sweeps, and delayed 
 
 | Experiment | Injection Window | Kaggle Notebook Public Link | Account | Status |
 |---|:---:|---|---|:---:|
+| **Exp 02 (Part 1)** | $K_0$ Window Control Part 1 | [Kaggle Link](https://www.kaggle.com/code/thanhtranguyn/experiment-2-part-1-delayed-injection-window-co) | `thanhtranguyn` | ✅ Completed |
 | **Exp 02 (Part 1B)** | $K_0 \in [1, 16]$ | [Kaggle Link](https://www.kaggle.com/code/duuykiu/experiment-2-part-1b-delayed-injection-windo) | `duuykiu` | ✅ Completed |
 | **Exp 02 (Part 2A)** | $K_0 \in [17, 32]$ | [Kaggle Link](https://www.kaggle.com/code/duuykiu/experiment-2-part-2a-delayed-injection-windo) | `duuykiu` | ✅ Completed |
 | **Exp 02 (Part 2B)** | $K_0 \in [17, 32]$ | [Kaggle Link](https://www.kaggle.com/code/duuykiu/experiment-2-part-2b-delayed-injection-windo) | `duuykiu` | ✅ Completed |
@@ -29,6 +32,7 @@ All experimental conditions, directional controls, ablation sweeps, and delayed 
 
 | Experiment | Control Type | Kaggle Notebook Public Link | Account | Status |
 |---|---|---|---|:---:|
+| **Exp 09 Main Placebo (Original)** | Original Placebo Controls | [Kaggle Link](https://www.kaggle.com/code/thanhtranguyn/exp-9-part-1-main-placebo-controls-original) | `thanhtranguyn` | ✅ Completed |
 | **Exp 09 Label Permutation** | Full 50% Balanced Permutation | [Kaggle Link](https://www.kaggle.com/code/duuykiu/kaggle-experiment-09-full-50-balanced-label-p) | `duuykiu` | ✅ Completed |
 | **Exp 09 Covariance Match (B1)** | Random Vector Batch 1 ($N=100$) | [Kaggle Link](https://www.kaggle.com/code/duuykiu/exp-9-covariance-matched-random-vectors-batch-1) | `duuykiu` | ✅ Completed |
 | **Exp 09 Covariance Match (B2)** | Random Vector Batch 2 ($N=100$) | [Kaggle Link](https://www.kaggle.com/code/duuykiu/exp-9-covariance-matched-random-vectors-batch-2) | `duuykiu` | ✅ Completed |
