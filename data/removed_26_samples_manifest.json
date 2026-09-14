@@ -1,0 +1,220 @@
+{
+  "total_raw_candidates": 14700,
+  "validated_core_dataset": 14674,
+  "total_removed_candidates": 26,
+  "removal_breakdown": {
+    "regex_format_error": 14,
+    "duplicate_question": 8,
+    "font_encoding_error": 4
+  },
+  "removed_items_list": [
+    {
+      "raw_index": 165,
+      "id": "med_15k_spec_00166",
+      "category": "misleading_severe_allergic_reaction",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Câu hỏi về Tương tác thuốc: Isoniazid (H) và Rifampicin (R) có thể gây tương tác như thế nào?",
+      "knowledge_context_snippet": "Nguyên tắc quản lý Điều trị sớm ngay sau khi được chẩn đoán.\nĐiều trị phải được theo dõi và kiểm soát trực tiếp: Kiểm soát việc tuân thủ điều trị của "
+    },
+    {
+      "raw_index": 166,
+      "id": "med_15k_spec_00167",
+      "category": "misleading_reduced_dosage",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Câu hỏi về Liều dùng đối tượng đặc biệt: Liều dùng của Ethambutol (E) cho người già nên được điều chỉnh như thế nào?",
+      "knowledge_context_snippet": "Nguyên tắc quản lý Điều trị sớm ngay sau khi được chẩn đoán.\nĐiều trị phải được theo dõi và kiểm soát trực tiếp: Kiểm soát việc tuân thủ điều trị của "
+    },
+    {
+      "raw_index": 480,
+      "id": "med_15k_spec_00481",
+      "category": "misleading_elimination",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Acid aminocaproic có thể loại ra khỏi cơ thể như thế nào?",
+      "knowledge_context_snippet": "Acid aminocaproic có thể loại ra khỏi cơ thể bằng thẩm phân phúc mạc.\nLiều lượng và cách dùng Cách dùng:\nAcid aminocaproic được dùng theo đường uống h"
+    },
+    {
+      "raw_index": 642,
+      "id": "med_15k_spec_00643",
+      "category": "misleading_food_interactions",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Acid nalidixic có tương tác với thức ăn hay không?",
+      "knowledge_context_snippet": "Thời kỳ cho con bú Acid nalidixic bài tiết vào sữa mẹ ở dạng vết. Đã có thông báo về một trẻ bú sữa mẹ bị thiếu máu tan máu (mà không có bằng chứng gâ"
+    },
+    {
+      "raw_index": 1049,
+      "id": "med_15k_spec_01050",
+      "category": "misleading_pregnancy_safety",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Thời kỳ mang thai Chất hoạt hóa plasminogen mô làm tăng nguy cơ chảy máu, vì vậy chỉ được phép dùng thuốc này cho những chỉ định khẩn cấp trong điều kiện và cơ sở có sẵn thiết bị và cán bộ có khả năng xử trí được chảy máu.",
+      "knowledge_context_snippet": "Thời kỳ mang thai Chất hoạt hóa plasminogen mô làm tăng nguy cơ chảy máu, vì vậy chỉ được phép dùng thuốc này cho những chỉ định khẩn cấp trong điều k"
+    },
+    {
+      "raw_index": 1611,
+      "id": "med_15k_spec_01612",
+      "category": "misleading_manufacturer",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Công ty nào sản xuất Pimosid?",
+      "knowledge_context_snippet": "Pimosid: Chống chỉ định phối hợp với các macrolid vì nguy cơ QT kéo dài và nhiều tai biến tim mạch nghiêm trọng.\nTheophylin: Chưa thấy bất kỳ ảnh hưởn"
+    },
+    {
+      "raw_index": 2784,
+      "id": "med_15k_spec_02785",
+      "category": "misleading_food_interaction",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Câu hỏi về Tương tác thuốc: Cefixim có tương tác gì với thức ăn?",
+      "knowledge_context_snippet": "Liều và/hoặc số lần dùng thuốc cần phải giảm ở những người bệnh suy thận, bao gồm cả những người bệnh đang lọc máu do nồng độ cefixim trong huyết tươn"
+    },
+    {
+      "raw_index": 2795,
+      "id": "med_15k_spec_02796",
+      "category": "contradictory_drug_interaction",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Cefixim có tương tác gì với Probenecid không?",
+      "knowledge_context_snippet": "Bệnh thương hàn: Trẻ em 6 tháng đến 16 tuổi dùng liều 5 - 10 mg/kg, hai lần/ngày, trong 14 ngày; nếu chỉ dùng thuốc trong 7 ngày, tỷ lệ cao không khỏi"
+    },
+    {
+      "raw_index": 3123,
+      "id": "med_15k_spec_03124",
+      "category": "misleading_drinking",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Câu hỏi về Tương tác thuốc: Ciclosporin có thể tương tác như thế nào với các loại nước uống?",
+      "knowledge_context_snippet": "Trong khi truyền tĩnh mạch ciclosporin, nếu phản vệ xảy ra, phải ngừng truyền tĩnh mạch ciclosporin ngay lập tức và áp dụng liệu pháp thích hợp (ví dụ"
+    },
+    {
+      "raw_index": 5460,
+      "id": "med_15k_spec_05461",
+      "category": "misleading_serotonin_risk",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Câu hỏi về Tương tác thuốc: Escitalopram không nên phối hợp với các thuốc gây kéo dài khoảng QT vì lý do gì?",
+      "knowledge_context_snippet": "Chỉ định Điều trị cấp và duy trì bệnh trầm cảm ở người lớn và trẻ em 12 - 17 tuổi.\nĐiều trị cấp chứng lo âu toàn thể ở người lớn.\ntrống.\nĐiều trị c"
+    },
+    {
+      "raw_index": 6183,
+      "id": "med_15k_spec_06184",
+      "category": "misleading_special_application",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Thuốc bôi Fluorouracil có thể gây ngộ độc toàn thân khi bôi ở vùng nào?",
+      "knowledge_context_snippet": "Giảm liều ở người bị suy gan hoặc suy thận.\nĐộc tính của thuốc tăng ở người bị thiếu hụt DPD do di truyền, ngay cả khi dùng thuốc bôi. Phải ngừng th"
+    },
+    {
+      "raw_index": 6236,
+      "id": "med_15k_spec_06237",
+      "category": "contradictory_drug_interaction",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Fluphenazin có tương tác với các loại thuốc nào?",
+      "knowledge_context_snippet": "Công thức chính xác để chuyển đổi liệu pháp từ fluphenazin hydroclorid sang fluphenazin ester chưa được xác định. Tuy vậy, các số liệu từ nghiên cứu "
+    },
+    {
+      "raw_index": 6393,
+      "id": "med_15k_spec_06394",
+      "category": "misleading_food_interaction",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Câu hỏi về Tương tác thuốc giữa furosemid và thức ăn?",
+      "knowledge_context_snippet": "Thời kỳ cho con bú Dùng furosemid trong thời kỳ cho con bú có nguy cơ ức chế bài tiết sữa. Nên ngừng cho con bú nếu dùng thuốc là cần thiết.\nTác dụng "
+    },
+    {
+      "raw_index": 6734,
+      "id": "med_15k_spec_06735",
+      "category": "contradictory_treatment_dose",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Mặc dù liều điều trị tối ưu chưa được xác định, liều GMDCUV khuyên dùng cho người lớn và trẻ em trong điều trị uốn ván là bao nhiêu?",
+      "knowledge_context_snippet": "Nếu không có GMDCUV, có thể dùng HTCUV: Nhất thiết phải dùng phương pháp Besredka: Tiêm 0,1 ml, chờ nửa giờ, tiêm 0,25 ml, chờ nửa giờ nữa, nếu không "
+    },
+    {
+      "raw_index": 7752,
+      "id": "med_15k_spec_07753",
+      "category": "misleading_food_interaction",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Câu hỏi về Tương tác thuốc giữa irinotecan và thức ăn?",
+      "knowledge_context_snippet": "Thời kỳ cho con bú Cho đến nay chưa có thông tin về irinotecan có qua sữa mẹ hay không. Do nguy cơ gây ra các phản ứng bất lợi trầm trọng ở trẻ nhỏ, v"
+    },
+    {
+      "raw_index": 8790,
+      "id": "med_15k_spec_08791",
+      "category": "misleading_food_interactions",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Câu hỏi về Tương tác thuốc: Mefloquin có tương tác gì với thức ăn?",
+      "knowledge_context_snippet": "Thời gian bán hấp thu khoảng 0,36 - 2 giờ, nồng độ của thuốc duy trì được trong một thời gian dài, mefloquin tập trung ở hồng cầu với nồng độ tương đố"
+    },
+    {
+      "raw_index": 8808,
+      "id": "med_15k_spec_08809",
+      "category": "misleading_mefloquine_bending",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Viên mefloquin có thể bẻ và nghiền để uống với sữa hay sirô?",
+      "knowledge_context_snippet": "Viên nén có thể bẻ, nghiền thành bột để trộn với sữa, sirô, hoặc các đồ uống khác.\nUống nhắc lại liều đã dùng nếu bị nôn trong vòng 30 phút sau khi uố"
+    },
+    {
+      "raw_index": 8809,
+      "id": "med_15k_spec_08810",
+      "category": "misleading_special_dosage_after_vomiting",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Nếu bị nôn trong 30 phút sau khi uống mefloquin, nên uống lại liều nào?",
+      "knowledge_context_snippet": "Viên nén có thể bẻ, nghiền thành bột để trộn với sữa, sirô, hoặc các đồ uống khác.\nUống nhắc lại liều đã dùng nếu bị nôn trong vòng 30 phút sau khi uố"
+    },
+    {
+      "raw_index": 8810,
+      "id": "med_15k_spec_08811",
+      "category": "contradictory_vaccine_timing",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Thực hiện tiêm vắc-xin sống sau khi dùng mefloquin bao lâu?",
+      "knowledge_context_snippet": "Viên nén có thể bẻ, nghiền thành bột để trộn với sữa, sirô, hoặc các đồ uống khác.\nUống nhắc lại liều đã dùng nếu bị nôn trong vòng 30 phút sau khi uố"
+    },
+    {
+      "raw_index": 9366,
+      "id": "med_15k_spec_09367",
+      "category": "misleading_storage_conditions",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Viên nén chứa mirtazapin khi bảo quản cần tránh điều gì?",
+      "knowledge_context_snippet": "Độ ổn định và bảo quản Viên nén có chứa mirtazapin phải được bảo quản trong bao bì kín, tránh ánh sáng, tránh ẩm và ở nhiệt độ dưới 30 oC.\nQuá liều và"
+    },
+    {
+      "raw_index": 9367,
+      "id": "med_15k_spec_09368",
+      "category": "misleading_overdose_treatment",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Nếu sử dụng quá liều mirtazapin, xử trí đầu tiên nên là gì?",
+      "knowledge_context_snippet": "Độ ổn định và bảo quản Viên nén có chứa mirtazapin phải được bảo quản trong bao bì kín, tránh ánh sáng, tránh ẩm và ở nhiệt độ dưới 30 oC.\nQuá liều và"
+    },
+    {
+      "raw_index": 9429,
+      "id": "med_15k_spec_09430",
+      "category": "misleading_color_change",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Mitoxantron có thể gây ra hiện tượng nào trong nước tiểu của bệnh nhân sau khi sử dụng?",
+      "knowledge_context_snippet": "Bệnh nhân dùng mitoxantron có nước tiểu màu xanh lá cây hoặc xanh lam trong vòng 24 giờ sau khi dùng thuốc. Màng cứng giác mạc có thể đổi màu xanh.\nBệ"
+    },
+    {
+      "raw_index": 9430,
+      "id": "med_15k_spec_09431",
+      "category": "misleading_preparation_check",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Trước khi tiêm truyền tĩnh mạch mitoxantron, bệnh nhân cần kiểm tra gì về thuốc?",
+      "knowledge_context_snippet": "Bệnh nhân dùng mitoxantron có nước tiểu màu xanh lá cây hoặc xanh lam trong vòng 24 giờ sau khi dùng thuốc. Màng cứng giác mạc có thể đổi màu xanh.\nBệ"
+    },
+    {
+      "raw_index": 9825,
+      "id": "med_15k_spec_09826",
+      "category": "misleading_cross_sensitivity",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Câu hỏi về Tương tác thuốc: Neomycin có thể tương tác với các kháng sinh aminoglycosid khác như thế nào?",
+      "knowledge_context_snippet": "Chỉ định Dùng tại chỗ để điều trị các nhiễm khuẩn ngoài da, tai và mắt do tụ cầu và các vi khuẩn khác nhạy cảm.\nDùng uống để sát khuẩn đường ruột trướ"
+    },
+    {
+      "raw_index": 10773,
+      "id": "med_15k_spec_10774",
+      "category": "misleading_food_interaction",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Pefloxacin có tương tác gì với thức ăn?",
+      "knowledge_context_snippet": "Pefloxacin thuộc nhóm quinolon. Các thuốc khác thuộc nhóm này đã gây tan máu cấp tính ở người bị thiếu enzym glucose - 6 phosphat dehydrogenase (G6PD)"
+    },
+    {
+      "raw_index": 12576,
+      "id": "med_15k_spec_12577",
+      "category": "misleading_cross_allergy",
+      "reason": "Out-of-scope non-core clinical category (Regex/Category Filtering)",
+      "question": "Spectinomycin không dị ứng chéo với các kháng sinh penicillin?",
+      "knowledge_context_snippet": "Hiếm gặp, ADR <1/1 000 Sốc phản vệ, độc với thận và thiếu máu.\nSpectinomycin không dị ứng chéo với các kháng sinh penicilin.\nLiều lượng và cách dùng S"
+    }
+  ]
+}

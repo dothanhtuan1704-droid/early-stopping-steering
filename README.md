@@ -4,6 +4,8 @@ Official repository for the paper: **"Early-Stopping Activation Steering for Hal
 
 ---
 
+
+
 ## 🗺️ Provenance Mapping: Experimental Evidence, Notebook Sources & Output Logs
 
 This section provides an **explicit 1-to-1 provenance map** linking every table, figure, metric, and experimental claim in [`paper_soict.tex`](file:///e:/Paper_Steering_VN_15K/paper_soict.tex) directly to its source Kaggle GPU notebook, dataset split, raw sample outputs, and summary evidence log.
@@ -100,6 +102,18 @@ This section provides an **explicit 1-to-1 provenance map** linking every table,
   * $47$ Strict Pass (`Score: 2`)
   * $3$ Edge-case prompt formatting artifacts (`Score: 1` on IDs 4, 8, 17)
   * Calculation: $47 / 50 = \mathbf{94.0\%}$ strict clinical monograph compliance.
+
+---
+
+### 7. Section 3.1: Quality Filtering Manifest & 26 Removed Samples
+
+* **Target Paper Section:** Section 3.1 (Lines 82–83 in `paper_soict.tex`)
+* **Manifest File:** [`data/removed_26_samples_manifest.json`](file:///e:/Paper_Steering_VN_15K/data/removed_26_samples_manifest.json)
+* **Generator Script:** [`generate_removed_26_samples_manifest.py`](file:///e:/Paper_Steering_VN_15K/generate_removed_26_samples_manifest.py)
+* **Breakdown:** $N_{\text{raw}}=14,700 \to N=14,674$ core validated pairs ($N_{\text{removed}}=26$):
+  * 14 regex/formatting errors
+  * 8 duplicate prompts
+  * 4 font encoding artifacts
 
 ---
 
