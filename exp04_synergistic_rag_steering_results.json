@@ -1,1 +1,42 @@
-{}
+{
+  "Vanilla Baseline (No RAG, No Steering)": {
+    "condition": "Vanilla Baseline (No RAG, No Steering)",
+    "max_new_tokens": 800,
+    "total_samples": 500,
+    "pref_count": "131/500",
+    "overlap_refpref_pct": 26.2,
+    "rep4_pct": 5.22,
+    "eos_hit_rate_pct": 99.8,
+    "mean_token_length": 294.91
+  },
+  "Steering Alone (No RAG)": {
+    "condition": "Steering Alone (No RAG)",
+    "max_new_tokens": 800,
+    "total_samples": 500,
+    "pref_count": "122/500",
+    "overlap_refpref_pct": 24.4,
+    "rep4_pct": 5.24,
+    "eos_hit_rate_pct": 99.8,
+    "mean_token_length": 294.82
+  },
+  "Hybrid RAG Alone (No Steering)": {
+    "condition": "Hybrid RAG Alone (No Steering)",
+    "max_new_tokens": 800,
+    "total_samples": 500,
+    "pref_count": "397/500",
+    "overlap_refpref_pct": 79.4,
+    "rep4_pct": 4.63,
+    "eos_hit_rate_pct": 100.0,
+    "mean_token_length": 171.82
+  },
+  "Synergistic Hybrid RAG + Steering": {
+    "condition": "Synergistic Hybrid RAG + Steering",
+    "max_new_tokens": 800,
+    "total_samples": 500,
+    "pref_count": "402/500",
+    "overlap_refpref_pct": 80.4,
+    "rep4_pct": 4.46,
+    "eos_hit_rate_pct": 100.0,
+    "mean_token_length": 167.86
+  }
+}
