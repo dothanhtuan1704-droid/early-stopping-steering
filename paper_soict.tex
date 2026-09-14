@@ -156,8 +156,8 @@ To systematically evaluate model alignment across response length constraints, w
 \multicolumn{7}{c}{\textit{\textbf{Panel A: Bounded Generation Stress Test ($\text{max\_new\_tokens}=200$)}}} \\
 \midrule
 Unsteered Baseline & 73.20 & 0.7134 & 23.12 & \textbf{3.67} & -- & -- \\
-Continuous ($K{=}\infty$) & 75.60 & 0.7133 & \textbf{23.36} & 3.90 & 0.1189 & $[-0.40, +5.20]$ \\
-Hard Cutoff ($K{=}16$) & 77.00 & 0.7151 & 23.16 & 3.89 & 0.0127 & $[+1.00, +6.60]$ \\
+Continuous ($K{=}\infty$) & 75.60 & 0.7133 & \textbf{23.36} & 3.90 & 0.1038 & $[-0.40, +5.20]$ \\
+Hard Cutoff ($K{=}16$) & 77.00 & 0.7151 & 23.16 & 3.89 & 0.0110 & $[+1.00, +6.60]$ \\
 \textbf{Linear Decay ($K{=}16$)} & \textbf{77.40} & \textbf{0.7157} & 23.33 & 3.88 & \textbf{0.0055} & $\mathbf{[+1.40, +7.00]}$ \\
 \midrule
 \multicolumn{7}{c}{\textit{\textbf{Panel B: High-Cap Natural Completion ($\text{max\_new\_tokens}=800$)}}} \\
@@ -170,7 +170,7 @@ Linear Decay ($K{=}16$) & 67.80 & 0.6732 & 21.15 & 3.74 & 0.1189 & $[-0.20, +5.0
 \end{tabular}%
 }
 \begin{flushleft}
-\footnotesize Note: Evaluated on test split $N_{\text{test}}=500$ (\texttt{test\_ids.json}) via \texttt{evaluate\_xls\_results.py} / \texttt{master\_final\_evaluation.py} on raw output manifests (\texttt{phase6b\_v2\_bertscore\_clinical\_results.json}, \texttt{exp10\_merged\_500\_results.json}). Paired contingency counts ($a,b,c,d$): Panel A Linear Decay (350, 16, 37, 97, $p_{\text{adj}}=0.0165$), Hard Cutoff (350, 16, 35, 99, $p_{\text{adj}}=0.0253$), Continuous (349, 17, 29, 105, $p_{\text{adj}}=0.1189$). Panel B Hard Cutoff (311, 16, 42, 131, $p_{\text{adj}}=0.0026$), Continuous (309, 18, 34, 139, $p_{\text{adj}}=0.0730$), Linear Decay (308, 19, 31, 142, $p_{\text{adj}}=0.1189$), where $b$: baseline win, $c$: steered win. Holm-adjusted $p_{\text{adj}}$ values reported. 95\% CIs via $B=10,000$ bootstrap. Rep-4 evaluated via whitespace 4-gram macro-average. EOS Hit Rate: Panel B all conditions achieve 99.60\%--100.00\% natural EOS termination.
+\footnotesize Note: Evaluated on test split $N_{\text{test}}=500$ (\texttt{test\_ids.json}) via \texttt{evaluate\_xls\_results.py} / \texttt{master\_final\_evaluation.py} on raw output manifests (\texttt{phase6b\_v2\_bertscore\_clinical\_results.json}, \texttt{exp10\_merged\_500\_results.json}). Paired contingency counts ($a,b,c,d$): Panel A Linear Decay (350, 16, 37, 97, $p_{\text{adj}}=0.0165$), Hard Cutoff (350, 17, 36, 97, $p_{\text{adj}}=0.0219$), Continuous (349, 17, 29, 105, $p_{\text{adj}}=0.1038$). Panel B Hard Cutoff (311, 16, 42, 131, $p_{\text{adj}}=0.0026$), Continuous (309, 18, 34, 139, $p_{\text{adj}}=0.0730$), Linear Decay (308, 19, 31, 142, $p_{\text{adj}}=0.1189$), where $b$: baseline win, $c$: steered win. Holm-adjusted $p_{\text{adj}}$ values reported. 95\% CIs via $B=10,000$ bootstrap. Rep-4 evaluated via whitespace 4-gram macro-average. EOS Hit Rate: Panel B all conditions achieve 99.60\%--100.00\% natural EOS termination.
 \end{flushleft}
 \end{table}
 
@@ -204,7 +204,7 @@ Isotropic Gaussian ($N{=}100$) & -- & $55.82\pm4.15$ & -- & -- & 0.6945 & $23.33
 Negative Steered ($-v_{\text{steer}}$) & 314 / 500 & 62.80 & -- & -- & 0.6889 & $23.34\pm0.28$ \\
 BM25 Lexical RAG & 343 / 500 & 68.60 & 19.20\% & 0.2433 & 0.6970 & $7.32\pm0.45$ \\
 Label-Shuffled ($v_{\text{shuf}}$) & 343 / 500 & 68.60 & -- & -- & 0.6845 & $23.34\pm0.28$ \\
-Unsteered Baseline & 366 / 500 & 73.20 & -- & -- & 0.7133 & \textbf{$23.33\pm0.30$} \\
+Unsteered Baseline & 366 / 500 & 73.20 & -- & -- & 0.7134 & \textbf{$23.33\pm0.30$} \\
 Cov-Matched ($N{=}20$) & -- & $74.81\pm0.95$ & -- & -- & 0.7182 & $23.34\pm0.28$ \\
 Dense BGE-M3 RAG & 374 / 500 & 74.80 & 42.60\% & 0.5124 & 0.7180 & $7.27\pm0.42$ \\
 Hybrid RRF RAG & 381 / 500 & 76.20 & 48.20\% & 0.5681 & \textbf{0.7190} & $7.39\pm0.48$ \\
