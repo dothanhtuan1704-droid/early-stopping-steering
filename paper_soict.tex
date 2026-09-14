@@ -155,10 +155,10 @@ To systematically evaluate model alignment across response length constraints, w
 \midrule
 \multicolumn{7}{c}{\textit{\textbf{Panel A: Bounded Generation Stress Test ($\text{max\_new\_tokens}=200$)}}} \\
 \midrule
-Unsteered Baseline & 73.20 & 0.7133 & 23.12 & \textbf{3.67} & -- & -- \\
+Unsteered Baseline & 73.20 & 0.7134 & 23.12 & \textbf{3.67} & -- & -- \\
 Continuous ($K{=}\infty$) & 75.60 & 0.7133 & \textbf{23.36} & 3.90 & 0.1189 & $[-0.40, +5.20]$ \\
-Hard Cutoff ($K{=}16$) & 77.00 & \textbf{0.7151} & 23.16 & 3.89 & 0.0127 & $[+1.00, +6.60]$ \\
-\textbf{Linear Decay ($K{=}16$)} & \textbf{77.40} & 0.7150 & 23.21 & 3.74 & \textbf{0.0055} & $\mathbf{[+1.40, +7.00]}$ \\
+Hard Cutoff ($K{=}16$) & 77.00 & 0.7151 & 23.16 & 3.89 & 0.0127 & $[+1.00, +6.60]$ \\
+\textbf{Linear Decay ($K{=}16$)} & \textbf{77.40} & \textbf{0.7157} & 23.33 & 3.88 & \textbf{0.0055} & $\mathbf{[+1.40, +7.00]}$ \\
 \midrule
 \multicolumn{7}{c}{\textit{\textbf{Panel B: High-Cap Natural Completion ($\text{max\_new\_tokens}=800$)}}} \\
 \midrule
@@ -174,7 +174,7 @@ Linear Decay ($K{=}16$) & 67.80 & 0.6732 & 21.15 & 3.74 & 0.1189 & $[-0.20, +5.0
 \end{flushleft}
 \end{table}
 
-Under bounded stress testing (Panel A, $T=200$), Linear Decay steering ($K{=}16$) achieves peak performance at \textbf{77.40\% RefPref accuracy} (+4.20~pp over baseline 73.20\%, exact McNemar $p=0.0055$, Holm $p_{\text{adj}}=0.0165$, 95\% CI $[+1.40, +7.00]$~pp). Under high-cap natural completion (Panel B, $T=800$), models maintain high EOS Hit rates (99.60\%--100.00\%), where performance exhibits schedule dependence: Hard Cutoff ($K{=}16$) achieves peak observed accuracy at \textbf{70.60\% RefPref} (+5.20~pp over baseline 65.40\%, exact McNemar $p=0.00086$, Holm $p_{\text{adj}}=0.0026$, 95\% CI $[+2.40, +8.20]$~pp), whereas Linear Decay ($67.80\%$) yields lower observed accuracy than continuous steering ($68.60\%$, versus the unsteered baseline: exact McNemar $p=0.0365$, Holm $p_{\text{adj}}=0.0586$). Comparing Hard Cutoff (70.60\%) and Continuous (68.60\%) at 800 tokens reflects an observed numerical gain of +2.00~pp over continuous injection, highlighting schedule selection as an empirical factor.
+Under bounded stress testing (Panel A, $T=200$), Linear Decay steering ($K{=}16$) achieves peak performance at \textbf{77.40\% RefPref accuracy} (+4.20~pp over baseline 73.20\%, exact McNemar $p=0.0055$, Holm $p_{\text{adj}}=0.0165$, 95\% CI $[+1.40, +7.00]$~pp). Under high-cap natural completion (Panel B, $T=800$), models maintain high EOS Hit rates (99.60\%--100.00\%), where performance exhibits schedule dependence: Hard Cutoff ($K{=}16$) achieves peak observed accuracy at \textbf{70.60\% RefPref} (+5.20~pp over baseline 65.40\%, exact McNemar $p=0.00086$, Holm $p_{\text{adj}}=0.0026$, 95\% CI $[+2.40, +8.20]$~pp), whereas Linear Decay ($67.80\%$) yields lower observed accuracy than continuous steering ($68.60\%$, versus the unsteered baseline: exact McNemar $p=0.0365$, Holm $p_{\text{adj}}=0.0730$). Comparing Hard Cutoff (70.60\%) and Continuous (68.60\%) at 800 tokens reflects an observed numerical gain of +2.00~pp over continuous injection, highlighting schedule selection as an empirical factor.
 
 \subsection{Empirical Activation-Norm Dynamics \& Cross-Condition Baseline Comparison}\label{sec:norm_dynamics}
 To characterize the activation mechanics of early-stopping steering at Layer~8, we evaluate activation norms across $N=50$ diagnostic prompts using greedy decoding (\texttt{do\_sample=False}, \texttt{max\_new\_tokens=100}) under two complementary measurement paradigms:
