@@ -15,6 +15,24 @@ This section provides an **explicit 1-to-1 provenance map** linking every table,
 
 ---
 
+### 🔗 Live Public Kaggle Notebook Links
+
+For immediate online verification and 1-click cloud re-execution on Kaggle GPU instances, public notebook links are indexed below (see [`KAGGLE_NOTEBOOK_LINKS.md`](file:///e:/Paper_Steering_VN_15K/KAGGLE_NOTEBOOK_LINKS.md) for full manifest):
+
+| Experiment | Kaggle Notebook Public Link | Cloud GPU Hardware | Output Log Provenance |
+| :--- | :--- | :---: | :--- |
+| **Phase 6A1 ($\alpha=15.0$ Part 1)** | [Kaggle Run Link](https://www.kaggle.com/code/trungkiennnn/kaggle-phase6a1-part1-alpha15-ipynb) | Dual T4 GPU | `exp05_factorial_ablation_results.json` |
+| **Phase 6A1 ($\alpha=15.0$ Part 2)** | [Kaggle Run Link](https://www.kaggle.com/code/trungkiennnn/kaggle-phase6a1-part2-alpha15-ipynb) | Dual T4 GPU | `exp05_factorial_ablation_results.json` |
+| **Phase 6A2 ($\alpha=18.0$ Part 1)** | [Kaggle Run Link](https://www.kaggle.com/code/tunthanh66/kaggle-phase6a2-part1-alpha18-ipynb) | Dual T4 GPU | `exp05_factorial_ablation_results.json` |
+| **Phase 6A2 ($\alpha=18.0$ Part 2)** | [Kaggle Run Link](https://www.kaggle.com/code/tunthanh66/kaggle-phase6a2-part2-alpha18-ipynb) | Dual T4 GPU | `exp05_factorial_ablation_results.json` |
+| **Phase 6A3 ($\alpha=20.0$ Part 1)** | [Kaggle Run Link](https://www.kaggle.com/code/anhemgithom/kaggle-phase6a3-part1-alpha20-ipynb) | Dual T4 GPU | `exp05_factorial_ablation_results.json` |
+| **Phase 6A3 ($\alpha=20.0$ Part 2)** | [Kaggle Run Link](https://www.kaggle.com/code/anhemgithom/kaggle-phase6a3-part2-alpha20-ipynb) | Dual T4 GPU | `exp05_factorial_ablation_results.json` |
+| **Phase 3C1 (Main Methods 200tok)** | [Kaggle Run Link](https://www.kaggle.com/code/thanhtranguyn/kaggle-phase3c1-main-methods-200token?scriptVersionId=342250616) | Dual T4 GPU | `phase6b_v2_bertscore_clinical_results.json` |
+| **Phase 3C2 (Control Methods 200tok)** | [Kaggle Run Link](https://www.kaggle.com/code/thanhtranguyn/kaggle-phase3c2-control-methods-200tok?scriptVersionId=342250913) | Dual T4 GPU | `phase6b_v2_bertscore_clinical_results.json` |
+
+
+---
+
 ### 1. Table 1: Primary Benchmark Matrix ($N_{\text{test}}=500$)
 
 #### **Panel A: Bounded Stress Test ($\text{max\_new\_tokens}=200$)**
