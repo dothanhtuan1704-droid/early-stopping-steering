@@ -15,37 +15,17 @@ This section provides an **explicit 1-to-1 provenance map** linking every table,
 
 ---
 
-### 🔗 Live Public Kaggle Notebook Links
+### 🔗 Kaggle GPU Execution Provenance
 
-For immediate online verification and 1-click cloud re-execution on Kaggle GPU instances, public notebook links are indexed below (see [`KAGGLE_NOTEBOOK_LINKS.md`](file:///e:/Paper_Steering_VN_15K/KAGGLE_NOTEBOOK_LINKS.md) for full manifest):
+For 1-click cloud re-execution on Kaggle GPU instances, key representative notebook links are indexed below (see [`KAGGLE_NOTEBOOK_LINKS.md`](file:///e:/Paper_Steering_VN_15K/KAGGLE_NOTEBOOK_LINKS.md) for the full experiment manifest):
 
-| Experiment | Kaggle Notebook Public Link | Cloud GPU Hardware | Output Log Provenance |
-| :--- | :--- | :---: | :--- |
-| **Phase 6A1 ($\alpha=15.0$ Part 1)** | [Kaggle Run Link](https://www.kaggle.com/code/trungkiennnn/kaggle-phase6a1-part1-alpha15-ipynb) | Dual T4 GPU | `exp05_factorial_ablation_results.json` |
-| **Phase 6A1 ($\alpha=15.0$ Part 2)** | [Kaggle Run Link](https://www.kaggle.com/code/trungkiennnn/kaggle-phase6a1-part2-alpha15-ipynb) | Dual T4 GPU | `exp05_factorial_ablation_results.json` |
-| **Phase 6A2 ($\alpha=18.0$ Part 1)** | [Kaggle Run Link](https://www.kaggle.com/code/tunthanh66/kaggle-phase6a2-part1-alpha18-ipynb) | Dual T4 GPU | `exp05_factorial_ablation_results.json` |
-| **Phase 6A2 ($\alpha=18.0$ Part 2)** | [Kaggle Run Link](https://www.kaggle.com/code/tunthanh66/kaggle-phase6a2-part2-alpha18-ipynb) | Dual T4 GPU | `exp05_factorial_ablation_results.json` |
-| **Phase 6A3 ($\alpha=20.0$ Part 1)** | [Kaggle Run Link](https://www.kaggle.com/code/anhemgithom/kaggle-phase6a3-part1-alpha20-ipynb) | Dual T4 GPU | `exp05_factorial_ablation_results.json` |
-| **Phase 6A3 ($\alpha=20.0$ Part 2)** | [Kaggle Run Link](https://www.kaggle.com/code/anhemgithom/kaggle-phase6a3-part2-alpha20-ipynb) | Dual T4 GPU | `exp05_factorial_ablation_results.json` |
-| **Phase 3C1 (Main Methods 200tok)** | [Kaggle Run Link](https://www.kaggle.com/code/thanhtranguyn/kaggle-phase3c1-main-methods-200token?scriptVersionId=342250616) | Dual T4 GPU | `phase6b_v2_bertscore_clinical_results.json` |
-| **Phase 3C2 (Control Methods 200tok)** | [Kaggle Run Link](https://www.kaggle.com/code/thanhtranguyn/kaggle-phase3c2-control-methods-200tok?scriptVersionId=342250913) | Dual T4 GPU | `phase6b_v2_bertscore_clinical_results.json` |
-| **Continuous Steering ($K=\infty$)** | [Kaggle Run Link](https://www.kaggle.com/code/thanhtranguyn/kaggle-sub-notebook-continuous-steering-alpha) | Dual T4 GPU | `result_continuous_cap800.json` |
-| **Hard Cutoff Steering ($K=16$)** | [Kaggle Run Link](https://www.kaggle.com/code/duuykiu/kaggle-sub-notebook-hard-cutoff-steering-k-16) | Dual T4 GPU | `result_hard_cutoff_cap800.json` |
-| **Exp 10 Linear Decay NoPen (Part B)** | [Kaggle Run Link](https://www.kaggle.com/code/thanhtranguyn/exp10-lineardecay-nopen-part-b-samples-250-4) | Dual T4 GPU | `exp10_merged_500_results.json` |
-| **Exp 02 Delayed Injection (Part 1 $K_0$)** | [Kaggle Run Link](https://www.kaggle.com/code/thanhtranguyn/experiment-2-part-1-delayed-injection-window-co) | Dual T4 GPU | `exp02_delayed_injection_window_800tok_results.json` |
-| **Exp 02 Delayed Injection (Part 1B $K_0 \in [1,16]$)** | [Kaggle Run Link](https://www.kaggle.com/code/duuykiu/experiment-2-part-1b-delayed-injection-windo) | Dual T4 GPU | `exp02_delayed_injection_window_800tok_results.json` |
-| **Exp 02 Delayed Injection (Part 2A $K_0 \in [17,32]$)** | [Kaggle Run Link](https://www.kaggle.com/code/duuykiu/experiment-2-part-2a-delayed-injection-windo) | Dual T4 GPU | `exp02_delayed_injection_window_800tok_results.json` |
-| **Exp 02 Delayed Injection (Part 2B $K_0 \in [17,32]$)** | [Kaggle Run Link](https://www.kaggle.com/code/duuykiu/experiment-2-part-2b-delayed-injection-windo) | Dual T4 GPU | `exp02_delayed_injection_window_800tok_results.json` |
-| **Exp 09 Main Placebo Original** | [Kaggle Run Link](https://www.kaggle.com/code/thanhtranguyn/exp-9-part-1-main-placebo-controls-original) | P100 GPU | `exp09_main_placebo_results.json` |
-| **Exp 09 Label Permutation Control** | [Kaggle Run Link](https://www.kaggle.com/code/duuykiu/kaggle-experiment-09-full-50-balanced-label-p) | P100 GPU | `exp09_main_placebo_results.json` |
-| **Exp 09 Covariance-Matched Control (Batch 1)** | [Kaggle Run Link](https://www.kaggle.com/code/duuykiu/exp-9-covariance-matched-random-vectors-batch-1) | P100 GPU | `expanded_100_placebo_results.csv` |
-| **Exp 09 Covariance-Matched Control (Batch 2)** | [Kaggle Run Link](https://www.kaggle.com/code/duuykiu/exp-9-covariance-matched-random-vectors-batch-2) | P100 GPU | `expanded_100_placebo_results.csv` |
-| **Additional Probing & Diagnostics** | [Kaggle Run Link](https://www.kaggle.com/code/duuykiu/notebook83db094084) | T4 GPU | `activation_mechanism_trajectories_exact.json` |
-
-
-
+* **Primary Benchmark ($T=200, 800$)**: [Hard Cutoff Steering $K=16$](https://www.kaggle.com/code/duuykiu/kaggle-sub-notebook-hard-cutoff-steering-k-16) | [Continuous Steering $K=\infty$](https://www.kaggle.com/code/thanhtranguyn/kaggle-sub-notebook-continuous-steering-alpha)
+* **Factorial Strength Ablation Sweep ($\alpha \in \{15, 18, 20\}$)**: [Phase 6A Factorial Sweep](https://www.kaggle.com/code/trungkiennnn/kaggle-phase6a1-part1-alpha15-ipynb)
+* **Placebo & Directional Controls ($N=100$)**: [Exp 09 Label Permutation & Placebo](https://www.kaggle.com/code/duuykiu/kaggle-experiment-09-full-50-balanced-label-p)
+* **Delayed Injection Window Controls ($K_0$)**: [Exp 02 Delayed Window Controls](https://www.kaggle.com/code/duuykiu/experiment-2-part-1b-delayed-injection-windo)
 
 ---
+
 
 ### 1. Table 1: Primary Benchmark Matrix ($N_{\text{test}}=500$)
 
