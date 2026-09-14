@@ -13,21 +13,9 @@ This section provides an **explicit 1-to-1 provenance map** linking every table,
 > - **GPU Notebook Execution:** All model forward passes, activation layer extractions, KV-cache steering vector injections ($v_{\text{steer}} = \mu_{\text{correct}} - \mu_{\text{incorrect}}$ at Layer 8), and text generation were executed on **Kaggle T4/P100 GPUs** using PyTorch and vLLM.
 > - **Local CPU Scripts:** Lightweight repository Python scripts (e.g., `eval_prefix_disentanglement.py`, `verify_all_numbers_exact.py`) are post-hoc deterministic aggregators that process raw model output JSON files to compute statistical metrics (McNemar tests, Holm-Bonferroni $p_{\text{adj}}$, bootstrap CIs).
 
----
-
-### 🔗 Kaggle GPU Execution Provenance
-
-For 1-click cloud re-execution on Kaggle GPU instances, key representative notebook links are indexed below (see [`KAGGLE_NOTEBOOK_LINKS.md`](file:///e:/Paper_Steering_VN_15K/KAGGLE_NOTEBOOK_LINKS.md) for the full experiment manifest):
-
-* **Primary Benchmark ($T=200, 800$)**: [Hard Cutoff Steering $K=16$](https://www.kaggle.com/code/duuykiu/kaggle-sub-notebook-hard-cutoff-steering-k-16) | [Continuous Steering $K=\infty$](https://www.kaggle.com/code/thanhtranguyn/kaggle-sub-notebook-continuous-steering-alpha)
-* **Factorial Strength Ablation Sweep ($\alpha \in \{15, 18, 20\}$)**: [Phase 6A Factorial Sweep](https://www.kaggle.com/code/trungkiennnn/kaggle-phase6a1-part1-alpha15-ipynb)
-* **Placebo & Directional Controls ($N=100$)**: [Exp 09 Label Permutation & Placebo](https://www.kaggle.com/code/duuykiu/kaggle-experiment-09-full-50-balanced-label-p)
-* **Delayed Injection Window Controls ($K_0$)**: [Exp 02 Delayed Window Controls](https://www.kaggle.com/code/duuykiu/experiment-2-part-1b-delayed-injection-windo)
-
----
-
 
 ### 1. Table 1: Primary Benchmark Matrix ($N_{\text{test}}=500$)
+
 
 #### **Panel A: Bounded Stress Test ($\text{max\_new\_tokens}=200$)**
 * **Target Paper Table:** Table 1, Panel A (Lines 160–185 in `paper_soict.tex`)
