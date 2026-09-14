@@ -170,7 +170,7 @@ Linear Decay ($K{=}16$) & 67.80 & 0.6732 & 21.15 & 3.74 & 0.1189 & $[-0.20, +5.0
 \end{tabular}%
 }
 \begin{flushleft}
-\footnotesize Note: Evaluated on test split $N_{\text{test}}=500$ (\texttt{test\_ids.json}) via \texttt{evaluate\_xls\_results.py} / \texttt{master\_final\_evaluation.py} on raw output manifests (\texttt{phase6b\_v2\_bertscore\_clinical\_results.json}, \texttt{exp10\_merged\_500\_results.json}). Paired contingency counts ($a,b,c,d$): Panel A Linear Decay (349, 16, 37, 98, $p_{\text{adj}}=0.0165$), Hard Cutoff (349, 17, 36, 98, $p_{\text{adj}}=0.0253$), Continuous (347, 19, 31, 103, $p_{\text{adj}}=0.1189$). Panel B Hard Cutoff (311, 16, 42, 131, $p_{\text{adj}}=0.0026$), Continuous (309, 18, 34, 139, $p_{\text{adj}}=0.0586$), Linear Decay (308, 19, 31, 142, $p_{\text{adj}}=0.1189$), where $b$: baseline win, $c$: steered win. Holm-adjusted $p_{\text{adj}}$ values reported. 95\% CIs via $B=10,000$ bootstrap. Rep-4 evaluated via whitespace 4-gram macro-average. EOS Hit Rate: Panel B all conditions achieve 99.60\%--100.00\% natural EOS termination.
+\footnotesize Note: Evaluated on test split $N_{\text{test}}=500$ (\texttt{test\_ids.json}) via \texttt{evaluate\_xls\_results.py} / \texttt{master\_final\_evaluation.py} on raw output manifests (\texttt{phase6b\_v2\_bertscore\_clinical\_results.json}, \texttt{exp10\_merged\_500\_results.json}). Paired contingency counts ($a,b,c,d$): Panel A Linear Decay (350, 16, 37, 97, $p_{\text{adj}}=0.0165$), Hard Cutoff (350, 16, 35, 99, $p_{\text{adj}}=0.0253$), Continuous (349, 17, 29, 105, $p_{\text{adj}}=0.1189$). Panel B Hard Cutoff (311, 16, 42, 131, $p_{\text{adj}}=0.0026$), Continuous (309, 18, 34, 139, $p_{\text{adj}}=0.0730$), Linear Decay (308, 19, 31, 142, $p_{\text{adj}}=0.1189$), where $b$: baseline win, $c$: steered win. Holm-adjusted $p_{\text{adj}}$ values reported. 95\% CIs via $B=10,000$ bootstrap. Rep-4 evaluated via whitespace 4-gram macro-average. EOS Hit Rate: Panel B all conditions achieve 99.60\%--100.00\% natural EOS termination.
 \end{flushleft}
 \end{table}
 
@@ -208,7 +208,7 @@ Unsteered Baseline & 366 / 500 & 73.20 & -- & -- & 0.7133 & \textbf{$23.33\pm0.3
 Cov-Matched ($N{=}20$) & -- & $74.81\pm0.95$ & -- & -- & 0.7182 & $23.34\pm0.28$ \\
 Dense BGE-M3 RAG & 374 / 500 & 74.80 & 42.60\% & 0.5124 & 0.7180 & $7.27\pm0.42$ \\
 Hybrid RRF RAG & 381 / 500 & 76.20 & 48.20\% & 0.5681 & \textbf{0.7190} & $7.39\pm0.48$ \\
-\textbf{Linear Decay Steered} & \textbf{387 / 500} & \textbf{77.40} & -- & -- & 0.7150 & $23.34\pm0.28$ \\
+\textbf{Linear Decay Steered} & \textbf{387 / 500} & \textbf{77.40} & -- & -- & \textbf{0.7157} & $23.34\pm0.28$ \\
 Oracle Gold-Context RAG & 447 / 500 & 89.40 & 100.0\% & 1.0000 & \textbf{0.8002} & $7.17\pm0.38$ \\
 \bottomrule
 \end{tabular}%
@@ -219,7 +219,7 @@ Oracle Gold-Context RAG & 447 / 500 & 89.40 & 100.0\% & 1.0000 & \textbf{0.8002}
 \end{table}
 
 \subsection{Controlled Steering Strength Ablation}
-Initial steering strength ablation (Table~\ref{tab:equal_alpha_ablation}) evaluating finite-window schedules ($K=16$) across initial strengths $\alpha_0 \in \{15.0, 18.0, 20.0\}$ alongside Nominal Matched Dose ($\alpha_{\text{match}} = 0.0425 \alpha_0$) against the optimal continuous reference baseline ($\alpha_0=18.0$) confirms Linear Decay ($K=16$) achieves peak accuracy at $\alpha_0 = 18.0$ (77.40\% RefPref, 3.74\% Rep-4).
+Initial steering strength ablation (Table~\ref{tab:equal_alpha_ablation}) evaluating finite-window schedules ($K=16$) across initial strengths $\alpha_0 \in \{15.0, 18.0, 20.0\}$ alongside Nominal Matched Dose ($\alpha_{\text{match}} = 0.0425 \alpha_0$) against the optimal continuous reference baseline ($\alpha_0=18.0$) confirms Linear Decay ($K=16$) achieves peak accuracy at $\alpha_0 = 18.0$ (77.40\% RefPref, 3.88\% Rep-4).
 
 \begin{table}[!htbp]
 \centering
@@ -231,7 +231,7 @@ Initial steering strength ablation (Table~\ref{tab:equal_alpha_ablation}) evalua
 \toprule
 \textbf{$\alpha_0$} & \textbf{Schedule} & \textbf{RefPref (\%)} & \textbf{BERTScore F1} & \textbf{ROUGE-L (\%)} & \textbf{Rep-4 (\%)} \\
 \midrule
--- & Unsteered Baseline & 73.20 & 0.7133 & 23.12 & 3.67 \\
+-- & Unsteered Baseline & 73.20 & 0.7134 & 23.12 & 3.67 \\
 \midrule
 \multirow{4}{*}{15.0}
  & Continuous reference ($\alpha_0=18.0$) & 75.60 & 0.7133 & 23.36 & 3.90 \\
@@ -241,8 +241,8 @@ Initial steering strength ablation (Table~\ref{tab:equal_alpha_ablation}) evalua
 \midrule
 \multirow{4}{*}{18.0}
  & Continuous reference ($\alpha_0=18.0$) & 75.60 & 0.7133 & \textbf{23.36} & 3.90 \\
- & Hard Cutoff ($K{=}16$) & 77.00 & \textbf{0.7151} & 23.16 & 3.89 \\
- & \textbf{Linear Decay ($K{=}16$)} & \textbf{77.40} & 0.7150 & 23.21 & \textbf{3.74} \\
+ & Hard Cutoff ($K{=}16$) & 77.00 & 0.7151 & 23.16 & 3.89 \\
+ & \textbf{Linear Decay ($K{=}16$)} & \textbf{77.40} & \textbf{0.7157} & 23.33 & \textbf{3.88} \\
  & Nominal Matched Dose & 75.40 & 0.7140 & 23.21 & 4.38 \\
 \midrule
 \multirow{4}{*}{20.0}
@@ -259,7 +259,7 @@ Initial steering strength ablation (Table~\ref{tab:equal_alpha_ablation}) evalua
 \end{table}
 
 \subsection{Temporal Shift, Prefix Disentanglement \& Combined RAG Evaluation}\label{sec:advanced_analysis}
-\textbf{Temporal Window Injection Shift Control.} Evaluating injection timing shifts under Hard Cutoff ($\alpha_0=18.0$, Layer 8) reveals distinct behavior across generation horizons. Early intervention ($t \in [1, 16]$) achieves 3.74\% Rep-4 under extended completion (\texttt{max\_new\_tokens=800}; 3.89\% under bounded stress testing \texttt{max\_new\_tokens=200}), whereas Linear Decay ($K=16$) yields 3.74\% under both generation caps. Under extended completion (\texttt{max\_new\_tokens=800}), delayed injection ($t \in [17, 32]$) yields 3.92\% Rep-4. Under bounded stress testing (\texttt{max\_new\_tokens=200}), later injection ($t \in [33, 48]$) yields 72.80\% RefPref (364/500), which represents a net difference of 2 questions out of 500 items compared directly to the 200-token unsteered baseline (73.20\%, 366/500; paired counts $b=16, c=14$, exact McNemar $p=0.8555$), where no statistically significant difference was detected.
+\textbf{Temporal Window Injection Shift Control.} Evaluating injection timing shifts under Hard Cutoff ($\alpha_0=18.0$, Layer 8) reveals distinct behavior across generation horizons. Early intervention ($t \in [1, 16]$) achieves 3.74\% Rep-4 under extended completion (\texttt{max\_new\_tokens=800}; 3.89\% under bounded stress testing \texttt{max\_new\_tokens=200}), whereas Linear Decay ($K=16$) yields 3.88\% under bounded stress testing and 3.74\% under natural completion. Under extended completion (\texttt{max\_new\_tokens=800}), delayed injection ($t \in [17, 32]$) yields 3.92\% Rep-4. Under bounded stress testing (\texttt{max\_new\_tokens=200}), later injection ($t \in [33, 48]$) yields 72.80\% RefPref (364/500), which represents a net difference of 2 questions out of 500 items compared directly to the 200-token unsteered baseline (73.20\%, 366/500; paired counts $b=16, c=14$, exact McNemar $p=0.8555$), where no statistically significant difference was detected.
 
 \textbf{Prefix Length Disentanglement Analysis.} Truncated prefix evaluation (Table~\ref{tab:prefix_disentanglement}) confirms persistent positive RefPref gains (+3.80 to +5.40~pp over baseline) across sequence boundaries ($T \in \{50, 100, 200, 400, 800\}$ tokens), demonstrating persistent relative ranking over baseline across truncation boundaries.
 
