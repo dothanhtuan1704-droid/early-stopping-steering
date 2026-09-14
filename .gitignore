@@ -16,7 +16,8 @@ FINAL_SUBMISSION_PACKAGE/
 KAGGLE_NOTEBOOKS/
 XLS/
 
-# Keep Paper TeX, PDF, and core evidence tracked
+# Keep Paper TeX, PDF, README, and core evidence tracked
+!README.md
 !paper_soict.tex
 !paper_soict.pdf
 !llncs.cls
