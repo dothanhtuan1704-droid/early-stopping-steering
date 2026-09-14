@@ -48,9 +48,22 @@ This repository provides the reproducible codebase, ground-truth experimental re
 
 ## 📄 Repository Evidence Artifacts
 
+### 1. Real Model Execution Notebooks (GPU Infrastructure)
+* [`Kaggle_Phase1_Steering_Vector_Estimation.ipynb`](file:///e:/Paper_Steering_VN_15K/Kaggle_Phase1_Steering_Vector_Estimation.ipynb): Real GPU execution code loading `Qwen/Qwen2.5-7B-Instruct-AWQ` via PyTorch forward hooks at Layer 8 to compute $+v_{\text{steer}}$ on $N_{\text{train}}=10,272$ contrastive pairs.
+* [`Kaggle_Phase2_Test_Evaluation.ipynb`](file:///e:/Paper_Steering_VN_15K/Kaggle_Phase2_Test_Evaluation.ipynb) / [`Kaggle_Phase3C1_Main_Methods_200token.ipynb`](file:///e:/Paper_Steering_VN_15K/Kaggle_Phase3C1_Main_Methods_200token.ipynb): Real GPU completion generation scripts executing early-stopping activation steering across $N_{\text{test}}=500$ test questions.
+* [`Kaggle_Phase6B_v2_BERTScore_Clinical.ipynb`](file:///e:/Paper_Steering_VN_15K/Kaggle_Phase6B_v2_BERTScore_Clinical.ipynb): GPU evaluation suite computing BERTScore RefPref, ROUGE-L, and 4-gram repetition metrics over model outputs.
+
+### 2. Raw Per-Sample Model Output Generation Logs
+* [`result_baseline_cap200.json`](file:///e:/Paper_Steering_VN_15K/result_baseline_cap200.json) (675 KB): Raw unsteered model completions across 500 test questions ($T=200$).
+* [`result_linear_decay_cap200.json`](file:///e:/Paper_Steering_VN_15K/result_linear_decay_cap200.json) (678 KB): Raw Linear Decay steered model completions ($K=16, \alpha_0=18.0, T=200$).
+* [`result_baseline_cap800.json`](file:///e:/Paper_Steering_VN_15K/result_baseline_cap800.json) (875 KB): Raw unsteered model completions ($T=800$).
+* [`result_hard_cutoff_cap800.json`](file:///e:/Paper_Steering_VN_15K/result_hard_cutoff_cap800.json) (913 KB): Raw Hard Cutoff steered model completions ($K=16, \alpha_0=18.0, T=800$).
+
+### 3. Manuscript & Ground-Truth Result Files
 * [`paper_soict.tex`](file:///e:/Paper_Steering_VN_15K/paper_soict.tex): Main LaTeX manuscript source code.
 * [`paper_soict.pdf`](file:///e:/Paper_Steering_VN_15K/paper_soict.pdf): Compiled 12-page PDF manuscript.
 * [`phase6b_v2_bertscore_clinical_results.json`](file:///e:/Paper_Steering_VN_15K/phase6b_v2_bertscore_clinical_results.json): Ground-truth result log for 200-token stress test.
 * [`exp10_merged_500_results.json`](file:///e:/Paper_Steering_VN_15K/exp10_merged_500_results.json): Ground-truth result log for 800-token natural completion test.
 * [`dense_hybrid_rag_results.json`](file:///e:/Paper_Steering_VN_15K/dense_hybrid_rag_results.json): Ground-truth RAG evaluation benchmark logs.
 * [`exp04_synergistic_rag_steering_results.json`](file:///e:/Paper_Steering_VN_15K/exp04_synergistic_rag_steering_results.json): Ground-truth Combined RAG + Steering evaluation logs.
+* [`human_evaluation_completed_50.csv`](file:///e:/Paper_Steering_VN_15K/human_evaluation_completed_50.csv): Clinician audit manifest ($N=50$, 47 Pass, 3 Edge Artifacts = 94.0% alignment).
