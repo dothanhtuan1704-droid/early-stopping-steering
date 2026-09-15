@@ -25,15 +25,15 @@
 \emergencystretch=4em
 
 % --- LNCS Page Optimization Controls ---
-\setlength{\floatsep}{4pt plus 2pt minus 1pt}
-\setlength{\textfloatsep}{6pt plus 2pt minus 1pt}
-\setlength{\intextsep}{4pt plus 2pt minus 1pt}
-\setlength{\abovecaptionskip}{2pt}
-\setlength{\belowcaptionskip}{2pt}
-\setlength{\abovedisplayskip}{3pt plus 1pt minus 1pt}
-\setlength{\belowdisplayskip}{3pt plus 1pt minus 1pt}
-\setlength{\abovedisplayshortskip}{2pt plus 1pt minus 1pt}
-\setlength{\belowdisplayshortskip}{2pt plus 1pt minus 1pt}
+\setlength{\floatsep}{3pt plus 1pt minus 1pt}
+\setlength{\textfloatsep}{4pt plus 1pt minus 1pt}
+\setlength{\intextsep}{3pt plus 1pt minus 1pt}
+\setlength{\abovecaptionskip}{1pt}
+\setlength{\belowcaptionskip}{1pt}
+\setlength{\abovedisplayskip}{2pt plus 1pt minus 1pt}
+\setlength{\belowdisplayskip}{2pt plus 1pt minus 1pt}
+\setlength{\abovedisplayshortskip}{1pt plus 1pt minus 1pt}
+\setlength{\belowdisplayshortskip}{1pt plus 1pt minus 1pt}
 
 \newcommand{\vn}[1]{{\fontencoding{T5}\selectfont #1}}
 
@@ -123,16 +123,15 @@ where $\text{BS}(\cdot,\cdot)$ denotes BERTScore F1 using \texttt{bert-base-mult
 where $G_4(\hat{y}_i)$ denotes consecutive word 4-grams extracted via whitespace tokenization (\texttt{text.split()}), aggregated as sample macro-average across $N=500$ sequences.
 
 \textbf{Experimental Setup \& Implementation Protocol.} All experiments evaluate Qwen2.5-7B-Instruct \cite{ref4} loaded in 4-bit NormalFloat4 (NF4) double-quantization via BitsAndBytes 0.42.0 on NVIDIA Tesla T4 GPUs (CUDA 12.1, PyTorch 2.2.0, Transformers 4.38.2). All generation runs use deterministic greedy decoding (\texttt{temperature=0.0}, \texttt{do\_sample=False}, \texttt{top\_p=1.0}, seed 42) with key-value caching enabled (\texttt{use\_cache=True}), terminating upon ChatML stop token emission (\texttt{<|im\_end|>} / \texttt{<|endoftext|>}, \texttt{eos\_token\_id} $\in \{151645, 151643\}$) or reaching \texttt{max\_new\_tokens}, distinguishing active generation termination from padding tokens. ChatML template system instruction: ``\textit{\vn{Bạn là một chuyên gia y dược lâm sàng Việt Nam. Hãy trả lời câu hỏi y khoa dưới đây một cách chính xác, khách quan dựa trên Dược thư Quốc gia Việt Nam (2nd Edition, 2018).}}''. PyTorch forward hook attached to decoder block \texttt{model.model.layers[8]} handles prefill ($t=0$, sequence length $>1$, resetting \texttt{self.t=0}) and single-token step decoding ($t \ge 1$, sequence length $=1$, incrementing \texttt{self.t+=1}):
-\begin{lstlisting}[language=Python,basicstyle=\ttfamily\scriptsize,aboveskip=3pt,belowskip=3pt,breaklines=true,columns=flexible]
+\begin{lstlisting}[language=Python,basicstyle=\ttfamily\tiny,aboveskip=2pt,belowskip=2pt,breaklines=true,columns=flexible]
 class SteeringHookHandler:
     def __init__(self, v_steer, alpha_0=18.0, K=16, schedule="linear_decay"):
         self.v_steer, self.alpha_0, self.K, self.schedule, self.t = v_steer, alpha_0, K, schedule, 0
-    def reset(self): self.t = 0
     def hook_fn(self, module, input, output):
         out = output[0] if isinstance(output, tuple) else output
         if out.shape[1] > 1: self.t = 0; return output
         self.t += 1
-        a_t = self.alpha_0 * max(0.0, 1.0 - (self.t-1)/self.K) if self.schedule == "linear_decay" else (self.alpha_0 if self.t <= self.K else 0.0) if self.schedule == "hard_cutoff" else (self.alpha_0 if self.schedule == "continuous" else 0.0)
+        a_t = self.alpha_0 * max(0.0, 1.0 - (self.t-1)/self.K) if self.schedule == "linear_decay" else (self.alpha_0 if self.t <= self.K else 0.0)
         if a_t != 0.0: out[:, -1, :] += a_t * self.v_steer.to(device=out.device, dtype=out.dtype)
         return output
 \end{lstlisting}
@@ -292,7 +291,7 @@ Hard Cutoff ($K{=}16$) & 75.80 & 76.40 & 77.00 & 73.20 & 70.60 \\
 \textbf{Combined Hybrid RAG + Steering Evaluation.} Under natural completion (\texttt{max\_new\_tokens=800}), evaluating combined Hybrid RAG + Steering (Linear Decay $K=16, \alpha_0=18.0$) across full $N_{\text{test}}=500$ samples achieves \textbf{80.40\% RefPref accuracy} (+1.00~pp observed numerical difference over standalone Hybrid RAG 79.40\%, paired counts $a=392, b=5, c=10, d=93$, exact binomial McNemar $p=0.3018$, 95\% Bootstrap CI $[-0.60\text{ pp}, +2.60\text{ pp}]$). Combined RAG + Steering maintains low 4-gram repetition Rep-4 (\textbf{3.61\%} vs 3.78\% RAG alone, 3.68\% Baseline) while producing concise clinical completions ($167.86$ tokens vs $171.82$ tokens RAG alone).
 
 \section{Discussion \& Limitations}\label{sec:discussion}
-Reference-preference accuracy is a semantic proxy for factual alignment rather than a clinician-adjudicated correctness rate. Equal initial $\alpha_0$ produces unequal cumulative doses across schedules (Section~\ref{sec:taxonomy}). Validation tuning ($N_{\text{eval}}=500$) identified highest performance at Layer~8 ($77.40\%$), cutoff $K=16$ ($77.40\%$), and scale $\alpha_0=18.0$ ($77.40\%$). When $\alpha(t)=0$ for $t > K$, the hook applies no additive modification ($\hat{h}_8^{(t)} = h_8^{(t)}$, $\Delta_{\text{norm}} = 0.00$ by construction), confirming immediate cessation of direct vector injection at Layer~8 and avoiding the persistent norm elevation ($\Delta=+1.90$ active, $+2.51$ post-16) observed under continuous steering. Crucially, paired evaluation against an independent unsteered baseline reveals no statistically significant difference in post-cutoff internal pre-hook activation magnitudes ($51.84$ vs $52.20$, mean prompt-level difference $-0.36$, sample SD $= 1.54$, paired $t$-test $p=0.1050 > 0.05$, $95\%$ CI $[-0.80, +0.08]$); while no mean norm difference was detected by this test at Layer~8, this finding establishes non-significance rather than mathematical proof of strict equivalence. Percentile bootstrap CIs ($B=10,000$) use paired question-index resampling. Isotropic placebo controls ($N=100$, $55.82\% \pm 4.15\%$) confirm $+v_{\text{steer}}$ ($77.40\%$) achieves an empirical rank of $1/101$ ($p_{\text{emp}}=0.0099$) at $z_{\text{sep}}=5.20$ standard deviations above the random baseline mean. Under high-cap natural completion (\texttt{max\_new\_tokens=800}), Hard Cutoff ($K=16$) maintains 100.00\% EOS hit rate while improving preference accuracy (+5.20~pp over baseline: 70.60\% vs 65.40\%, exact binomial McNemar $p=0.00086$, $p_{\text{adj}}=0.0026$, 95\% Bootstrap CI $[+2.40\text{ pp}, +8.20\text{ pp}]$), accompanied by a slight decrease in BERTScore F1 (0.6695 vs 0.6779) and a minor increase in 4-gram repetition (+0.06~pp, 3.74\% vs 3.68\%). Continuous steering at 800 tokens exhibits 3.90\% Rep-4 (vs 3.74\% for Hard Cutoff and 3.68\% baseline), demonstrating that early-stopping activation steering mitigates the repetition amplification observed under continuous injection while maintaining higher reference-preference accuracy under Hard Cutoff ($K=16$).
+Reference-preference accuracy is a semantic proxy for factual alignment rather than a clinician-adjudicated correctness rate. Equal initial $\alpha_0$ produces unequal cumulative doses across schedules (Section~\ref{sec:taxonomy}). Validation hyperparameter grid search across the full validation split ($N_{\text{val}}=2,223$) identified optimal configuration at Layer~8, cutoff $K=16$, and scale $\alpha_0=18.0$. Applying this selected configuration to the disjoint evaluation test set ($N_{\text{test}}=500$) yields 77.40\% RefPref accuracy under Linear Decay. When $\alpha(t)=0$ for $t > K$, the hook applies no additive modification ($\hat{h}_8^{(t)} = h_8^{(t)}$, $\Delta_{\text{norm}} = 0.00$ by construction), confirming immediate cessation of direct vector injection at Layer~8 and avoiding the persistent norm elevation ($\Delta=+1.90$ active, $+2.51$ post-16) observed under continuous steering. Crucially, paired evaluation against an independent unsteered baseline reveals no statistically significant difference in post-cutoff internal pre-hook activation magnitudes ($51.84$ vs $52.20$, mean prompt-level difference $-0.36$, sample SD $= 1.54$, paired $t$-test $p=0.1050 > 0.05$, $95\%$ CI $[-0.80, +0.08]$); while no mean norm difference was detected by this test at Layer~8, this finding establishes non-significance rather than mathematical proof of strict equivalence. Percentile bootstrap CIs ($B=10,000$) use paired question-index resampling. Isotropic placebo controls ($N=100$, $55.82\% \pm 4.15\%$) confirm $+v_{\text{steer}}$ ($77.40\%$) achieves an empirical rank of $1/101$ ($p_{\text{emp}}=0.0099$) at $z_{\text{sep}}=5.20$ standard deviations above the random baseline mean. Under high-cap natural completion (\texttt{max\_new\_tokens=800}), Hard Cutoff ($K=16$) maintains 100.00\% EOS hit rate while improving preference accuracy (+5.20~pp over baseline: 70.60\% vs 65.40\%, exact binomial McNemar $p=0.00086$, $p_{\text{adj}}=0.0026$, 95\% Bootstrap CI $[+2.40\text{ pp}, +8.20\text{ pp}]$), accompanied by a slight decrease in BERTScore F1 (0.6695 vs 0.6779) and a minor increase in 4-gram repetition (+0.06~pp, 3.74\% vs 3.68\%). Continuous steering at 800 tokens exhibits 3.90\% Rep-4 (vs 3.74\% for Hard Cutoff and 3.68\% baseline), demonstrating that early-stopping activation steering mitigates the repetition amplification observed under continuous injection while maintaining higher reference-preference accuracy under Hard Cutoff ($K=16$).
 
 \section{Conclusion}\label{sec:conclusion}
 We introduced Early-Stopping Activation Steering, a temporally bounded inference-time intervention for Vietnamese clinical Small Language Models. Evaluated on ViHaluEval-Medical (14,700 expert-structured pairs, 14,674 core clinical pairs derived from the Vietnamese National Drug Formulary, 2nd Edition, 2018), restricting steering to initial $K=16$ decoding steps yields reference-preference alignment with zero model-weight updates and zero retrieval latency. Under natural completion (\texttt{max\_new\_tokens=800}), Hard Cutoff ($K=16$) achieves 70.60\% RefPref accuracy (+5.20~pp, exact McNemar $p=0.00086$, Holm-adjusted $p_{\text{adj}}=0.0026$). Under bounded stress testing (\texttt{max\_new\_tokens=200}), Linear Decay ($K=16$) achieves 77.40\% (+4.20~pp, exact McNemar $p=0.0055$, Holm-adjusted $p_{\text{adj}}=0.0165$). Compared to non-oracle BM25 RAG (68.60\%), early-stopping steering provides +8.80~pp higher RefPref accuracy ($p=3.85 \times 10^{-7}$), offering a practical alignment mechanism warranting clinician-adjudicated validation.
