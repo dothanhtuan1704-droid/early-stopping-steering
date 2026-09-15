@@ -38,6 +38,7 @@
 \newcommand{\vn}[1]{{\fontencoding{T5}\selectfont #1}}
 
 \begin{document}
+\pagestyle{empty}
 
 \title{Early-Stopping Activation Steering for Factual Preference Alignment in Vietnamese Medical Language Models}
 \titlerunning{Early-Stopping Activation Steering for Vietnamese Medical LMs}
@@ -136,7 +137,7 @@ class SteeringHookHandler:
         return output
 \end{lstlisting}
 
-Retrieval-Augmented Generation (RAG) uses 14,576 passages ($180 \pm 45$ words / $215 \pm 52$ Qwen subword tokens) from the drug formulary \cite{ref6}, evaluating Lexical BM25 (\texttt{pyvi.ViTokenizer}, $k_1=1.5, b=0.75$), Dense Retrieval (\texttt{BAAI/bge-m3}, 1024-d cosine similarity), and Hybrid RRF ($k_{\text{rrf}}=60$). Top-1 passage ($k=1$) is formatted into ChatML context prompt. Passage retrieval performance measures Mean Reciprocal Rank up to evaluation depth $k=10$: $\text{MRR}@10 = \frac{1}{|Q|} \sum_{i=1}^{|Q|} \text{RR}_{10}(q_i)$, where $\text{RR}_{10}(q_i) = 1/r_i$ if the ground-truth monograph chunk is retrieved at rank $r_i \le 10$, and $0$ if no matching chunk appears within the top 10, retaining all $|Q|=500$ evaluation queries in the denominator. Hyperparameter selection (layer $l=8$, cutoff $K=16$, scale $\alpha_0=18.0$) was performed on validation split ($N_{\text{val}}=2,223, N_{\text{eval}}=500$). Complete raw output manifests (\texttt{evaluation\_logs.jsonl}), per-sample generated texts, test split indices (\texttt{test\_ids.json}), steering vector weights (\texttt{v\_steer.pt}), and evaluation scripts are available in the public project repository (\url{https://github.com/dothanhtuan1704-droid/early-stopping-steering}).
+Retrieval-Augmented Generation (RAG) uses 14,576 passages ($180 \pm 45$ words / $215 \pm 52$ Qwen subword tokens) from the drug formulary \cite{ref6}, evaluating Lexical BM25 (\texttt{pyvi.ViTokenizer}, $k_1=1.5, b=0.75$), Dense Retrieval (\texttt{BAAI/bge-m3}, 1024-d cosine similarity), and Hybrid RRF ($k_{\text{rrf}}=60$). Top-1 passage ($k=1$) is formatted into ChatML context prompt. Passage retrieval performance measures Mean Reciprocal Rank up to evaluation depth $k=10$: $\text{MRR}@10 = \frac{1}{|Q|} \sum_{i=1}^{|Q|} \text{RR}_{10}(q_i)$, where $\text{RR}_{10}(q_i) = 1/r_i$ if the ground-truth monograph chunk is retrieved at rank $r_i \le 10$, and $0$ if no matching chunk appears within the top 10, retaining all $|Q|=500$ evaluation queries in the denominator. Hyperparameter selection (layer $l=8$, cutoff $K=16$, scale $\alpha_0=18.0$) was performed via grid search across the entire validation split ($N_{\text{val}}=2,223$), completely disjoint from the final evaluation test set ($N_{\text{test}}=500$). Complete raw output manifests (\texttt{evaluation\_logs.jsonl}), per-sample generated texts, test split indices (\texttt{test\_ids.json}), steering vector weights (\texttt{v\_steer.pt}), and evaluation scripts are available in the public project repository (\url{https://github.com/dothanhtuan1704-droid/early-stopping-steering}).
 
 \section{Results}\label{sec:results}
 

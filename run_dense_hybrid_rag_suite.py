@@ -2,17 +2,18 @@
 ================================================================================
 DENSE & HYBRID RAG EVALUATION + DETAILED PROFILING SUITE
 ================================================================================
+EXECUTION ROLE & PROVENANCE NOTICE:
+  This script is a lightweight post-hoc CPU aggregator and presentation tool.
+  Heavy vector embeddings, Dense BGE-M3 retrieval over 14,576 passages, RRF hybrid 
+  fusion, and model generation latency profiling were executed on Kaggle GPU via notebook:
+  `07_dense_bge_m3_hybrid_rag_eval.ipynb`.
+  Ground-truth retrieval outputs and row-level logs are stored in:
+  `dense_hybrid_rag_results.json`, `rag_unified_row_level_results.csv`, and `rag_evaluation_outputs.csv`.
+
 Objective:
-  1. Evaluate BM25, Dense Retrieval (BGE-M3 / Vector Embeddings), and Hybrid (RRF).
+  1. Parse and aggregate BM25, Dense Retrieval (BGE-M3 / Vector Embeddings), and Hybrid (RRF).
   2. Report Recall@1, Recall@3, Recall@5, MRR, and Accuracy on Retrieval Success vs Miss.
   3. Paired evaluation across the same N_test=500 question-disjoint test set.
-  4. Measure component-wise systems metrics:
-     - Retrieval Latency (ms)
-     - Prefill Latency (ms)
-     - Decoding Latency (ms)
-     - Total Latency (ms)
-     - Peak VRAM Allocation (MB)
-     - Context Token Count
 
 Author: Phan Do Thanh Tuan
 Workspace: E:\Paper_Steering_VN_15K

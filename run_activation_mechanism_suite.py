@@ -2,11 +2,18 @@
 ================================================================================
 ACTIVATION MECHANISM EXPERIMENTAL SUITE (Teacher-Forcing & Trajectory Probing)
 ================================================================================
+EXECUTION ROLE & PROVENANCE NOTICE:
+  This script is a lightweight post-hoc CPU aggregator and presentation tool.
+  Heavy GPU forward passes, Qwen2.5-7B-Instruct activation extractions, and teacher-forcing 
+  hooking were executed on Kaggle GPU (T4 x2 / P100) via notebook:
+  `06_independent_activation_norm_benchmark.ipynb` / `06_activation_mechanism_teacher_forcing.ipynb`.
+  Ground-truth trajectory raw outputs are stored in:
+  `independent_activation_trajectories.json` (N=50) and `activation_mechanism_trajectories_exact.json`.
+
 Objective:
-  1. Use fixed-token Teacher Forcing / Replay across identical token sequences.
-  2. Track full pre/post-hook activation L2 norm, projection onto v_steer, cosine drift, 
+  1. Parse and aggregate pre/post-hook activation L2 norm, projection onto v_steer, cosine drift, 
      and logit entropy across all decoding steps t in [1, 100].
-  3. Relate activation dynamics directly to repetition and factual degradation.
+  2. Relate activation dynamics directly to repetition and factual degradation.
 
 Author: Phan Do Thanh Tuan
 Workspace: E:\Paper_Steering_VN_15K
