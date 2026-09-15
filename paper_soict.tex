@@ -126,12 +126,16 @@ where $G_4(\hat{y}_i)$ denotes consecutive word 4-grams extracted via whitespace
 \begin{lstlisting}[language=Python,basicstyle=\ttfamily\tiny,aboveskip=2pt,belowskip=2pt,breaklines=true,columns=flexible]
 class SteeringHookHandler:
     def __init__(self, v_steer, alpha_0=18.0, K=16, schedule="linear_decay"):
+        if schedule not in ("linear_decay", "hard_cutoff", "continuous"):
+            raise ValueError(f"Unknown schedule: {schedule}")
         self.v_steer, self.alpha_0, self.K, self.schedule, self.t = v_steer, alpha_0, K, schedule, 0
     def hook_fn(self, module, input, output):
         out = output[0] if isinstance(output, tuple) else output
         if out.shape[1] > 1: self.t = 0; return output
         self.t += 1
-        a_t = self.alpha_0 * max(0.0, 1.0 - (self.t-1)/self.K) if self.schedule == "linear_decay" else (self.alpha_0 if self.t <= self.K else 0.0)
+        if self.schedule == "linear_decay": a_t = self.alpha_0 * max(0.0, 1.0 - (self.t-1)/self.K)
+        elif self.schedule == "hard_cutoff": a_t = self.alpha_0 if self.t <= self.K else 0.0
+        elif self.schedule == "continuous": a_t = self.alpha_0
         if a_t != 0.0: out[:, -1, :] += a_t * self.v_steer.to(device=out.device, dtype=out.dtype)
         return output
 \end{lstlisting}
