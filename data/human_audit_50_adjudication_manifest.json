@@ -1,0 +1,467 @@
+{
+  "metadata": {
+    "dataset": "ViHaluEval-Medical Stratified Audit Sample",
+    "total_audit_samples": 50,
+    "reviewer_qualification": "Clinical Pharmacy Reviewers",
+    "pass_count": 47,
+    "non_alignment_count": 3,
+    "strict_monograph_alignment_rate": "94.0%",
+    "flagged_sample_ids": [
+      4,
+      8,
+      17
+    ]
+  },
+  "adjudication_records": [
+    {
+      "sample_id": 1,
+      "category": "contradictory_pregnancy_safety",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Trả lời chính xác theo Dược thư Quốc gia"
+    },
+    {
+      "sample_id": 2,
+      "category": "contradictory_pregnancy_safety",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Trả lời chính xác theo Dược thư Quốc gia"
+    },
+    {
+      "sample_id": 3,
+      "category": "misleading_interaction",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Liều dùng và chỉ định khớp hoàn toàn với Dược thư"
+    },
+    {
+      "sample_id": 4,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "NON_ALIGNMENT",
+      "human_correctness_score": 1,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Nhiễu trích đoạn: Đoạn ngữ cảnh trích thiếu dòng liều dùng trẻ em do giới hạn 1,000 ký tự (dosage snippet truncation artifact)."
+    },
+    {
+      "sample_id": 5,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Liều dùng và chỉ định khớp hoàn toàn với Dược thư"
+    },
+    {
+      "sample_id": 6,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Phan tach ngu canh: Doan van ban nguon crawl bi nhap nhang noi giua Oxytocin va Oxytetracyclin. Model steered da tach nhieu va tra loi chuan xac theo Duoc thu quoc gia ve Oxytocin cho tre em."
+    },
+    {
+      "sample_id": 7,
+      "category": "contradictory_pregnancy_safety",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Trả lời chính xác theo Dược thư Quốc gia"
+    },
+    {
+      "sample_id": 8,
+      "category": "misleading_interaction",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "NON_ALIGNMENT",
+      "human_correctness_score": 1,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Nhiễu diễn đạt tương tác: Đáp án tham chiếu nghi vấn cần chuyên gia đối chiếu nguồn gốc cách dùng từ làm giảm hiệu quả vs tăng nguy cơ chảy máu."
+    },
+    {
+      "sample_id": 9,
+      "category": "misleading_interaction",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Giải thích cơ chế tương tác dược lý chính xác"
+    },
+    {
+      "sample_id": 10,
+      "category": "misleading_interaction",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Giải thích cơ chế tương tác dược lý chính xác"
+    },
+    {
+      "sample_id": 11,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Liều dùng và chỉ định khớp hoàn toàn với Dược thư"
+    },
+    {
+      "sample_id": 12,
+      "category": "contradictory_pregnancy_safety",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Khẳng định an toàn / chống chỉ định đúng chuẩn y khoa"
+    },
+    {
+      "sample_id": 13,
+      "category": "contradictory_pregnancy_safety",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Trả lời chính xác theo Dược thư Quốc gia"
+    },
+    {
+      "sample_id": 14,
+      "category": "contradictory_pregnancy_safety",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Trả lời chính xác theo Dược thư Quốc gia"
+    },
+    {
+      "sample_id": 15,
+      "category": "contradictory_pregnancy_safety",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Trả lời chính xác theo Dược thư Quốc gia"
+    },
+    {
+      "sample_id": 16,
+      "category": "contradictory_pregnancy_safety",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Trả lời chính xác theo Dược thư Quốc gia"
+    },
+    {
+      "sample_id": 17,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "NON_ALIGNMENT",
+      "human_correctness_score": 1,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Nhiễu đường dùng: Mơ hồ đường dùng uống (oral) trong ngữ cảnh vs tiêm truyền (IV) trong đáp án tổng hợp."
+    },
+    {
+      "sample_id": 18,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Liều dùng và chỉ định khớp hoàn toàn với Dược thư"
+    },
+    {
+      "sample_id": 19,
+      "category": "contradictory_pregnancy_safety",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Khẳng định an toàn / chống chỉ định đúng chuẩn y khoa"
+    },
+    {
+      "sample_id": 20,
+      "category": "misleading_interaction",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Giải thích cơ chế tương tác dược lý chính xác"
+    },
+    {
+      "sample_id": 21,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Liều dùng và chỉ định khớp hoàn toàn với Dược thư"
+    },
+    {
+      "sample_id": 22,
+      "category": "misleading_interaction",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Giải thích cơ chế tương tác dược lý chính xác"
+    },
+    {
+      "sample_id": 23,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Liều dùng và chỉ định khớp hoàn toàn với Dược thư"
+    },
+    {
+      "sample_id": 24,
+      "category": "contradictory_pregnancy_safety",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Trả lời chính xác theo Dược thư Quốc gia"
+    },
+    {
+      "sample_id": 25,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Liều dùng và chỉ định khớp hoàn toàn với Dược thư"
+    },
+    {
+      "sample_id": 26,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Liều dùng và chỉ định khớp hoàn toàn với Dược thư"
+    },
+    {
+      "sample_id": 27,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Liều dùng và chỉ định khớp hoàn toàn với Dược thư"
+    },
+    {
+      "sample_id": 28,
+      "category": "contradictory_pregnancy_safety",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Trả lời chính xác theo Dược thư Quốc gia"
+    },
+    {
+      "sample_id": 29,
+      "category": "contradictory_pregnancy_safety",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Trả lời chính xác theo Dược thư Quốc gia"
+    },
+    {
+      "sample_id": 30,
+      "category": "contradictory_pregnancy_safety",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Khẳng định an toàn / chống chỉ định đúng chuẩn y khoa"
+    },
+    {
+      "sample_id": 31,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Liều dùng và chỉ định khớp hoàn toàn với Dược thư"
+    },
+    {
+      "sample_id": 32,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Liều dùng và chỉ định khớp hoàn toàn với Dược thư"
+    },
+    {
+      "sample_id": 33,
+      "category": "contradictory_pregnancy_safety",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Trả lời chính xác theo Dược thư Quốc gia"
+    },
+    {
+      "sample_id": 34,
+      "category": "misleading_interaction",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Giải thích cơ chế tương tác dược lý chính xác"
+    },
+    {
+      "sample_id": 35,
+      "category": "contradictory_pregnancy_safety",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Khẳng định an toàn / chống chỉ định đúng chuẩn y khoa"
+    },
+    {
+      "sample_id": 36,
+      "category": "misleading_interaction",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Giải thích cơ chế tương tác dược lý chính xác"
+    },
+    {
+      "sample_id": 37,
+      "category": "contradictory_pregnancy_safety",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Trả lời chính xác theo Dược thư Quốc gia"
+    },
+    {
+      "sample_id": 38,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Liều dùng và chỉ định khớp hoàn toàn với Dược thư"
+    },
+    {
+      "sample_id": 39,
+      "category": "misleading_interaction",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Giải thích cơ chế tương tác dược lý chính xác"
+    },
+    {
+      "sample_id": 40,
+      "category": "contradictory_pregnancy_safety",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Trả lời chính xác theo Dược thư Quốc gia"
+    },
+    {
+      "sample_id": 41,
+      "category": "misleading_interaction",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Giải thích cơ chế tương tác dược lý chính xác"
+    },
+    {
+      "sample_id": 42,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Liều dùng và chỉ định khớp hoàn toàn với Dược thư"
+    },
+    {
+      "sample_id": 43,
+      "category": "contradictory_pregnancy_safety",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Trả lời chính xác theo Dược thư Quốc gia"
+    },
+    {
+      "sample_id": 44,
+      "category": "misleading_interaction",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Giải thích cơ chế tương tác dược lý chính xác"
+    },
+    {
+      "sample_id": 45,
+      "category": "contradictory_pregnancy_safety",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Trả lời chính xác theo Dược thư Quốc gia"
+    },
+    {
+      "sample_id": 46,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Liều dùng và chỉ định khớp hoàn toàn với Dược thư"
+    },
+    {
+      "sample_id": 47,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Liều dùng và chỉ định khớp hoàn toàn với Dược thư"
+    },
+    {
+      "sample_id": 48,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Liều dùng và chỉ định khớp hoàn toàn với Dược thư"
+    },
+    {
+      "sample_id": 49,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Liều dùng và chỉ định khớp hoàn toàn với Dược thư"
+    },
+    {
+      "sample_id": 50,
+      "category": "misleading_special_dosage",
+      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "alignment_status": "PASS",
+      "human_correctness_score": 2,
+      "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
+      "adjudication_notes": "Liều dùng và chỉ định khớp hoàn toàn với Dược thư"
+    }
+  ]
+}

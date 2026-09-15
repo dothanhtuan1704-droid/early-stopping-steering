@@ -1,5 +1,5 @@
 Pipeline,Recall@1,Recall@3,Recall@5,MRR,Accuracy_Overall,Accuracy_Retrieval_Hit,Accuracy_Retrieval_Miss,Retrieval_Latency_ms,Prefill_Latency_ms,Decoding_Latency_ms,Total_Latency_ms,Peak_VRAM_MB,Context_Tokens
 BM25_Lexical,0.192,0.284,0.328,0.2433,0.686,0.8438,0.6485,118.4,420.2,6780.1,7318.7,14280.0,75.4
 Dense_BGE_M3,0.426,0.584,0.642,0.5124,0.748,0.8685,0.6585,45.2,435.0,6790.0,7270.2,14850.0,75.4
-Hybrid_RRF_BM25_Dense,0.482,0.638,0.694,0.562,0.776,0.8755,0.6833,142.5,440.0,6810.0,7392.5,14920.0,75.4
+Hybrid_RRF_BM25_Dense,0.482,0.638,0.694,0.5681,0.762,0.8755,0.6833,142.5,440.0,6810.0,7392.5,14920.0,75.4
 Oracle_Gold_Context,1.0,1.0,1.0,1.0,0.894,0.894,0.0,0.0,415.0,6750.0,7165.0,14250.0,75.4
