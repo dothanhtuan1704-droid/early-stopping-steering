@@ -24,7 +24,15 @@
 \usepackage[htt]{hyphenat}
 \emergencystretch=4em
 
-% --- LNCS Page Optimization Controls ---
+% --- LNCS Page Optimization & Float Alignment Controls ---
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.9}
+\makeatletter
+\setlength{\@fptop}{0pt}
+\setlength{\@fpbot}{0pt plus 1fil}
+\makeatother
 \setlength{\floatsep}{2pt plus 1pt minus 1pt}
 \setlength{\textfloatsep}{3pt plus 1pt minus 1pt}
 \setlength{\intextsep}{2pt plus 1pt minus 1pt}
@@ -147,7 +155,7 @@ Retrieval-Augmented Generation (RAG) uses 14,576 passages ($180 \pm 45$ words / 
 \subsection{Primary Performance Evaluation Regimes}\label{sec:primary_results}
 To systematically evaluate model alignment across response length constraints, we test all configurations under two explicit generation horizon regimes: (i)~\textbf{Bounded Stress Test ($\text{max\_new\_tokens}=200$)}, evaluating concise clinical answers, and (ii)~\textbf{High-Cap Natural Completion ($\text{max\_new\_tokens}=800$)}, evaluating high-cap natural completion. Table~\ref{tab:unified_primary_matrix} presents the unified performance matrix across both regimes.
 
-\begin{table}[!htbp]
+\begin{table}[!t]
 \caption{Unified primary performance matrix across response horizon regimes ($N_{\text{test}}=500$, Layer 8) and paired statistical significance vs unsteered baseline.}
 \label{tab:unified_primary_matrix}
 \centering
@@ -173,8 +181,9 @@ Linear Decay ($K{=}16$) & 67.80 & 0.6732 & 21.15 & 3.74 & 0.1189 & $[-0.20, +5.0
 \bottomrule
 \end{tabular}%
 }
+\vspace{-2pt}
 \begin{flushleft}
-\footnotesize Note: Evaluated on test split $N_{\text{test}}=500$ (\texttt{test\_ids.json}) via \texttt{evaluate\_xls\_results.py} / \texttt{master\_final\_evaluation.py} on raw output manifests (\texttt{phase6b\_v2\_bertscore\_clinical\_results.json}, \texttt{exp10\_merged\_500\_results.json}). Paired contingency counts ($a,b,c,d$): Panel A Linear Decay (350, 16, 37, 97, $p_{\text{adj}}=0.0165$), Hard Cutoff (350, 16, 35, 99, $p_{\text{adj}}=0.0219$), Continuous (349, 17, 29, 105, $p_{\text{adj}}=0.1038$). Panel B Hard Cutoff (311, 16, 42, 131, $p_{\text{adj}}=0.0026$), Continuous (309, 18, 34, 139, $p_{\text{adj}}=0.0730$), Linear Decay (308, 19, 31, 142, $p_{\text{adj}}=0.1189$), where $b$: baseline win, $c$: steered win. Holm-adjusted $p_{\text{adj}}$ values reported. 95\% CIs via $B=10,000$ bootstrap. Rep-4 evaluated via whitespace 4-gram macro-average. EOS Hit Rate: Panel B all conditions achieve 99.60\%--100.00\% natural EOS termination.
+\scriptsize Note: Evaluated on test split $N_{\text{test}}=500$ (\texttt{test\_ids.json}) via \texttt{evaluate\_xls\_results.py} / \texttt{master\_final\_evaluation.py} on raw output manifests (\texttt{phase6b\_v2\_bertscore\_clinical\_results.json}, \texttt{exp10\_merged\_500\_results.json}). Paired contingency counts ($a,b,c,d$): Panel A Linear Decay (350, 16, 37, 97, $p_{\text{adj}}=0.0165$), Hard Cutoff (350, 16, 35, 99, $p_{\text{adj}}=0.0219$), Continuous (349, 17, 29, 105, $p_{\text{adj}}=0.1038$). Panel B Hard Cutoff (311, 16, 42, 131, $p_{\text{adj}}=0.0026$), Continuous (309, 18, 34, 139, $p_{\text{adj}}=0.0730$), Linear Decay (308, 19, 31, 142, $p_{\text{adj}}=0.1189$), where $b$: baseline win, $c$: steered win. Holm-adjusted $p_{\text{adj}}$ values reported. 95\% CIs via $B=10,000$ bootstrap. Rep-4 evaluated via whitespace 4-gram macro-average. EOS Hit Rate: Panel B all conditions achieve 99.60\%--100.00\% natural EOS termination.
 \end{flushleft}
 \end{table}
 
@@ -194,7 +203,7 @@ where $h_8^{(t)}$ is the pre-hook Layer~8 hidden tensor and $\hat{h}_8^{(t)} = h
 \subsection{Directional Specificity Controls, Placebo Baselines \& RAG Comparisons}\label{sec:baselines_rag}
 Table~\ref{tab:baselines} reports performance across controls and multi-retriever RAG. Negative steering ($-v_{\text{steer}}$) reduces RefPref to 62.80\%. Isotropic random controls ($N=100$, $55.82\% \pm 4.15\%$) confirm $+v_{\text{steer}}$ ($77.40\%$) achieves an empirical rank of $1/101$ ($p_{\text{emp}} = 0.0099$) at $z_{\text{sep}}=5.20$ standard deviations above the random baseline mean. Linear Decay steering (+8.80~pp over BM25 RAG 68.60\%, exact McNemar $p = 3.85 \times 10^{-7}$, paired counts $b=16, c=60$) achieves accuracy competitive with Hybrid RRF RAG (76.20\%, McNemar $p = 0.4709$, paired counts $b=21, c=27$) without context window expansion.
 
-\begin{table}[!htbp]
+\begin{table}[!t]
 \caption{Comparison against directional controls, placebo baselines, and multi-retriever RAG ($N_{\text{test}}=500$, \texttt{max\_new\_tokens=200}).}
 \label{tab:baselines}
 \centering
@@ -217,18 +226,19 @@ Oracle Gold-Context RAG & 447 / 500 & 89.40 & 100.0\% & 1.0000 & \textbf{0.8002}
 \bottomrule
 \end{tabular}%
 }
+\vspace{-2pt}
 \begin{flushleft}
-\footnotesize Note: Evaluated on test split $N_{\text{test}}=500$ (\texttt{test\_ids.json}). Placebo controls ($N=100$) evaluated via \texttt{run\_100\_placebo\_benchmark.py} (\texttt{placebo\_part*.csv}). RAG baselines evaluated via \texttt{run\_dense\_hybrid\_rag\_suite.py} / \texttt{run\_unified\_rag\_suite\_exact.py}. Paired McNemar counts vs Steering ($+v_{\text{steer}}$): vs BM25 RAG ($b=16$ BM25 win, $c=60$ Steering win, $p=3.85\times 10^{-7}$); vs Hybrid RAG ($b=21$ Hybrid win, $c=27$ Steering win, $p=0.4709$). $^\dagger$\,Profiled in separate Kaggle T4 sessions.
+\scriptsize Note: Evaluated on test split $N_{\text{test}}=500$ (\texttt{test\_ids.json}). Placebo controls ($N=100$) evaluated via \texttt{run\_100\_placebo\_benchmark.py} (\texttt{placebo\_part*.csv}). RAG baselines evaluated via \texttt{run\_dense\_hybrid\_rag\_suite.py} / \texttt{run\_unified\_rag\_suite\_exact.py}. Paired McNemar counts vs Steering ($+v_{\text{steer}}$): vs BM25 RAG ($b=16$ BM25 win, $c=60$ Steering win, $p=3.85\times 10^{-7}$); vs Hybrid RAG ($b=21$ Hybrid win, $c=27$ Steering win, $p=0.4709$). $^\dagger$\,Profiled in separate Kaggle T4 sessions.
 \end{flushleft}
 \end{table}
 
 \subsection{Controlled Steering Strength Ablation}
 Initial steering strength ablation (Table~\ref{tab:equal_alpha_ablation}) evaluating finite-window schedules ($K=16$) across initial strengths $\alpha_0 \in \{15.0, 18.0, 20.0\}$ alongside Nominal Matched Dose ($\alpha_{\text{match}} = 0.0425 \alpha_0$) against the optimal continuous reference baseline ($\alpha_0=18.0$) confirms Linear Decay ($K=16$) achieves peak accuracy at $\alpha_0 = 18.0$ (77.40\% RefPref, 3.88\% Rep-4).
 
-\begin{table}[!htbp]
-\centering
+\begin{table}[!t]
 \caption{Initial steering strength ablation across intervention schedules ($N_{\text{test}}=500$, \texttt{max\_new\_tokens=200}).}
 \label{tab:equal_alpha_ablation}
+\centering
 \small
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{llcccc}
@@ -238,7 +248,7 @@ Initial steering strength ablation (Table~\ref{tab:equal_alpha_ablation}) evalua
 -- & Unsteered Baseline & 73.20 & 0.7134 & 23.12 & 3.67 \\
 \midrule
 \multirow{4}{*}{15.0}
- & Continuous reference ($\alpha_0=18.0$) & 75.60 & 0.7133 & 23.36 & 3.90 \\
+ & Continuous reference ($\alpha_0=18.0$) & 75.60 & 0.7133 & \textbf{23.36} & 3.90 \\
  & Hard Cutoff ($K{=}16$) & \textbf{75.80} & \textbf{0.7146} & 23.11 & 3.73 \\
  & Linear Decay ($K{=}16$) & 75.60 & 0.7142 & 23.10 & 4.03 \\
  & Nominal Matched Dose & 75.40 & 0.7144 & \textbf{23.40} & 3.78 \\
@@ -257,17 +267,18 @@ Initial steering strength ablation (Table~\ref{tab:equal_alpha_ablation}) evalua
 \bottomrule
 \end{tabular}%
 }
+\vspace{-2pt}
 \begin{flushleft}
-\footnotesize Note: Evaluated on \texttt{test\_ids.json} ($N_{\text{test}}=500$, \texttt{max\_new\_tokens=200}) via \texttt{analyze\_all\_new\_results.py}. Continuous ($K{=}\infty$) performance is reported at optimal scale $\alpha_0=18.0$. Nominal Matched Dose sets per-token coefficient $\alpha_{\text{match}} = 0.0425 \alpha_0$.
+\scriptsize Note: Evaluated on \texttt{test\_ids.json} ($N_{\text{test}}=500$, \texttt{max\_new\_tokens=200}) via \texttt{analyze\_all\_new\_results.py}. Continuous ($K{=}\infty$) performance is reported at optimal scale $\alpha_0=18.0$. Nominal Matched Dose sets per-token coefficient $\alpha_{\text{match}} = 0.0425 \alpha_0$.
 \end{flushleft}
 \end{table}
 
 \subsection{Temporal Shift, Prefix Disentanglement \& Combined RAG Evaluation}\label{sec:advanced_analysis}
-\textbf{Temporal Window Injection Shift Control.} Evaluating injection timing shifts under Hard Cutoff ($\alpha_0=18.0$, Layer 8) reveals distinct behavior across generation horizons. Early intervention ($t \in [1, 16]$) achieves 3.74\% Rep-4 under extended completion (\texttt{max\_new\_tokens=800}; 3.89\% under bounded stress testing \texttt{max\_new\_tokens=200}), whereas Linear Decay ($K=16$) yields 3.88\% under bounded stress testing and 3.74\% under natural completion. Under extended completion (\texttt{max\_new\_tokens=800}), delayed injection ($t \in [17, 32]$) yields 3.92\% Rep-4. Under bounded stress testing (\texttt{max\_new\_tokens=200}), later injection ($t \in [33, 48]$) yields 72.80\% RefPref (364/500), which represents a net difference of 2 questions out of 500 items compared directly to the 200-token unsteered baseline (73.20\%, 366/500; paired counts $b=16, c=14$, exact McNemar $p=0.8555$), where no statistically significant difference was detected.
+\textbf{Temporal Window Injection Shift Control.} Evaluating injection timing shifts under Hard Cutoff ($\alpha_0=18.0$, Layer 8) reveals distinct behavior across generation horizons. Early intervention ($t \in [1, 16]$) achieves 3.74\% Rep-4 under extended completion (\texttt{max\_new\_tokens=800}; 3.89\% under bounded stress testing \texttt{max\_new\_tokens=200}), whereas Linear Decay ($K=16$) yields 3.88\% under bounded stress testing and 3.74\% under natural completion. Under extended completion (\texttt{max\_new\_tokens=800}), delayed injection ($t \in [17, 32]$) yields 3.92\% Rep-4. Under bounded stress testing (\texttt{max\_new\_tokens=200}), later injection ($t \in [33, 48]$) yields 72.80\% RefPref (364/500), which represents a net difference of 2 questions out of 500 items compared directly to the 200-token unsteered baseline (73.20%, 366/500; paired counts $b=16, c=14$, exact McNemar $p=0.8555$), where no statistically significant difference was detected.
 
 \textbf{Prefix Length Disentanglement Analysis.} Truncated prefix evaluation (Table~\ref{tab:prefix_disentanglement}) confirms persistent positive RefPref gains (+3.80 to +5.40~pp over baseline) across sequence boundaries ($T \in \{50, 100, 200, 400, 800\}$ tokens), demonstrating persistent relative ranking over baseline across truncation boundaries.
 
-\begin{table}[!htbp]
+\begin{table}[!t]
 \centering
 \caption{Truncated prefix RefPref accuracy (\%) across sequence length boundaries ($N_{\text{test}}=500$).}
 \label{tab:prefix_disentanglement}
@@ -285,8 +296,9 @@ Hard Cutoff ($K{=}16$) & 75.80 & 76.40 & 77.00 & 73.20 & 70.60 \\
 \bottomrule
 \end{tabular}%
 }
+\vspace{-2pt}
 \begin{flushleft}
-\footnotesize Note: Evaluated on \texttt{test\_ids.json} ($N=500$) via \texttt{eval\_prefix\_disentanglement\_fast.py} across sequence truncation boundaries $T \in \{50, 100, 200, 400, 800\}$.
+\scriptsize Note: Evaluated on \texttt{test\_ids.json} ($N=500$) via \texttt{eval\_prefix\_disentanglement\_fast.py} across sequence truncation boundaries $T \in \{50, 100, 200, 400, 800\}$.
 \end{flushleft}
 \end{table}
 
