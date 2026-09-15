@@ -25,13 +25,13 @@
 \emergencystretch=4em
 
 % --- LNCS Page Optimization Controls ---
-\setlength{\floatsep}{3pt plus 1pt minus 1pt}
-\setlength{\textfloatsep}{4pt plus 1pt minus 1pt}
-\setlength{\intextsep}{3pt plus 1pt minus 1pt}
+\setlength{\floatsep}{2pt plus 1pt minus 1pt}
+\setlength{\textfloatsep}{3pt plus 1pt minus 1pt}
+\setlength{\intextsep}{2pt plus 1pt minus 1pt}
 \setlength{\abovecaptionskip}{1pt}
 \setlength{\belowcaptionskip}{1pt}
-\setlength{\abovedisplayskip}{2pt plus 1pt minus 1pt}
-\setlength{\belowdisplayskip}{2pt plus 1pt minus 1pt}
+\setlength{\abovedisplayskip}{1.5pt plus 1pt minus 1pt}
+\setlength{\belowdisplayskip}{1.5pt plus 1pt minus 1pt}
 \setlength{\abovedisplayshortskip}{1pt plus 1pt minus 1pt}
 \setlength{\belowdisplayshortskip}{1pt plus 1pt minus 1pt}
 
@@ -66,7 +66,7 @@ Recently, Representation Engineering (RepE) \cite{ref1} and Inference-Time Inter
 
 However, continuous activation steering ($K=\infty$) induces persistent hidden-state norm elevation over long output sequences, associated with persistent within-run norm offsets. In this paper, we present \textbf{Early-Stopping Activation Steering}, a framework evaluating temporally bounded intervention via Hard Cutoff and Linear Decay schedules restricting vector injection to the first $K=16$ decoding steps ($t \in [1, 16]$, influencing tokens $y_2 \ldots y_{17}$).
 
-Our main contributions are: (i)~\textbf{ViHaluEval-Medical Benchmark:} A benchmark of 14,700 expert-structured Vietnamese clinical Q\&A pairs (14,674 core pairs) derived from the official Vietnamese National Drug Formulary (2nd Edition, 2018) \cite{ref6}, featuring a question-disjoint test split ($N_{\text{test}}=500$). (ii)~\textbf{Dual-Evaluation Paradigm \& Verification Protocol:} Evaluation covering high-cap natural completion (\texttt{max\_new\_tokens=800}) and bounded-generation stress testing (\texttt{max\_new\_tokens=200}), supported by a 50-sample audit manifest (\texttt{human\_evaluation\_completed\_50.csv}) and automated rule cross-checking. (iii)~\textbf{Empirical Activation-Norm Dynamics:} Within-run and independent cross-condition activation-norm tracking at Layer~8, demonstrating persistent norm elevation under continuous steering ($\Delta_{\text{norm}} = +1.90$), immediate cessation of direct displacement post-cutoff ($\Delta_{\text{norm}} = 0.00$), and no statistically significant residual norm offset (paired $t$-test $p=0.1050$, Section~\ref{sec:norm_dynamics}). (iv)~\textbf{Directional Specificity \& Placebo Controls:} Negative steering ($-v_{\text{steer}}$, 62.80\%), label-permutation placebo steering ($v_{\text{shuf}}$, 68.60\%), and $N=100$ independent random vectors ($55.82\% \pm 4.15\%$ SD) confirming $+v_{\text{steer}}$ ($77.40\%$) achieves rank $1/101$ ($p_{\text{emp}} = 0.0099$) at $z_{\text{sep}}=5.20$ standard deviations above random perturbation. (v)~\textbf{Reproducible Statistical Validation:} Exact paired $2\times 2$ binomial McNemar testing ($p=0.0055$, 95\% Bootstrap CI $[+1.40\text{ pp}, +7.00\text{ pp}]$ for bounded stress testing; exact McNemar $p=0.00086$, 95\% Bootstrap CI $[+2.40\text{ pp}, +8.20\text{ pp}]$ for natural completion). (vi)~\textbf{Controlled Strength Ablation:} Controlled initial strength ablation ($\alpha_0 \in \{15.0, 18.0, 20.0\}$) alongside nominal matched dose controls ($\alpha_{\text{match}} = 0.0425 \alpha_0$).
+Our main contributions are: (i)~\textbf{ViHaluEval-Medical Benchmark:} A benchmark of 14,700 expert-structured Vietnamese clinical Q\&A pairs (14,674 core pairs) derived from the official Vietnamese National Drug Formulary (2nd Edition, 2018) \cite{ref6}, featuring an API-level disjoint test split ($N_{\text{test}}=500$). (ii)~\textbf{Dual-Horizon Evaluation Protocol:} Comprehensive evaluation under natural completion ($T=800$) and stress testing ($T=200$), supported by a 50-sample clinician audit manifest (\texttt{human\_evaluation\_completed\_50.csv}) and quality filtering logs (\texttt{removed\_26\_samples\_manifest.json}). (iii)~\textbf{Activation-Norm Dynamics:} Within-run and independent norm tracking at Layer~8, confirming immediate cessation of direct displacement post-cutoff ($\Delta_{\text{norm}}=0.00$) and no statistically significant residual offset ($p=0.1050$). (iv)~\textbf{Directional Specificity Controls:} Negative steering (62.80\%), label-permutation placebo (68.60\%), and $N=100$ isotropic random vectors ($55.82\% \pm 4.15\%$), establishing $z_{\text{sep}}=5.20$ standard deviations separation above random perturbation. (v)~\textbf{Statistical Validation \& Ablation:} Paired $2\times 2$ binomial McNemar testing ($p=0.0055$ at $T=200$; $p=0.00086$ at $T=800$) and strength ablation ($\alpha_0 \in \{15.0, 18.0, 20.0\}$).
 
 \section{Related Work}\label{sec:related}
 \textbf{Hallucination in Clinical LMs.} LLM hallucinations in clinical domains pose unique risks compared to general applications \cite{ref7}. Singhal et al.~\cite{ref3} showed that while large models encode clinical knowledge, they remain prone to factual errors in drug interactions and contraindications. The HaluEval benchmark \cite{ref13} and TruthfulQA \cite{ref16} established evaluation protocols that informed our domain-specific ViHaluEval-Medical benchmark.
@@ -308,7 +308,7 @@ We introduced Early-Stopping Activation Steering, a temporally bounded inference
 
 \begin{thebibliography}{16}
 \small
-\setlength{\itemsep}{-1.5pt}
+\setlength{\itemsep}{-3pt}
 \setlength{\parsep}{0pt}
 \bibitem{ref1} Zou, A. et al.: Representation engineering: A top-down approach to AI transparency. arXiv preprint arXiv:2310.01405 (2023)
 \bibitem{ref2} Li, K. et al.: Inference-time intervention: Eliciting truthful answers from a language model. In: Proc. NeurIPS, vol. 36, pp. 41451--41530 (2023)
