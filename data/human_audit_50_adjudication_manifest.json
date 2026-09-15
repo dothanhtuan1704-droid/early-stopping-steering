@@ -16,7 +16,7 @@
     {
       "sample_id": 1,
       "category": "contradictory_pregnancy_safety",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -25,7 +25,7 @@
     {
       "sample_id": 2,
       "category": "contradictory_pregnancy_safety",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -34,7 +34,7 @@
     {
       "sample_id": 3,
       "category": "misleading_interaction",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -43,7 +43,7 @@
     {
       "sample_id": 4,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "NON_ALIGNMENT",
       "human_correctness_score": 1,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -52,7 +52,7 @@
     {
       "sample_id": 5,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -61,7 +61,7 @@
     {
       "sample_id": 6,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -70,7 +70,7 @@
     {
       "sample_id": 7,
       "category": "contradictory_pregnancy_safety",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -79,7 +79,7 @@
     {
       "sample_id": 8,
       "category": "misleading_interaction",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "NON_ALIGNMENT",
       "human_correctness_score": 1,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -88,7 +88,7 @@
     {
       "sample_id": 9,
       "category": "misleading_interaction",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -97,7 +97,7 @@
     {
       "sample_id": 10,
       "category": "misleading_interaction",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -106,7 +106,7 @@
     {
       "sample_id": 11,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -115,7 +115,7 @@
     {
       "sample_id": 12,
       "category": "contradictory_pregnancy_safety",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -124,7 +124,7 @@
     {
       "sample_id": 13,
       "category": "contradictory_pregnancy_safety",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -133,7 +133,7 @@
     {
       "sample_id": 14,
       "category": "contradictory_pregnancy_safety",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -142,7 +142,7 @@
     {
       "sample_id": 15,
       "category": "contradictory_pregnancy_safety",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -151,7 +151,7 @@
     {
       "sample_id": 16,
       "category": "contradictory_pregnancy_safety",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -160,7 +160,7 @@
     {
       "sample_id": 17,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "NON_ALIGNMENT",
       "human_correctness_score": 1,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -169,7 +169,7 @@
     {
       "sample_id": 18,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -178,7 +178,7 @@
     {
       "sample_id": 19,
       "category": "contradictory_pregnancy_safety",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -187,7 +187,7 @@
     {
       "sample_id": 20,
       "category": "misleading_interaction",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -196,7 +196,7 @@
     {
       "sample_id": 21,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -205,7 +205,7 @@
     {
       "sample_id": 22,
       "category": "misleading_interaction",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -214,7 +214,7 @@
     {
       "sample_id": 23,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -223,7 +223,7 @@
     {
       "sample_id": 24,
       "category": "contradictory_pregnancy_safety",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -232,7 +232,7 @@
     {
       "sample_id": 25,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -241,7 +241,7 @@
     {
       "sample_id": 26,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -250,7 +250,7 @@
     {
       "sample_id": 27,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -259,7 +259,7 @@
     {
       "sample_id": 28,
       "category": "contradictory_pregnancy_safety",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -268,7 +268,7 @@
     {
       "sample_id": 29,
       "category": "contradictory_pregnancy_safety",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -277,7 +277,7 @@
     {
       "sample_id": 30,
       "category": "contradictory_pregnancy_safety",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -286,7 +286,7 @@
     {
       "sample_id": 31,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -295,7 +295,7 @@
     {
       "sample_id": 32,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -304,7 +304,7 @@
     {
       "sample_id": 33,
       "category": "contradictory_pregnancy_safety",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -313,7 +313,7 @@
     {
       "sample_id": 34,
       "category": "misleading_interaction",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -322,7 +322,7 @@
     {
       "sample_id": 35,
       "category": "contradictory_pregnancy_safety",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -331,7 +331,7 @@
     {
       "sample_id": 36,
       "category": "misleading_interaction",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -340,7 +340,7 @@
     {
       "sample_id": 37,
       "category": "contradictory_pregnancy_safety",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -349,7 +349,7 @@
     {
       "sample_id": 38,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -358,7 +358,7 @@
     {
       "sample_id": 39,
       "category": "misleading_interaction",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -367,7 +367,7 @@
     {
       "sample_id": 40,
       "category": "contradictory_pregnancy_safety",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -376,7 +376,7 @@
     {
       "sample_id": 41,
       "category": "misleading_interaction",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -385,7 +385,7 @@
     {
       "sample_id": 42,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -394,7 +394,7 @@
     {
       "sample_id": 43,
       "category": "contradictory_pregnancy_safety",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -403,7 +403,7 @@
     {
       "sample_id": 44,
       "category": "misleading_interaction",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -412,7 +412,7 @@
     {
       "sample_id": 45,
       "category": "contradictory_pregnancy_safety",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -421,7 +421,7 @@
     {
       "sample_id": 46,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -430,7 +430,7 @@
     {
       "sample_id": 47,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -439,7 +439,7 @@
     {
       "sample_id": 48,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -448,7 +448,7 @@
     {
       "sample_id": 49,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
@@ -457,7 +457,7 @@
     {
       "sample_id": 50,
       "category": "misleading_special_dosage",
-      "reviewer_role": "Clinical Pharmacy Reviewer",
+      "reviewer_role": "Formulary Reviewer",
       "alignment_status": "PASS",
       "human_correctness_score": 2,
       "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",

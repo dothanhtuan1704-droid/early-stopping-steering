@@ -56,7 +56,7 @@ def build_manifest():
         record = {
             "sample_id": sample_id,
             "category": category,
-            "reviewer_role": "Clinical Pharmacy Reviewer",
+            "reviewer_role": "Formulary Reviewer",
             "alignment_status": status,
             "human_correctness_score": score,
             "monograph_reference": "Vietnamese National Drug Formulary (2nd Edition, 2018)",
