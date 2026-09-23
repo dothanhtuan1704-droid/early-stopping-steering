@@ -1,25 +1,23 @@
-# Python & Environment
-__pycache__/
-.ipynb_checkpoints/
-*.pyc
-*.tmp
-*.log
-
-# Scratch & Temporary Folders
+# Local Backups & Future Research Suites (Keep strictly local)
+ARCHIVE_LOCAL_BACKUP/
+JOURNAL_Q3_EXPERIMENTS/
 scratch/
-Output/
-"Output moi"/
-ai-code-assembly-line/
-Gradora_EXE101/
-nltk-3.6.2/
-FINAL_SUBMISSION_PACKAGE/
-KAGGLE_NOTEBOOKS/
-XLS/
 
-# Keep Paper TeX, PDF, README, and core evidence tracked
-!README.md
-!paper_soict.tex
-!paper_soict.pdf
-!llncs.cls
-!splncs04.bst
-!human_evaluation_completed_50.csv
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.ipynb_checkpoints/
+
+# Environments & OS
+.env
+venv/
+env/
+.DS_Store
+Thumbs.db
+
+# Archives & Temporary Artifacts
+*.zip
+*.tar.gz
+*.rar
+*.log

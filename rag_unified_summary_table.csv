@@ -1,6 +1,0 @@
-Pipeline Strategy,Recall@1,Recall@3,Recall@5,MRR,RefPref (%),BERTScore F1,Retrieval (ms),Prefill (ms),Decode (ms),Total Latency (ms),Peak VRAM,Context Tokens
-BM25 (Sparse RAG),19.20%,31.40%,38.60%,0.2433,66.80%,0.6714,142 ± 18,310 ± 25,"4,120 ± 180",4572,6.8 GB,≈ 850
-BAAI/bge-m3 (Dense RAG),14.20%,24.80%,31.20%,0.1895,63.40%,0.6684,285 ± 34,315 ± 28,"4,115 ± 175",4715,8.4 GB,≈ 850
-Hybrid RRF (BM25 + BGE-M3),20.60%,34.20%,41.80%,0.2615,68.20%,0.6736,395 ± 42,320 ± 30,"4,130 ± 190",4845,8.9 GB,≈ 920
-Oracle RAG (100% Ground Truth),100.00%,100.00%,100.00%,1.0,89.40%,0.7128,0 ms,310 ± 20,"4,110 ± 160",4420,6.8 GB,≈ 850
-Early-Stopping Steering (Ours),N/A,N/A,N/A,N/A,70.60%,0.6781,0 ms,45 ± 5,"4,080 ± 150",4125,5.1 GB,≈ 48

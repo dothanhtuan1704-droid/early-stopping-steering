@@ -1,0 +1,16 @@
+# Core Deep Learning & NLP Dependencies
+torch>=2.0.0
+transformers>=4.40.0
+accelerate>=0.28.0
+bitsandbytes>=0.43.0
+
+# Scientific Evaluation & Metrics
+scikit-learn>=1.2.0
+rouge-score>=0.1.2
+bert-score>=0.3.13
+evaluate>=0.4.1
+
+# Utilities
+tqdm>=4.65.0
+pandas>=2.0.0
+numpy>=1.24.0
