@@ -44,7 +44,7 @@ Small Language Models (SLMs) offer practical utility for clinical guidance in lo
 \section{Introduction}\label{sec:intro}
 Deploying Large Language Models (LLMs) in high-stakes clinical domains demands rigorous factual fidelity~\cite{ref3,ref13}. When adapted to low-resource languages such as Vietnamese, models frequently generate plausible yet clinically hazardous hallucinations. While parameter-efficient fine-tuning (PEFT)~\cite{ref7} and retrieval-augmented generation (RAG)~\cite{ref5} are standard countermeasures, they exhibit operational trade-offs: Supervised Fine-Tuning (SFT)~\cite{ref10} risks catastrophic forgetting of general reasoning capabilities~\cite{ref12}, while RAG introduces substantial retrieval latency (118--142~ms in our benchmarks) and external retrieval infrastructure overhead~\cite{ref_faiss}.
 
-Representation Engineering (RepE)~\cite{ref1}, Activation Addition~\cite{ref8}, and Inference-Time Intervention (ITI)~\cite{ref2,ref9} offer a lightweight alternative: steering internal hidden representations during inference without modifying internal representations without parameter updates~\cite{ref11}. However, conventional continuous steering (applying an intervention vector across all generated tokens) often leads to semantic drift, cognitive incoherence, and repetitive output loops.
+Representation Engineering (RepE)~\cite{ref1}, Activation Addition~\cite{ref8}, and Inference-Time Intervention (ITI)~\cite{ref2,ref9} offer a lightweight alternative: steering internal hidden representations during inference without updating model parameters~\cite{ref1,ref2}, leveraging latent dimensions that encode factual veracity~\cite{ref11}. However, conventional continuous steering (applying an intervention vector across all generated tokens) often leads to semantic drift, cognitive incoherence, and repetitive output loops.
 
 To address these limitations, we investigate \textbf{Early-Stopping Activation Steering}. We hypothesize that factual commitments are established during initial decoding steps; consequently, applying activation steering exclusively during an early temporal window ($K=16$ tokens) should be sufficient to steer generation toward factual paths while allowing subsequent decoding to terminate naturally. We ground our evaluation on \textbf{ViHaluEval-Medical}, a curated benchmark of 14,674 factual-counterfactual question-answer pairs derived from the official Vietnamese National Drug Formulary (\vn{Dược thư Quốc gia Việt Nam}, 2nd Edition, 2018)~\cite{ref6}. We target Qwen2.5-7B-Instruct~\cite{ref4} as an edge-deployable Small Language Model (SLM) suitable for single-GPU deployment on an enterprise accelerator (NVIDIA Tesla T4 16~GB, with 4-bit NF4 weights occupying $\sim$5.5~GB VRAM~\cite{ref_bnb,ref_vllm}).
 
@@ -57,18 +57,18 @@ To address these limitations, we investigate \textbf{Early-Stopping Activation S
 
 \section{Methodology}\label{sec:methodology}
 \subsection{Contrastive Activation Vector Estimation}
-Let $\mathcal{D}_{\text{train}} = \{(x_i, y_i^+, y_i^-)\}_{i=1}^{N_{\text{train}}}$ denote contrastive training triplets ($N_{\text{train}}=10,272$), where $x_i$ is a clinical prompt, $y_i^+$ is a factual reference answer, and $y_i^-$ is a verified counterfactual hallucination, adhering to TruthfulQA benchmarks~\cite{ref16}. Given an autoregressive language model with $L_m=28$ transformer layers indexed by zero-based block index $j \in \{0, \dots, L_m-1\}$, let $h_j(x_i, y_i) = \operatorname{LayerOutput}_j(x_i \oplus y_i)[:, -1, :]$ denote the hidden state at layer $l \in \{1, \dots, L_m\}$ extracted at the sequence-terminal token position ($[:, -1, :]$, corresponding to the ChatML sequence terminator `\texttt{<|im\_end|>}' under Qwen2.5). The contrastive difference vector at layer $l$ is:
+Let $\mathcal{D}_{\text{train}} = \{(x_i, y_i^+, y_i^-)\}_{i=1}^{N_{\text{train}}}$ denote contrastive training triplets ($N_{\text{train}}=10,272$), where $x_i$ is a clinical prompt, $y_i^+$ is a factual reference answer, and $y_i^-$ is a verified counterfactual hallucination, adhering to TruthfulQA benchmarks~\cite{ref16}. Given an autoregressive language model with $L_m=28$ transformer layers indexed by zero-based block index $j \in \{0, \dots, L_m-1\}$, let $h_j(x_i, y_i) = \operatorname{LayerOutput}_j(x_i \oplus y_i)[:, -1, :]$ denote the hidden state at residual block $j$ extracted at the sequence-terminal token position ($[:, -1, :]$, corresponding to the ChatML sequence terminator \texttt{<|im\_end|>}). The contrastive difference vector at block $j$ is:
 \begin{equation}
-\Delta h_l^{(i)} = h_l(x_i, y_i^+) - h_l(x_i, y_i^-) \in \mathbb{R}^d.
+\Delta h_j^{(i)} = h_j(x_i, y_i^+) - h_j(x_i, y_i^-) \in \mathbb{R}^d.
 \end{equation}
-The raw steering direction $\mu_l$ is the sample mean of contrastive differences:
+The raw steering direction $\mu_j$ is the sample mean of contrastive differences:
 \begin{equation}
-\mu_l = \frac{1}{N_{\text{train}}} \sum_{i=1}^{N_{\text{train}}} \Delta h_l^{(i)}, \qquad v_{\text{steer}}^{(l)} = \frac{\mu_l}{\|\mu_l\|_2}.
+\mu_j = \frac{1}{N_{\text{train}}} \sum_{i=1}^{N_{\text{train}}} \Delta h_j^{(i)}, \qquad v_{\text{steer}}^{(j)} = \frac{\mu_j}{\|\mu_j\|_2}.
 \end{equation}
-Layer-wise linear probing identified module block $j^*=8$ (the 9th residual block of Qwen2.5-7B, $d=3,584$) as exhibiting peak separation on the validation split ($N_{\text{val}}=2,223$), selected as the intervention layer.
+Layer-wise linear probing on the validation split ($N_{\text{val}}=2,223$) identified module block $j^*=8$ (the 9th residual block of Qwen2.5-7B, $d=3,584$) as exhibiting peak separation, selected as the frozen intervention layer.
 
 \subsection{Temporally Bounded Intervention Schedules}
-During autoregressive generation, let $t \in \{1, 2, \dots, T_{\text{gen}}\}$ denote the post-prefill decoding step index. At layer $j^*=8$, the modified hidden state $\hat{h}_{j^*}^{(t)}$ is computed as:
+During autoregressive generation, let $t \in \{1, 2, \dots, L_i\}$ denote the post-prefill decoding step index, where $L_i \in [1, T_{\text{gen}}]$ represents the completion length in generated decoding steps for prompt $i$. The prompt prefill forward pass remains unsteered, predicting initial token $y_1$; subsequent decoding steps $t \ge 1$ steer residual states at block $j^*=8$, shaping output predictions for tokens $y_2, \dots, y_{L_i+1}$ ($y_2, \dots, y_{17}$ under $K=16$). At layer $j^*=8$, the modified hidden state $\hat{h}_{j^*}^{(t)}$ is computed as:
 \begin{equation}
 \hat{h}_{j^*}^{(t)} = h_{j^*}^{(t)} + \alpha(t) \cdot v_{\text{steer}}^{(j^*)},
 \end{equation}
@@ -87,16 +87,17 @@ class EarlyStoppingSteeringHook:
     def __init__(self, v_steer: torch.Tensor, alpha_0: float = 18.0, K: int = 16, schedule: str = "linear_decay"):
         self.v_steer = v_steer.to(dtype=torch.bfloat16)
         self.alpha_0, self.K, self.schedule = alpha_0, K, schedule
-        self.step = 0  # reset per completion; step 0 corresponds to prefill
+        self.step = 0  # reset per completion before generation
 
     def reset(self):
         self.step = 0
 
     def __call__(self, module, inputs, output):
-        if output[0].shape[1] > 1:  # prefill phase remains unsteered
+        h = output[0] if isinstance(output, tuple) else output
+        if h.shape[1] > 1:  # prefill forward pass remains unsteered
             return output
         self.step += 1
-        if self.step > self.K:
+        if self.schedule != "continuous" and self.step > self.K:
             return output
         if self.schedule == "hard_cutoff":
             coeff = self.alpha_0
@@ -106,7 +107,6 @@ class EarlyStoppingSteeringHook:
             coeff = self.alpha_0
         else:
             raise ValueError(f"Unknown schedule: {self.schedule}")
-        h = output[0] if isinstance(output, tuple) else output
         h[:, -1, :] = h[:, -1, :] + coeff * self.v_steer
         return (h,) + output[1:] if isinstance(output, tuple) else h
 \end{lstlisting}
@@ -289,7 +289,7 @@ We introduced Early-Stopping Activation Steering, a temporally bounded inference
 \bibitem{ref3} Singhal, K. et al.: Large language models encode clinical knowledge. Nature \textbf{620}, 172--180 (2023)
 \bibitem{ref4} Qwen Team: Qwen2.5 Technical Report. arXiv preprint arXiv:2412.15115 (2024)
 \bibitem{ref5} Lewis, P. et al.: Retrieval-augmented generation for knowledge-intensive NLP tasks. In: Proc. NeurIPS, vol. 33, pp. 9459--9474 (2020)
-\bibitem{ref6} Dược thư Quốc gia Việt Nam: Ban Dược thư Quốc gia, Nhà xuất bản Y học, Hà Nội (2018)
+\bibitem{ref6} \vn{Dược thư Quốc gia Việt Nam}: \vn{Ban Dược thư Quốc gia, Nhà xuất bản Y học, Hà Nội} (2018)
 \bibitem{ref7} Hu, E.J. et al.: LoRA: Low-rank adaptation of large language models. In: Proc. ICLR (2022)
 \bibitem{ref8} Turner, A. et al.: Activation addition: Steering language models without optimization. arXiv preprint arXiv:2308.10248 (2023)
 \bibitem{ref9} Rimsky, N. et al.: Steering llama 2 via contrastive activation addition. arXiv preprint arXiv:2312.06681 (2023)
