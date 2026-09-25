@@ -78,7 +78,7 @@ where $\alpha(t)$ is governed by one of three temporal intervention schedules pa
 \textbf{Hard Cutoff Steering ($K \in \mathbb{N}^+$):} \quad &\alpha_{\text{hard}}(t) = \begin{cases} \alpha_0, & 1 \le t \le K, \\ 0, & t > K, \end{cases} \\
 \textbf{Linear Decay Steering ($K \in \mathbb{N}^+$):} \quad &\alpha_{\text{decay}}(t) = \begin{cases} \alpha_0 \left(1 - \frac{t-1}{K}\right), & 1 \le t \le K, \\ 0, & t > K. \end{cases}
 \end{align}
-For finite-window schedules ($K \in \mathbb{N}^+$), $\alpha(t) = 0$ for $t > K$, leaving subsequent forward passes unmodified while preserving conditioned KV-cache states, whereas continuous steering bypasses $K$ and injects $\alpha_0$ across all decoding steps.
+For finite-window schedules ($K \in \mathbb{N}^+$), $\alpha(t) = 0$ for $t > K$, leaving subsequent forward passes unmodified while preserving conditioned KV-cache states~\cite{ref_vllm}, whereas continuous steering bypasses $K$ and injects $\alpha_0$ across all decoding steps.
 
 \begin{figure}[!t]
 \centering
