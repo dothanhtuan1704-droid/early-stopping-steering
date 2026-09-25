@@ -106,14 +106,20 @@ Expected output:
 | | Hard Cutoff ($K=16$) | 77.00% | 0.7151 | 3.89% | -- |
 | | **Linear Decay ($K=16$)** | **77.40%** | **0.7157** | **3.88%** | -- |
 
-### Table 2: Placebo Distributions & Multi-Retriever RAG Baselines
-* **Isotropic Random ($N=100$):** $55.82\% \pm 4.15\%$ (Steering exceeds mean by $+5.20\sigma$)
-* **Negative Steered ($-18.0 \cdot v_{\text{steer}}$):** $62.80\%$ (Drops factual alignment by $-10.40$ pp)
-* **BM25 Lexical RAG:** $68.60\%$ (Recall@1 = 19.20%)
-* **Dense BGE-M3 RAG:** $74.80\%$ (Recall@1 = 42.60%)
-* **Hybrid RRF RAG:** $76.20\%$ (Recall@1 = 48.20%)
-* **Early-Stopping Steering Alone:** **$77.40\%$** (+1.20 pp over Hybrid RAG, zero retrieval overhead)
-* **Combined Hybrid RAG + Steering:** **$80.40\%$** (Rep-4 suppressed to record 4.46%)
+### Table 2: Comparison against Directional Controls, Placebo Baselines, and Multi-Retriever RAG ($N_{\text{test}}=500$, $T=200$)
+| Method / Condition | Raw Count | RefPref (%) | Recall@1 | MRR@10 | BERT F1 | Latency (s) |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| Isotropic Gaussian ($N{=}100$) | -- | $55.82 \pm 4.15$ | -- | -- | 0.6945 | $23.33 \pm 0.30$ |
+| Negative Steered ($-18.0 \cdot v_{\text{steer}}$) | 314 / 500 | 62.80% | -- | -- | 0.6889 | $23.34 \pm 0.28$ |
+| BM25 Lexical RAG | 343 / 500 | 68.60% | 19.20% | 0.2433 | 0.6970 | $7.32 \pm 0.45$ |
+| Label-Shuffled ($v_{\text{shuf}}$) | 343 / 500 | 68.60% | -- | -- | 0.6845 | $23.34 \pm 0.28$ |
+| Unsteered Baseline | 366 / 500 | 73.20% | -- | -- | 0.7134 | $23.33 \pm 0.30$ |
+| Cov-Matched ($N{=}20$) | -- | $74.81 \pm 0.95$ | -- | -- | 0.7182 | $23.34 \pm 0.28$ |
+| Dense BGE-M3 RAG | 374 / 500 | 74.80% | 42.60% | 0.5124 | 0.7180 | **7.27 $\pm$ 0.42** |
+| Hybrid RRF RAG | 381 / 500 | 76.20% | **48.20%** | **0.5681** | **0.7190** | $7.39 \pm 0.48$ |
+| **Linear Decay Steered** | **387 / 500** | **77.40%** | -- | -- | 0.7157 | $23.34 \pm 0.28$ |
+| Oracle Gold-Context RAG | 447 / 500 | 89.40% | 100.0% | 1.0000 | 0.8002 | $7.17 \pm 0.38$ |
+| *Exploratory Combined Hybrid RAG + Steering ($T=800$)* | 402 / 500 | 80.40% | -- | -- | 0.6695 | $23.34 \pm 0.28$ |
 
 ### Table 3: Initial Steering Strength Ablation ($N_{\text{test}} = 500$, $T=200$)
 | $\alpha_0$ | Schedule | RefPref (%) | BERTScore F1 | ROUGE-L (%) | Rep-4 (%) |
