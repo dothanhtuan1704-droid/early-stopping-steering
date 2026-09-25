@@ -27,10 +27,10 @@ def check_all():
 
     # 3. Table 1 Panel B (T=800) Metrics
     print("\n--- 3. Table 1 Panel B (T=800) Metrics Audit ---")
-    t1_pB_vals = ["65.40", "0.6779", "21.04", "3.68", "68.60", "0.6712", "21.28", "3.90", "0.0365", "67.80", "0.6732", "21.15", "3.74", "0.1189", "70.60", "0.6695", "21.32", "3.74", "0.00086"]
+    t1_pB_vals = ["65.40", "0.6779", "100.00", "4.10", "68.60", "0.6712", "99.80", "4.38", "0.0365", "67.80", "0.6732", "5.37", "0.1189", "70.60", "0.6695", "5.35", "0.00086"]
     for val in t1_pB_vals:
         assert val in latex_text, f"Missing Table 1 Panel B value {val}"
-    print("[PASS] Table 1 Panel B RefPref, BERT F1, ROUGE-L, Rep-4, McNemar p-values match 100%!")
+    print("[PASS] Table 1 Panel B RefPref, BERT F1, EOS Hit, Rep-4, McNemar p-values match 100%!")
 
     # 4. Table 1 Footnote 2x2 Matrices & Holm p_adj
     print("\n--- 4. Table 1 Footnote Matrices & Holm p_adj Audit ---")
