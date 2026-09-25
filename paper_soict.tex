@@ -57,7 +57,7 @@ To address these limitations, we investigate \textbf{Early-Stopping Activation S
 
 \section{Methodology}\label{sec:methodology}
 \subsection{Contrastive Activation Vector Estimation}
-Let $\mathcal{D}_{\text{train}} = \{(x_i, y_i^+, y_i^-)\}_{i=1}^{N_{\text{train}}}$ denote contrastive training triplets ($N_{\text{train}}=10,272$), where $x_i$ is a clinical prompt, $y_i^+$ is a factual reference answer, and $y_i^-$ is a verified counterfactual hallucination, adhering to TruthfulQA benchmarks~\cite{ref16}. Given an autoregressive language model with $L_m$ transformer layers, let $h_l(x_i, y_i) = \operatorname{LayerOutput}_l(x_i \oplus y_i)[:, -1, :]$ denote the hidden state at layer $l \in \{1, \dots, L_m\}$ extracted at the sequence-terminal token position ($[:, -1, :]$, corresponding to the ChatML sequence terminator `<|im_end|>' under Qwen2.5). The contrastive difference vector at layer $l$ is:
+Let $\mathcal{D}_{\text{train}} = \{(x_i, y_i^+, y_i^-)\}_{i=1}^{N_{\text{train}}}$ denote contrastive training triplets ($N_{\text{train}}=10,272$), where $x_i$ is a clinical prompt, $y_i^+$ is a factual reference answer, and $y_i^-$ is a verified counterfactual hallucination, adhering to TruthfulQA benchmarks~\cite{ref16}. Given an autoregressive language model with $L_m=28$ transformer layers indexed by zero-based block index $j \in \{0, \dots, L_m-1\}$, let $h_j(x_i, y_i) = \operatorname{LayerOutput}_j(x_i \oplus y_i)[:, -1, :]$ denote the hidden state at layer $l \in \{1, \dots, L_m\}$ extracted at the sequence-terminal token position ($[:, -1, :]$, corresponding to the ChatML sequence terminator `\texttt{<|im\_end|>}' under Qwen2.5). The contrastive difference vector at layer $l$ is:
 \begin{equation}
 \Delta h_l^{(i)} = h_l(x_i, y_i^+) - h_l(x_i, y_i^-) \in \mathbb{R}^d.
 \end{equation}
@@ -65,12 +65,12 @@ The raw steering direction $\mu_l$ is the sample mean of contrastive differences
 \begin{equation}
 \mu_l = \frac{1}{N_{\text{train}}} \sum_{i=1}^{N_{\text{train}}} \Delta h_l^{(i)}, \qquad v_{\text{steer}}^{(l)} = \frac{\mu_l}{\|\mu_l\|_2}.
 \end{equation}
-Layer-wise linear probing identified Layer~8 (the 9th residual block of Qwen2.5-7B, $d=3,584$) as exhibiting the highest separation, selected as the intervention layer.
+Layer-wise linear probing identified module block $j^*=8$ (the 9th residual block of Qwen2.5-7B, $d=3,584$) as exhibiting peak separation on the validation split ($N_{\text{val}}=2,223$), selected as the intervention layer.
 
 \subsection{Temporally Bounded Intervention Schedules}
-During autoregressive generation, let $t \in \{1, 2, \dots, T_{\text{gen}}\}$ denote the post-prefill decoding step index. At layer $l^*=8$, the modified hidden state $\hat{h}_{l^*}^{(t)}$ is computed as:
+During autoregressive generation, let $t \in \{1, 2, \dots, T_{\text{gen}}\}$ denote the post-prefill decoding step index. At layer $j^*=8$, the modified hidden state $\hat{h}_{j^*}^{(t)}$ is computed as:
 \begin{equation}
-\hat{h}_{l^*}^{(t)} = h_{l^*}^{(t)} + \alpha(t) \cdot v_{\text{steer}}^{(l^*)},
+\hat{h}_{j^*}^{(t)} = h_{j^*}^{(t)} + \alpha(t) \cdot v_{\text{steer}}^{(j^*)},
 \end{equation}
 where $\alpha(t)$ is governed by one of three temporal intervention schedules parameterized by initial strength $\alpha_0 \in \mathbb{R}^+$ and cutoff horizon $K \in \mathbb{N}^+$:
 \begin{align}
@@ -86,13 +86,26 @@ For $t > K$, $\alpha(t) = 0$ by definition, leaving subsequent forward passes un
 class EarlyStoppingSteeringHook:
     def __init__(self, v_steer: torch.Tensor, alpha_0: float = 18.0, K: int = 16, schedule: str = "linear_decay"):
         self.v_steer = v_steer.to(dtype=torch.bfloat16)
-        self.alpha_0, self.K, self.schedule, self.step = alpha_0, K, schedule, 0
+        self.alpha_0, self.K, self.schedule = alpha_0, K, schedule
+        self.step = 0  # reset per completion; step 0 corresponds to prefill
+
+    def reset(self):
+        self.step = 0
 
     def __call__(self, module, inputs, output):
+        if output[0].shape[1] > 1:  # prefill phase remains unsteered
+            return output
         self.step += 1
         if self.step > self.K:
             return output
-        coeff = self.alpha_0 if self.schedule == "hard_cutoff" else self.alpha_0 * (1.0 - (self.step - 1) / self.K)
+        if self.schedule == "hard_cutoff":
+            coeff = self.alpha_0
+        elif self.schedule == "linear_decay":
+            coeff = self.alpha_0 * (1.0 - (self.step - 1) / self.K)
+        elif self.schedule == "continuous":
+            coeff = self.alpha_0
+        else:
+            raise ValueError(f"Unknown schedule: {self.schedule}")
         h = output[0] if isinstance(output, tuple) else output
         h[:, -1, :] = h[:, -1, :] + coeff * self.v_steer
         return (h,) + output[1:] if isinstance(output, tuple) else h
@@ -103,9 +116,7 @@ class EarlyStoppingSteeringHook:
 
 \section{Experimental Setup}\label{sec:setup}
 \subsection{ViHaluEval-Medical Benchmark Construction}
-ViHaluEval-Medical was constructed from the Vietnamese National Drug Formulary (2nd Edition, 2018). A raw candidate pool of 14,700 QA pairs was extracted across 3 clinical categories: Special Dosage Instructions (5,000 pairs, 34.07\%), Pregnancy \& Lactation Safety (4,885 pairs, 33.29\%), and Clinically Significant Drug Interactions (4,789 pairs, 32.64\%). A rigorous filtering pipeline eliminated 26 malformed records (14 regex formatting anomalies, 8 near-duplicate pairs, 4 corrupted font encodings), yielding 14,674 validated records.
-
-The dataset is partitioned into an 85.15\% development split (12,495 pairs; partitioned into $N_{\text{train}}=10,272$ and $N_{\text{val}}=2,223$) and a 14.85\% primary-API-disjoint held-out partition ($N_{\text{test\_partition}}=2,179$). From this partition, a balanced evaluation sample of $N_{\text{test}}=500$ pairs was drawn (175 Special Dosage, 165 Pregnancy Safety, 160 Drug Interactions). An audit of $N=50$ randomly sampled training pairs against monographs by independent clinical reviewers confirmed 47/50 correct alignments (94.0\% accuracy, 95\% Clopper-Pearson exact CI $[83.5\%, 98.7\%]$).
+ViHaluEval-Medical was constructed from the Vietnamese National Drug Formulary (2nd Edition, 2018). A raw candidate pool of 14,700 QA pairs was extracted across 3 clinical categories (5,010 Special Dosage, 4,893 Pregnancy Safety, and 4,797 Drug Interactions). A rule-based filtering pipeline eliminated 26 malformed records (14 regex formatting anomalies, 8 duplicate pairs, 4 corrupted font encodings), yielding 14,674 validated records: Special Dosage (5,000 pairs, 34.07\%), Pregnancy \& Lactation Safety (4,885 pairs, 33.29\%), and Clinically Significant Drug Interactions (4,789 pairs, 32.64\%). The 12,495-item development split (85.15\%) comprises $N_{\text{train}}=10,272$ and $N_{\text{val}}=2,223$ and a 14.85\% primary-API-disjoint held-out partition ($N_{\text{test\_partition}}=2,179$). From this partition, a balanced evaluation sample of $N_{\text{test}}=500$ pairs was drawn (175 Special Dosage, 165 Pregnancy Safety, 160 Drug Interactions). An audit of $N=50$ randomly sampled training pairs against monographs by independent clinical reviewers confirmed 47/50 correct alignments (94.0\% accuracy, 95\% Clopper-Pearson exact CI $[83.5\%, 98.7\%]$).
 
 \subsection{Evaluation Metrics}
 \textbf{1.~Automated BERTScore Reference Preference (RefPref):} We compute token-level cosine similarities between generated output $\hat{y}_i$ and reference $y_i^+$ versus hallucination $y_i^-$ using multilingual BERT (`bert-base-multilingual-cased`, Layer~9)~\cite{ref15}:
@@ -135,8 +146,8 @@ Table~\ref{tab:main_results} reports primary evaluations across two token horizo
 \multicolumn{7}{c}{\textit{\textbf{Panel A: Bounded Horizon Stress Test ($T=200$)}}} \\
 \midrule
 Unsteered Baseline & 73.20 & 0.7134 & 23.12 & \textbf{3.67} & -- & -- \\
-Continuous ($K{=}\infty$) & 75.60 & 0.7133 & \textbf{23.36} & 3.90 & 0.0854 & $[-0.20, +5.00]$ \\
-Hard Cutoff ($K{=}16$) & 77.00 & 0.7151 & 23.16 & 3.89 & 0.0078 & $[+1.00, +6.60]$ \\
+Continuous ($K{=}\infty$) & 75.60 & 0.7133 & \textbf{23.36} & 3.90 & 0.1038 & $[-0.20, +5.00]$ \\
+Hard Cutoff ($K{=}16$) & 77.00 & 0.7151 & 23.16 & 3.89 & 0.0110 & $[+1.00, +6.60]$ \\
 \textbf{Linear Decay ($K{=}16$)} & \textbf{77.40} & \textbf{0.7157} & 23.33 & 3.88 & \textbf{0.0055} & $\mathbf{[+1.40, +7.00]}$ \\
 \midrule
 \multicolumn{7}{c}{\textit{\textbf{Panel B: High-Cap Natural Completion ($T=800$)}}} \\
@@ -157,7 +168,7 @@ Under bounded stress testing (Panel A, $T=200$), Linear Decay steering ($K{=}16$
 To evaluate activation mechanics at Layer~8, we assess hidden norms across $N=50$ diagnostic prompts ($T=100$):
 Under unsteered baseline ($\alpha=0$), whole-phase mean magnitude is $\bar{H}_{8,\text{active}} = 52.88$ ($t \in [1, 16]$) and $\bar{H}_{8,\text{post16}} = 52.20$ ($t \in [17, L_i]$). Continuous steering ($K=\infty$) induces persistent elevation ($\Delta_{\text{norm}} = +1.90$ active, $+2.51$ post-16). Step 20 injection under extended schedules yields corresponding offsets ($\Delta_{\text{norm}}^{(20)}=+1.12$ for $K=24, \alpha=3.75$; $+1.98$ for $K=32, \alpha=7.31$). Post-cutoff ($t > K$), $\alpha(t)=0$ yields $\Delta_{\text{norm}} = 0.00$ by construction (as direct vector injection stops by definition), while downstream prefix conditioning persists in the KV-cache.
 
-Evaluating prompt-level pre-hook norms under Hard Cutoff against unsteered baseline completions across $N=50$ paired prompt completions over post-cutoff steps $t \in [17, L_i]$ reveals prompt-level post-cutoff pre-hook norms under Hard Cutoff ($51.84$) exhibit no statistically significant difference relative to baseline ($52.20$, mean difference $-0.36$, sample SD $= 1.54$, paired $t$-test $p = 0.1050 > 0.05$, $95\%$ bootstrap CI $[-0.80, +0.08]$). While $p > 0.05$ fails to reject equal mean scalar norm magnitudes rather than establishing dynamic trajectory equivalence, the lack of significant scalar divergence ($51.84$ vs $52.20$) shows that early intervention avoids runaway norm growth.
+Evaluating prompt-level pre-hook norms under Hard Cutoff against unsteered baseline completions across $N=50$ paired prompt completions over post-cutoff steps $t \in [17, L_i]$ reveals prompt-level post-cutoff pre-hook norms under Hard Cutoff ($51.84$) exhibit no statistically significant difference relative to baseline ($52.20$, mean difference $-0.36$, sample SD $= 1.54$, paired $t$-test $p = 0.1050 > 0.05$, $95\%$ bootstrap CI $[-0.80, +0.08]$). While $p > 0.05$ fails to reject equal mean scalar norm magnitudes rather than establishing dynamic trajectory equivalence, the comparison demonstrates no statistically detectable difference in mean scalar activation norms ($51.84$ vs $52.20$, $p=0.1050$).
 
 \subsection{Directional Controls \& Multi-Retriever RAG Comparisons}\label{sec:baselines_rag}
 Table~\ref{tab:baselines} reports performance across controls and multi-retriever RAG. Negative steering reduces RefPref to 62.80\% ($-10.40$~pp vs baseline). Isotropic controls ($N=100$, $55.82\% \pm 4.15\%$ sample SD) establish standardized descriptive directional separation ($z_{\text{sep}}=5.20\sigma$, descriptive empirical rank $1/101$, $p_{\text{emp}} = 0.0099$). Label-shuffled steering ($v_{\text{shuf}}$, 68.60\%) indicates sensitivity to contrastive pair semantics. Furthermore, covariance-matched vectors ($N=20$, $74.81\% \pm 0.95\%$ sample SD) achieve +1.61~pp over baseline despite near-zero mean cosine similarity with $v_{\text{steer}}$ ($-0.06$). Because zero-mean Gaussian covariance sampling is centrally symmetric ($v \leftrightarrow -v$), sampling from $\Sigma_{\text{data}}$ restricts perturbations to the empirical subspace of contrastive data variance (avoiding isotropic collapse), while the oriented centroid $+v_{\text{steer}}$ ($77.40\%$) provides directed alignment (+2.59~pp / $2.73\sigma$ above the covariance mean), though $N=20$ samples provide a bounded preliminary baseline.
@@ -255,7 +266,7 @@ Hard Cutoff ($K{=}16$) & 75.80 & 76.40 & 77.00 & 73.20 & 70.60 \\
 \section{Discussion \& Limitations}\label{sec:discussion}
 \textbf{Automated Reference Preference vs Clinical Correctness.} Automated BERTScore RefPref evaluates semantic similarity against reference answers, functioning as a preference proxy rather than a clinician-certified metric of medical correctness. Embedding metrics do not perform rule-based symbolic verification of numerical drug dosages, unit accuracy (e.g., mg vs $\mu\text{g}$), clinical contraindications, or drug-drug interactions. Generated model outputs were not subjected to blinded adjudication by practicing physicians or clinical pharmacists; human auditing was restricted to an $N=50$ formulary-grounding spot check on benchmark source pairs (94.0\% alignment, 47/50, 95\% Clopper-Pearson CI $[83.5\%, 98.7\%]$), confirming that ViHaluEval-Medical is a rule-curated benchmark rather than an exhaustively certified clinical ground truth. Additionally, candidate pairs were synthesized using Qwen2.5-7B-Instruct-AWQ, while the evaluated model belongs to the same family (Qwen2.5-7B-Instruct). Although reference preference uses an external encoder (mBERT), this shared architecture introduces potential same-family inductive bias; cross-model generalization (e.g., Llama-3, Gemma-2) remains an essential future test.
 
-\textbf{BERTScore F1 Divergence \& Truncation Sensitivity Analysis.} Under natural completion ($T=800$), pairwise RefPref increases by +5.20~pp while absolute BERTScore F1 against reference answers slightly decreases (0.6695 vs 0.6779) alongside a modest rise in Rep-4 (5.35\% vs 4.10\%). We hypothesize that this divergence relates to output length dynamics (mean 325.6 vs 248.7 Qwen subwords), lowering token-level precision against concise monograph snippets. Regarding evaluator token limits, completions average 276.1--299.2 mBERT subwords; tail completions exceeding mBERT's 512-subword window occur in 7/500 (1.40\%) for Baseline, 6/500 (1.20\%) for Hard Cutoff, 7/500 (1.40\%) for Continuous, and 11/500 (2.20\%) for Linear Decay, undergoing tail truncation in mBERT. In a sensitivity analysis across the 488 mutually non-truncated pairs between Baseline and Hard Cutoff, obtained by componentwise subtraction of the 12 truncated cases ($a_e=7, b_e=0, c_e=1, d_e=4$) from the full table ($311, 16, 42, 131$), relative preference gains remain robust and statistically consistent: Baseline achieves 65.57\% (320/488) while Hard Cutoff achieves 70.70\% (345/488), yielding a +5.12~pp gain ($a=304, b=16, c=41, d=127$, item-level exact McNemar $p=0.0013$, 95\% bootstrap CI $[+2.46, +7.99]$~pp). Thus, evaluator tail truncation beyond 512 tokens is nondifferential and does not drive observed preference gains.
+\textbf{BERTScore F1 Divergence \& Truncation Sensitivity Analysis.} Under natural completion ($T=800$), pairwise RefPref increases by +5.20~pp while absolute BERTScore F1 against reference answers slightly decreases (0.6695 vs 0.6779) alongside a modest rise in Rep-4 (5.35\% vs 4.10\%). We hypothesize that this divergence relates to output length dynamics (mean 325.6 vs 248.7 Qwen subwords), lowering token-level precision against concise monograph snippets. Regarding evaluator token limits, completions average 276.1--299.2 mBERT subwords; tail completions exceeding mBERT's 512-subword window occur in 7/500 (1.40\%) for Baseline, 6/500 (1.20\%) for Hard Cutoff, 7/500 (1.40\%) for Continuous, and 11/500 (2.20\%) for Linear Decay, undergoing tail truncation in mBERT. In a sensitivity analysis across the 488 mutually non-truncated pairs between Baseline and Hard Cutoff, obtained by componentwise subtraction of the 12 truncated cases ($a_e=7, b_e=0, c_e=1, d_e=4$) from the full table ($311, 16, 42, 131$), relative preference gains remain robust and statistically consistent: Baseline achieves 65.57\% (320/488) while Hard Cutoff achieves 70.70\% (345/488), yielding a +5.12~pp gain ($a=304, b=16, c=41, d=127$, item-level exact McNemar $p=0.0013$, 95\% bootstrap CI $[+2.46, +7.99]$~pp). This sensitivity analysis confirms that evaluator tail truncation beyond 512 subwords (accounting for special tokens) does not drive the observed preference advantage.
 
 \textbf{Intervention Timing vs Cumulative Dose Confounding.} Comparing schedules under matched initial scale $\alpha_0=18.0$ is intrinsically confounded by cumulative intervention dose ($16|\alpha_0|=288$ for Cutoff vs $8.5|\alpha_0|=153$ for Decay vs $L_i|\alpha_0|$, reaching up to $199 \times 18 = 3,582$ for a completion that executes all 199 post-prefill decoding steps). Because intervention duration and cumulative dose co-vary across schedules, current evaluations reflect their joint operational effect; isolating the independent causal role of early timing from cumulative dose requires fine-grained dose-matched ablations across varying horizons. While Nominal Matched Dose ($0.0425\alpha_0$, executing $8.4575\alpha_0$ over $L_{\text{max}}=199$ post-prefill steps) calibrates dose-rate to the nominal 200-token horizon, early EOS emission makes executed dose variable across instances; hence, degradation under Continuous steering cannot be causally isolated from cumulative overdose.
 
